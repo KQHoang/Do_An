@@ -3,16 +3,35 @@
         <v-table class="main-table">
             <thead>
                 <tr >
-                    <th v-for="item in headers" :key="item.value" class="font-weight-bold text-center">
+                    <th style="width: 40px; padding: 0;">
+                        <Checkbox 
+                            :value="true" 
+                            :indeterminate="isIndeterminate" 
+                            @value-change="selectAllChange"
+                            class="checkbox-custom"
+                        />
+                    </th>
+                    <th v-for="item in headers" :key="item.value" :style="{'width': item.width + 'px'}" class="font-weight-bold text-center">
                         {{item.name}}
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr
-                v-for="item in dataApiTable"
-                :key="item.value"
+                    v-for="item in dataApiTable"
+                    :key="item.value"
                 >
+                    <td style="padding: 0;">
+                        <!-- <Checkbox :value="item.id" @value-change="itemSelectChange"/> -->
+                        <div class="v-check-box">
+                            <v-checkbox
+                                v-model="itemSelected"
+                                color="secondary"
+                                hide-details
+                                :value="item.id"
+                            ></v-checkbox>
+                        </div>
+                    </td>
                     <td v-for="header in headers" :key="header.value" class="text-center">{{ item[header.value] }}</td>
                 </tr>
             </tbody>
@@ -42,16 +61,19 @@
                 </div>
             </div>
         </div>
+        {{ this.itemSelected }}
     </div>
 </template>
 
 <script>
 import Selectbox from "@/components/selectbox.vue"
+import Checkbox from "./checkbox.vue"
 import ENUMS from "@/enum/enums.js"
 export default {
     name: "Table-v1",
     components:{
-        Selectbox
+        Selectbox, 
+        Checkbox
     },
     props:{
         headers:{
@@ -73,10 +95,8 @@ export default {
     data(){
         return {
             recordStart: 0,
-            desserts: [
-                {name: 'Hoang', calories: "fdafas"},
-                {name: 'Hoang V2', calories: "fdafas"},
-            ]
+            itemSelected: [], 
+            isIndeterminate: false, 
         }
     },
     created() {
@@ -86,7 +106,6 @@ export default {
     methods:{
         // PageSize thay đổi
         pageSizeChange(val){
-            console.log("đã vào");
             let pagingClone = JSON.parse(JSON.stringify(this.pagingControl));
             pagingClone.PageSize = val;
             this.$emit('page-change', pagingClone);
@@ -103,6 +122,24 @@ export default {
                 let pagingClone = JSON.parse(JSON.stringify(this.pagingControl));
                 pagingClone.PageIndex += 1;
                 this.$emit('page-change', pagingClone);
+            }
+        },
+        itemSelectChange(val, valueCheckBox){
+            if(val){
+                if(!this.itemSelected.includes(val))
+                    this.itemSelected.push(val);
+            } else{
+                this.itemSelected = this.itemSelected.filter(x => x != valueCheckBox);
+            }
+        }, 
+        selectAllChange(val){
+            this.isIndeterminate = !this.isIndeterminate;
+            if(val){
+                let itemNoneSeleted = this.dataApiTable.filter(x => !this.itemSelected.includes(x.id)).map(x => x.id);
+                this.itemSelected.push(...itemNoneSeleted);
+            }
+            else{
+                this.itemSelected = [];
             }
         }
     }
@@ -164,6 +201,13 @@ export default {
     .h-select{
         width: 90px;
         background-color: #fff;
+    }
+    .v-check-box{
+        .checkbox-custom{
+            .mdi-minus-box{
+                color: #6e6e6e;
+            }
+        }
     }
 }
 </style>

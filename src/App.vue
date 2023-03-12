@@ -23,11 +23,12 @@ export default {
 
   data(){
     return {
-      tesst: 2,
-      headers:[{name: "Tên", value: "name"},{name: "Tuổi", value: "age"}],
+      selected: ['John'],
+      x: 15,
+      headers:[{ name: "Tên", value: "name", width: "100"},{ name: "Tuổi", value: "age"}],
       dataApiTable:[
-        {name: "hoàng", age: 13},
-        {name: "Ttttt", age: 12},
+        { id: 1, name: "hoàng", age: 13},
+        { id: 2, name: "Ttttt", age: 12},
       ],
       pagingControl:{
         PageIndex: 1,
@@ -37,15 +38,22 @@ export default {
         {a: 1, b: "bbbbbb"},
         {a: 2, b: "aaaaa"},
         {a: 3, b: "nnnnnnn"},
-      ]
+      ],
+      check: true
 
       
     }
   },
+  created(){
+  },
   methods:{
     getDataPaging(val){
       console.log(val);
+    }, 
+    tesssst(){
+      console.log(this.selected);
     }
+    
   }
 }
 </script>
