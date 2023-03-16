@@ -1,24 +1,27 @@
 <template>
   <v-app>
     <v-main>
-      <Table 
-        :dataApiTable="dataApiTable" 
-        :totalRecord="2" 
-        :headers="headers" 
-        :pagingControl="pagingControl"
-        @page-change="getDataPaging"
-      ></Table>
+      <comboboxVue
+        :items="lst"
+        itemTitle="b"
+        itemValue="a"
+        label="fdsafsdaf"
+        :error="true"
+        errorMessage="fdsafsafsaf"
+        :force="true"
+      >
+      </comboboxVue>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Table from "@/components/table.vue"
+import comboboxVue from './components/combobox.vue';
 export default {
   name: 'App',
 
   components: {
-    Table
+    comboboxVue
   },
 
   data(){
@@ -39,7 +42,9 @@ export default {
         {a: 2, b: "aaaaa"},
         {a: 3, b: "nnnnnnn"},
       ],
-      check: true
+      check: 1, 
+    test: true, 
+    aaaa:"fafasf"
 
       
     }
@@ -52,6 +57,9 @@ export default {
     }, 
     tesssst(){
       console.log(this.selected);
+    }, 
+    show(){
+      console.log(this.aaaa, this.test);
     }
     
   }

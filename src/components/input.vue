@@ -1,84 +1,88 @@
 <template>
-    <div class="main-select d-flex">
-      <div class="label-select">
+    <div class="main-input d-flex">
+      <div class="label-input">
         {{ label }}
         <span v-if="force" style="color: red"> *</span>
       </div>
       <v-col>
-        <v-select
-          v-model="valueSelect"
-          class="h-select"
-          :class="{'combobox-error': isError && force}"
-          :items="items"
-          :item-title="itemTitle"
-          :item-value="itemValue"
-          :autofocus="autofocus"
+        <v-text-field 
+          class="h-input"
+          :class="{'input-error': isError && force}"
+          :placeholder="placeholder"
+          v-model="valueInput"
+          :type="typeInput"
           :clearable="true"
-          @update:modelValue="valueChange"
-        ></v-select>
+          :autofocus="autofocus"
+          :disabled="disabled"
+          @update:model-value="valueInputChange"
+        >
+        </v-text-field>
         <div v-if="isError && force" class="error-message">
           {{ errorMessage }}
         </div>
       </v-col>
     </div>
-  </template>
-  
-  <script>
-  export default{
-    name: "VSelect",
+    
+</template>
+
+<script>
+export default{
+    name: "VInput",
     props:{
-        label:{
-            type: String,
-            default: ""
-        },
-        items:{
-            type: Array,
-            default: ()=> {}
-        }, 
-        itemTitle:{
-            type: String,
-            default: ""
-        }, 
-        itemValue:{
-            type: String,
-            default: ""
-        }, 
-        value:{
-          type: [String, Number]
-        }, 
-        force:{
-          type: Boolean, 
-          default: false
-        }, 
-        error:{
-          type: Boolean, 
-          default: false
-        }, 
-        errorMessage:{
-          type: String, 
-          default: ""
-        }, 
-        autofocus:{
-          type: Boolean, 
-          default: false
-        }
+      value:{
+        type: String, Number, 
+        default: null
+      }, 
+      typeInput: {
+        type: String, 
+        default: "text"
+      }, 
+      disabled:{
+        type: Boolean, 
+        default: false
+      }, 
+      label: {
+        type: String,
+        default: ""
+      }, 
+      placeholder:{
+        type: String, 
+        default: ""
+      }, 
+      error:{
+        type: Boolean, 
+        default: false
+      }, 
+      errorMessage:{
+        type: String, 
+        default: ""
+      }, 
+      force:{
+        type: Boolean, 
+        default: false
+      }, 
+      autofocus:{
+        type: Boolean, 
+        default: false
+      }
+
     }, 
     data(){
-        return {
-          valueSelect: null, 
-          isError: false
-        }
-    },
+      return{
+        valueInput: null, 
+        isError: false
+      }
+    }, 
     created(){
-      if(!this.valule){
-        this.valueSelect = this.value;
+      if(this.value){
+        this.valueInput = this.value;
       }
       if(this.error){
         this.isError = this.error;
       }
-    },
+    }, 
     methods:{
-      valueChange(val){
+      valueInputChange(val){
         if(val){
           if(this.force){
             this.isError = false;
@@ -90,22 +94,22 @@
             this.$emit("update:error", this.isError);
           }
         }
-        this.$emit('value-change', val)
+        this.$emit("update:value", val);
       }
     }
+}
+</script>
 
-  }
-  </script>
-  <style lang="scss">
-  .main-select{
-    .label-select{
+<style lang="scss">
+.main-input{
+    .label-input{
       line-height: 34px;
       margin-right: 12px;
     }
-    .h-select.select-error{
+    .h-input.input-error{
       border-color: red;
     }
-    .h-select{
+    .h-input{
       border: 1px solid #e0e5e9;
       border-radius: 4px;
       &:hover{
@@ -137,6 +141,9 @@
       .v-field__append-inner{
         padding-top: 6px;
       }
+      .v-field--variant-filled{
+        --v-input-control-height: 34px !important;
+      }
     }
     .v-col{
       padding: 0;
@@ -146,4 +153,4 @@
       }
     }
   }
-  </style>
+</style>

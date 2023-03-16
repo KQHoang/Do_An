@@ -5,8 +5,7 @@
                 <tr >
                     <th style="width: 40px; padding: 0;">
                         <Checkbox 
-                            :value="true" 
-                            :indeterminate="isIndeterminate" 
+                            v-model:valueCheckBox="isSelectAll"
                             @value-change="selectAllChange"
                             class="checkbox-custom"
                         />
@@ -22,7 +21,7 @@
                     :key="item.value"
                 >
                     <td style="padding: 0;">
-                        <!-- <Checkbox :value="item.id" @value-change="itemSelectChange"/> -->
+                        <!-- <Checkbox v-model:valueCheckBox="itemSelected" :value="item.id" /> -->
                         <div class="v-check-box">
                             <v-checkbox
                                 v-model="itemSelected"
@@ -61,7 +60,6 @@
                 </div>
             </div>
         </div>
-        {{ this.itemSelected }}
     </div>
 </template>
 
@@ -96,7 +94,7 @@ export default {
         return {
             recordStart: 0,
             itemSelected: [], 
-            isIndeterminate: false, 
+            isSelectAll: false
         }
     },
     created() {
@@ -133,7 +131,6 @@ export default {
             }
         }, 
         selectAllChange(val){
-            this.isIndeterminate = !this.isIndeterminate;
             if(val){
                 let itemNoneSeleted = this.dataApiTable.filter(x => !this.itemSelected.includes(x.id)).map(x => x.id);
                 this.itemSelected.push(...itemNoneSeleted);

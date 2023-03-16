@@ -1,12 +1,10 @@
 <template>
     <div class="v-check-box d-flex">
         <v-checkbox
-          :class="this.class"
-          v-model="selected"
+          v-model="isChecked"
           color="secondary"
           hide-details
           :disabled="disabled"
-          :indeterminate="indeterminate"
           :value="value"
           @change="valueChange"
         ></v-checkbox>
@@ -18,6 +16,10 @@
 <script>
 export default{
     name: "VCheckBox",
+    model: {
+      prop: 'value',
+      event: 'value-change'
+    }, 
     props:{
         label: {
             type: String,
@@ -25,38 +27,33 @@ export default{
         },
         value:{
             type: [String, Number, Boolean],
-            default: false
+            default: true
         }, 
         indeterminate:{
             type: Boolean,
             default: false
         },
-        checked:{
-            type: Boolean,
-            default: false
+        valueCheckBox:{
+            type: [String, Boolean, Number],
+            default: null
         },  
         disabled: {
             type: Boolean, 
             default: false
         },
-        class:{
-            type: String, 
-            default: ""
-        }
     },
     data(){
         return {
-            selected: null,
+            isChecked: null
         }
     },
     created(){
-        if(this.checked){
-            this.selected = this.checked;
-        }
+        this.isChecked = this.valueCheckBox;
     }, 
     methods:{
         valueChange(){
-            this.$emit('value-change', this.selected, this.value);
+            this.$emit("value-change", this.isChecked);
+            this.$emit('update:valueCheckBox', this.isChecked);
         }
     },
     
