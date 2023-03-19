@@ -32,6 +32,10 @@
                         </div>
                     </td>
                     <td v-for="header in headers" :key="header.value" class="text-center">{{ item[header.value] }}</td>
+                    <td class="row-action">
+                        <i class="fa fa-pencil" aria-hidden="true" style="font-size: 20px;"></i>
+                        <i class="fa fa-trash-o" aria-hidden="true" style="font-size: 20px;color: red;"></i>
+                    </td>
                 </tr>
             </tbody>
         </v-table>
@@ -44,6 +48,7 @@
                     label="Chọn số bản ghi/trang" 
                     :items="ENUMS.TABLE_PAGE_SIZE"
                     @value-change="pageSizeChange"
+                    :clearable="false"
                 />
                 <div class="page-number">
                     <div class="font-weight-bold">{{ recordStart }} -
@@ -146,14 +151,38 @@ export default {
 <style lang="scss" scoped>
 .table-container{
     .main-table{
+        .v-table__wrapper{
+            overflow: hidden;
+        }
         tbody{
             tr{
+                width: 100%;
+                position: relative;
                 td{
                     height: 48px !important;
+                }
+                .row-action{
+                    padding-left: 0;
+                    display: none;
+                    position: absolute;
+                    right: 0;
+                    align-items: center;
+                    border: none;
+                    .fa-trash-o{
+                        padding: 15px 10px 15px 10px;
+                        cursor: pointer;
+                    }
+                    .fa-pencil{
+                        padding: 15px 10px 15px 10px;
+                        cursor: pointer;
+                    }
                 }
             }
             tr:hover{
                 background-color: #e6fff2 !important;
+                .row-action{
+                    display: flex;
+                }
             }
         }
     }

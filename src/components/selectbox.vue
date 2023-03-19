@@ -13,7 +13,7 @@
           :item-title="itemTitle"
           :item-value="itemValue"
           :autofocus="autofocus"
-          :clearable="true"
+          :clearable="clearable"
           @update:modelValue="valueChange"
         ></v-select>
         <div v-if="isError && force" class="error-message">
@@ -61,6 +61,10 @@
         autofocus:{
           type: Boolean, 
           default: false
+        }, 
+        clearable:{
+          type: Boolean, 
+          default: true
         }
     }, 
     data(){

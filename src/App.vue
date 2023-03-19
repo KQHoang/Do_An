@@ -1,19 +1,18 @@
 <template>
   <v-app>
     <v-main>
-      <DatePicker label="Ngày sinh" v-model:value="aaaa" :force="true" v-model:error="test" errorMessage="fdsafsafd"/>
-      <button @click="handle">fdsafdsaf</button>
+      <Table :headers="headers" :dataApiTable="dataApiTable" :pagingControl="pagingControl" :totalRecord="dataApiTable.length"/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import DatePicker from './components/datePicker.vue';
+import Table from './components/table.vue';
 export default {
   name: 'App',
 
   components: {
-    DatePicker
+    Table
   },
 
   data(){
