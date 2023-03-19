@@ -1,27 +1,19 @@
 <template>
   <v-app>
     <v-main>
-      <comboboxVue
-        :items="lst"
-        itemTitle="b"
-        itemValue="a"
-        label="fdsafsdaf"
-        :error="true"
-        errorMessage="fdsafsafsaf"
-        :force="true"
-      >
-      </comboboxVue>
+      <DatePicker label="Ngày sinh" v-model:value="aaaa" :force="true" v-model:error="test" errorMessage="fdsafsafd"/>
+      <button @click="handle">fdsafdsaf</button>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import comboboxVue from './components/combobox.vue';
+import DatePicker from './components/datePicker.vue';
 export default {
   name: 'App',
 
   components: {
-    comboboxVue
+    DatePicker
   },
 
   data(){
@@ -42,9 +34,13 @@ export default {
         {a: 2, b: "aaaaa"},
         {a: 3, b: "nnnnnnn"},
       ],
+      radio:[
+        {label: "nam", value: 1},
+        {label: "nữ", value: 0},
+      ],
       check: 1, 
     test: true, 
-    aaaa:"fafasf"
+    aaaa:"03/18/2023"
 
       
     }
@@ -58,7 +54,7 @@ export default {
     tesssst(){
       console.log(this.selected);
     }, 
-    show(){
+    handle(){
       console.log(this.aaaa, this.test);
     }
     

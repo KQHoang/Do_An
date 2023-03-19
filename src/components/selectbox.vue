@@ -96,7 +96,7 @@
 
   }
   </script>
-  <style lang="scss">
+<style lang="scss">
   .main-select{
     .label-select{
       line-height: 34px;
@@ -146,4 +146,4 @@
       }
     }
   }
-  </style>
+</style>
