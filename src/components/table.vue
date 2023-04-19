@@ -162,12 +162,13 @@ export default {
                     height: 48px !important;
                 }
                 .row-action{
+                    background-color:#e6fff2 !important;
+                    z-index: 100;
                     padding-left: 0;
                     display: none;
                     position: absolute;
                     right: 0;
                     align-items: center;
-                    border: none;
                     .fa-trash-o{
                         padding: 15px 10px 15px 10px;
                         cursor: pointer;
@@ -181,7 +182,7 @@ export default {
             tr:hover{
                 background-color: #e6fff2 !important;
                 .row-action{
-                    display: flex;
+                    display: block;
                 }
             }
         }
@@ -224,6 +225,11 @@ export default {
 </style>
 <style lang="scss">
 .table-container{
+    .main-table{
+        .v-table__wrapper{
+            overflow: hidden;
+        }
+    }
     .h-select{
         width: 90px;
         background-color: #fff;
