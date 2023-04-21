@@ -1,10 +1,16 @@
 <template>
      <v-btn
+      class="button"
       :color="color"
       variant="flat"
       :width="width"
-      :height="hei"
+      :height="height"
     >
+        <template v-slot:prepend>
+            
+            <slot name="prepend"></slot>
+        </template>
+        
         {{ text }}
     </v-btn>
 </template>
@@ -33,3 +39,11 @@ export default{
     }
 }
 </script>
+
+<style lang="scss">
+.button{
+    .v-btn__content{
+        text-transform: none;
+    }
+}
+</style>

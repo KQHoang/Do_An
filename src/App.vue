@@ -1,7 +1,7 @@
 <template>
-  <v-app>
+  <v-app style="height: 100%;">
     <div class="nav-header justify-space-between">
-      <div class="d-flex">
+      <div class="d-flex align-center">
         <div class="nav-header-icon">
           <i class="fa fa-user header-user" aria-hidden="true"></i>
         </div>
@@ -11,9 +11,6 @@
         <div class="nav-bell" title="Thông báo">
           <i class="fa fa-bell-o" aria-hidden="true"></i>
         </div>
-        <!-- <div class="avatar">
-          H
-        </div> -->
       </div>
     </div>
     <v-navigation-drawer
@@ -26,7 +23,7 @@
         <v-divider></v-divider>
         <v-list density="compact" nav>
           <!-- Nhân viên, quản trị hệ thống, nv tài chính -->
-          <v-list-item title="Hồ sơ cá nhân" value="1">
+          <v-list-item title="Hồ sơ cá nhân" value="1" @click="handleClickNav">
           </v-list-item>
 
           <!-- nhân viên phòng nhân sự -->
@@ -88,7 +85,10 @@
         <!-- <template v-slot:append>
           <v-list-item class="button-small-nav" :prepend-icon="iconCloseNav" title="Thu gọn" @click.stop="rail = !rail"></v-list-item>
         </template> -->
-      </v-navigation-drawer>
+    </v-navigation-drawer>
+    <div class="layout-main">
+      <router-view></router-view>
+    </div>
   </v-app>
 </template>
 
@@ -103,28 +103,7 @@ export default {
 
   data(){
     return {
-      // selected: ['John'],
-      // x: 15,
-      // headers:[{ name: "Tên", value: "name", width: "1000"},{ name: "Tuổi", value: "age"}],
-      // dataApiTable:[
-      //   { id: 1, name: "hoàng", age: 13},
-      //   { id: 2, name: "Ttttt", age: 12},
-      // ],
-      // pagingControl:{
-      //   PageIndex: 1,
-      //   PageSize: 25
-      // },
-      // lst:[ 
-      //   {a: 1, b: "bbbbbb"},
-      //   {a: 2, b: "aaaaa"},
-      //   {a: 3, b: "nnnnnnn"},
-      // ],
-      // radio:[
-      //   {label: "nam", value: 1},
-      //   {label: "nữ", value: 0},
-      // ],
-      // check: 1, 
-      permission: 3, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
+      permission: 4, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
       drawer: true,
       items: [
         { title: 'Home', icon: 'mdi-home-city' },
@@ -152,6 +131,9 @@ export default {
     }, 
     handle(){
       console.log(this.aaaa, this.test);
+    },
+    handleClickNav(){
+      this.$router.push({ name: 'ViewEmployee' });
     }
     
   }
@@ -159,11 +141,14 @@ export default {
 </script>
 <style lang="scss">
 @import url('@/css/base.css');
+@import url('@/css/distance.css');
 #app{
   font-size: 14px !important;
+  height: 100vh;
   .nav-header{
     display: flex;
-    height: 56px;
+    height: 56px !important;
+    line-height: 56px;
     width: 100%;
     padding: 0 24px;
     align-items: center;
@@ -175,7 +160,7 @@ export default {
       border-radius: 4px;
       .header-user{
         font-size: 24px;
-        top: 5px;
+        top: -6px;
         position: relative;
         left: 7px;
         color: #ffffff;
@@ -221,6 +206,13 @@ export default {
     .fa{
       font-size: 22px;
     }
+  }
+  .layout-main{
+    width: calc(100% - 200px);
+    padding: 12px;
+    margin-left: 200px;
+    background-color: #EEEFF1;
+    height: calc(100% - 56px)
   }
 }
 </style>

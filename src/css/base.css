@@ -1,3 +1,43 @@
-.opacity-2{
-    opacity: 0.2;
+.opacity-2 {
+  opacity: 0.2;
+}
+
+html {
+  overflow: hidden !important;
+}
+
+.v-row {
+  margin: 0 !important;
+}
+
+/* CSS cho scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+}
+.text-child{
+  font-size: 16px;
+  font-weight: 700;
 }
