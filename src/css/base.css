@@ -41,3 +41,25 @@ html {
   font-size: 16px;
   font-weight: 700;
 }
+.label-info{
+  height: 36px;
+}
+.label{
+  color: #65696e;
+  margin-right: 8px;
+}
+.employee-info{
+  font-weight: 600;
+  border-bottom: 1px solid #e0e1e4;
+  flex-grow: 1;
+  padding: 8px 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.border-table{
+  border: thin solid #e0e1e4;
+}
+.text-white{
+  color: #ffffff;
+}

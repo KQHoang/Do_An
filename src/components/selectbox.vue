@@ -1,6 +1,6 @@
 <template>
     <div class="main-select d-flex">
-      <div class="label-select">
+      <div class="label-select" v-if="label">
         {{ label }}
         <span v-if="force" style="color: red"> *</span>
       </div>
@@ -14,6 +14,7 @@
           :item-value="itemValue"
           :autofocus="autofocus"
           :clearable="clearable"
+          :placeholder="placeholder"
           @update:modelValue="valueChange"
         ></v-select>
         <div v-if="isError && force" class="error-message">
@@ -65,6 +66,10 @@
         clearable:{
           type: Boolean, 
           default: true
+        },
+        placeholder:{
+          type: String,
+          default: ""
         }
     }, 
     data(){

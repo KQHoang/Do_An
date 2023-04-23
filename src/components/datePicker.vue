@@ -1,6 +1,6 @@
 <template>
     <div class="main-date-picker d-flex">
-        <div class="label-date-picker">
+        <div class="label-date-picker" v-if="label">
             {{ label }}
             <span v-if="force" style="color: red"> *</span>
         </div>
@@ -8,7 +8,8 @@
             <VueDatePicker 
                 class="date-picker"
                 :class="{'date-picker-error': isError && force}"
-                v-model="date" 
+                v-model="date"
+                :clearable="true"
                 auto-apply 
                 :max-date="new Date()"
                 :enable-time-picker=" false"

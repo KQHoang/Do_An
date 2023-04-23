@@ -1,6 +1,6 @@
 <template>
   <div class="main-combobox d-flex">
-    <div class="label-combobox">
+    <div class="label-combobox" v-if="label">
       {{ label }}
       <span v-if="force" style="color: red"> *</span>
     </div>
@@ -15,6 +15,7 @@
         :item-value="itemValue"
         :autofocus="autofocus"
         :clearable="true"
+        :placeholder="placeholder"
         @update:modelValue="valueChange"
       ></v-combobox>
       <div v-if="isError && force" class="error-message">
@@ -60,8 +61,12 @@ export default{
           default: ""
         }, 
         autofocus:{
-        type: Boolean, 
-        default: false
+          type: Boolean, 
+          default: false
+        },
+        placeholder:{
+          type: String,
+          default: ""
         }
     }, 
     data(){

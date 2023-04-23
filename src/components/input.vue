@@ -1,6 +1,6 @@
 <template>
     <div class="main-input d-flex">
-      <div class="label-input">
+      <div class="label-input" v-if="label">
         {{ label }}
         <span v-if="force" style="color: red"> *</span>
       </div>
@@ -118,6 +118,12 @@ export default{
       &:active{
         border-color: #0073e6;
       }
+      &:focus{
+        border-color: #0073e6;
+      }
+      &:focus-within{
+        border-color: #0073e6;
+      }
       .v-input__details{
         display: none;
       }
@@ -151,6 +157,9 @@ export default{
         color: red;
         padding-top: 5px;
       }
+    }
+    .v-field{
+      padding-right: 0;
     }
   }
 </style>

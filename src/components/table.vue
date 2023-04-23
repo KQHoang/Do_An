@@ -1,9 +1,9 @@
 <template>
-    <div class="table-container">
+    <div v-if="dataApiTable.length > 0" class="table-container" :class="{'border-table': showBorder}">
         <v-table class="main-table">
             <thead>
                 <tr >
-                    <th style="width: 40px; padding: 0;">
+                    <th style="width: 40px; padding: 0;" v-if="showSelect">
                         <Checkbox 
                             v-model:valueCheckBox="isSelectAll"
                             @value-change="selectAllChange"
@@ -20,7 +20,7 @@
                     v-for="item in dataApiTable"
                     :key="item.value"
                 >
-                    <td style="padding: 0;">
+                    <td style="padding: 0;" v-if="showSelect">
                         <!-- <Checkbox v-model:valueCheckBox="itemSelected" :value="item.id" /> -->
                         <div class="v-check-box">
                             <v-checkbox
@@ -32,15 +32,15 @@
                         </div>
                     </td>
                     <td v-for="header in headers" :key="header.value" class="text-center">{{ item[header.value] }}</td>
-                    <td class="row-action">
-                        <i class="fa fa-pencil" aria-hidden="true" style="font-size: 20px;"></i>
-                        <i class="fa fa-trash-o" aria-hidden="true" style="font-size: 20px;color: red;"></i>
+                    <td class="row-action" v-if="editRow || deleteRow">
+                        <i v-if="editRow" class="fa fa-pencil" aria-hidden="true" style="font-size: 20px;"></i>
+                        <i v-if="deleteRow" class="fa fa-trash-o" aria-hidden="true" style="font-size: 20px;color: red;"></i>
                     </td>
                 </tr>
             </tbody>
         </v-table>
 
-        <div class="table-page-number d-flex justify-space-between">
+        <div class="table-page-number d-flex justify-space-between" v-if="showPaging">
             <div class="page-number-sum">Tổng: <span class="font-weight-bold">{{ totalRecord }}</span> bản ghi</div>
             <div class="page-number-control d-flex">
                 <Selectbox 
@@ -65,6 +65,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div v-if="dataApiTable.length == 0">
+        <v-col cols="12" class="employee-info">Chưa có dữ liệu</v-col>
     </div>
 </template>
 
@@ -93,7 +96,27 @@ export default {
         }, 
         pagingControl: {
             type: Object
-        }
+        },
+        showPaging: {
+            type: Boolean, 
+            default: true
+        },
+        showSelect:{
+            type: Boolean, 
+            default: true
+        },
+        editRow:{
+            type: Boolean, 
+            default: true
+        },
+        deleteRow:{
+            type: Boolean, 
+            default: true
+        },
+        showBorder:{
+            type: Boolean, 
+            default: false
+        },
     },
     data(){
         return {
@@ -104,7 +127,8 @@ export default {
     },
     created() {
         this.ENUMS = ENUMS;
-        this.recordStart = this.dataApiTable.length == 0 ? 0 : ((this.pagingControl.PageIndex - 1) * this.pagingControl.PageSize ) + 1;
+        if(this.showPaging)
+            this.recordStart = this.dataApiTable.length == 0 ? 0 : ((this.pagingControl.PageIndex - 1) * this.pagingControl.PageSize ) + 1;
     },
     methods:{
         // PageSize thay đổi
@@ -180,7 +204,7 @@ export default {
                 }
             }
             tr:hover{
-                background-color: #e6fff2 !important;
+                background-color: #EFF1F6 !important;
                 .row-action{
                     display: block;
                 }

@@ -42,6 +42,7 @@ export default{
 
 <style lang="scss">
 .button{
+    min-width: 80px;
     .v-btn__content{
         text-transform: none;
     }

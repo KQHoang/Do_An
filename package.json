@@ -46,7 +46,6 @@
       "parser": "@babel/eslint-parser"
     },
     "rules": {
-      "vetur.validation.template": false
     }
   },
   "browserslist": [

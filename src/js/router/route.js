@@ -6,9 +6,9 @@ const routes = [
         children:
         [
             {
-                path: '',
+                path: ':id',
                 name: "ViewEmployee",
-                component: ViewEmployee
+                component: ViewEmployee,
             }
         ]
     },
