@@ -11,7 +11,7 @@
           :placeholder="placeholder"
           v-model="valueInput"
           :type="typeInput"
-          :clearable="true"
+          :clearable="clearable"
           :autofocus="autofocus"
           :disabled="disabled"
           @update:model-value="valueInputChange"
@@ -64,6 +64,10 @@ export default{
       autofocus:{
         type: Boolean, 
         default: false
+      },
+      clearable:{
+        type: Boolean,
+        default: true
       }
 
     }, 

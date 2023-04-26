@@ -27,7 +27,7 @@
           </v-list-item>
 
           <!-- nhân viên phòng nhân sự -->
-          <v-list-item title="Quản lý hồ sơ nhân viên" v-if="permission == 2" value="2">
+          <v-list-item title="Quản lý hồ sơ nhân viên" v-if="permission == 2" value="2" @click="redirecManageProfile">
           </v-list-item>
 
           <v-list-group value="Admin5">
@@ -103,7 +103,7 @@ export default {
 
   data(){
     return {
-      permission: 4, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
+      permission: 2, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
       drawer: true,
       items: [
         { title: 'Home', icon: 'mdi-home-city' },
@@ -134,6 +134,9 @@ export default {
     },
     handleClickNav(){
       this.$router.push({ name: 'ViewEmployee', params: { id: '123' }});
+    },
+    redirecManageProfile(){
+      this.$router.push({ name: 'ManageProfile'});
     }
     
   }

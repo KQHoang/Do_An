@@ -1,4 +1,8 @@
 const ENUMS = {
+    PagingControl:{
+        PageIndex: 1,
+        PageSize: 15,
+    },
     TABLE_PAGE_SIZE: [15, 25, 50, 100],
     PICK_LIST_ETHNICITY:[
         { value: 1, name: "Kinh"},
@@ -70,6 +74,14 @@ const ENUMS = {
         {
             value: 1,
             name: "Edit"
+        },
+        {
+            value: 2,
+            name: "View"
+        },
+        {
+            value: 3,
+            name: "Add"
         }
     ],
     PICK_LIST_IDENTIFY_TYPE:[
@@ -81,6 +93,28 @@ const ENUMS = {
             value: 2,
             name: "CMND"
         }
+    ],
+    PICK_LIST_COUNTRY:[
+        {
+            value: 1,
+            name: "Việt Nam"
+        },
+        {
+            value: 2,
+            name: "Khác"
+        }
+    ],
+    
+    PICK_LIST_CCCD:[
+        {
+            ProvinceID: 64,
+            ProvinceName: "Cục Cảnh sát quản lý hành chính về trật tự xã hội"
+        },
+        {
+            ProvinceID: 65,
+            ProvinceName: "Cục Cảnh sát ĐKQL cư trú và DLQG về dân cư"
+        }
+        
     ]
 }
 export default ENUMS;

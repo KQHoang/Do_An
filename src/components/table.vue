@@ -3,14 +3,14 @@
         <v-table class="main-table">
             <thead>
                 <tr >
-                    <th style="width: 40px; padding: 0;" v-if="showSelect">
+                    <th style="min-width: 40px;width: 40px; padding: 0;" v-if="showSelect">
                         <Checkbox 
                             v-model:valueCheckBox="isSelectAll"
                             @value-change="selectAllChange"
                             class="checkbox-custom"
                         />
                     </th>
-                    <th v-for="item in headers" :key="item.value" :style="{'width': item.width + 'px'}" class="font-weight-bold text-center">
+                    <th v-for="item in headers" :key="item.value" :style="{'min-width': item.width + 'px'}" class="font-weight-bold text-left">
                         {{item.name}}
                     </th>
                 </tr>
@@ -18,8 +18,9 @@
             <tbody>
                 <tr
                     v-for="item in dataApiTable"
-                    :key="item.value"
-                >
+                    :key="item[keyTable]"
+                    @dblclick="doubleClickRow(item[keyTable])"
+                    >
                     <td style="padding: 0;" v-if="showSelect">
                         <!-- <Checkbox v-model:valueCheckBox="itemSelected" :value="item.id" /> -->
                         <div class="v-check-box">
@@ -27,14 +28,15 @@
                                 v-model="itemSelected"
                                 color="secondary"
                                 hide-details
-                                :value="item.id"
+                                :value="item[keyTable]"
+                                @click="selectBoxChange"
                             ></v-checkbox>
                         </div>
                     </td>
-                    <td v-for="header in headers" :key="header.value" class="text-center">{{ item[header.value] }}</td>
+                    <td v-for="header in headers" :key="header.value" class="text-left"  >{{ header?.type == "date" ? convertDate(item[header.value]) : item[header.value] }}</td>
                     <td class="row-action" v-if="editRow || deleteRow">
-                        <i v-if="editRow" class="fa fa-pencil" aria-hidden="true" style="font-size: 20px;"></i>
-                        <i v-if="deleteRow" class="fa fa-trash-o" aria-hidden="true" style="font-size: 20px;color: red;"></i>
+                        <i v-if="editRow" @click="editFromRow(item[keyTable])" class="fa fa-pencil" aria-hidden="true" style="font-size: 20px;"></i>
+                        <i v-if="deleteRow" @click="deleteFromRow(item[keyTable])" class="fa fa-trash-o" aria-hidden="true" style="font-size: 20px;color: red;"></i>
                     </td>
                 </tr>
             </tbody>
@@ -75,6 +77,7 @@
 import Selectbox from "@/components/selectbox.vue"
 import Checkbox from "./checkbox.vue"
 import ENUMS from "@/enum/enums.js"
+import Convert from '@/js/convert.js'
 export default {
     name: "Table-v1",
     components:{
@@ -87,7 +90,7 @@ export default {
             default: () => {}
         }, 
         dataApiTable:{
-            type: Array, 
+            type: Array,
             default: () => {}
         },
         totalRecord: {
@@ -117,7 +120,11 @@ export default {
             type: Boolean, 
             default: false
         },
+        keyTable:{
+            type: String
+        }
     },
+    emits:['dbClickRow', 'edit', 'delete', 'page-change', ],
     data(){
         return {
             recordStart: 0,
@@ -128,7 +135,7 @@ export default {
     created() {
         this.ENUMS = ENUMS;
         if(this.showPaging)
-            this.recordStart = this.dataApiTable.length == 0 ? 0 : ((this.pagingControl.PageIndex - 1) * this.pagingControl.PageSize ) + 1;
+            this.recordStart = this.totalRecord == 0 ? 0 : ((this.pagingControl.PageIndex - 1) * this.pagingControl.PageSize ) + 1;
     },
     methods:{
         // PageSize thay đổi
@@ -151,22 +158,37 @@ export default {
                 this.$emit('page-change', pagingClone);
             }
         },
-        itemSelectChange(val, valueCheckBox){
+        itemSelectChange(val){
+            console.log(val);
             if(val){
                 if(!this.itemSelected.includes(val))
                     this.itemSelected.push(val);
             } else{
-                this.itemSelected = this.itemSelected.filter(x => x != valueCheckBox);
+                this.itemSelected = this.itemSelected.filter(x => x != val);
             }
         }, 
+        selectBoxChange(){
+        },
         selectAllChange(val){
             if(val){
-                let itemNoneSeleted = this.dataApiTable.filter(x => !this.itemSelected.includes(x.id)).map(x => x.id);
+                let itemNoneSeleted = this.dataApiTable.filter(x => !this.itemSelected.includes(x[this.keyTable])).map(x => x[this.keyTable]);
                 this.itemSelected.push(...itemNoneSeleted);
             }
             else{
                 this.itemSelected = [];
             }
+        },
+        doubleClickRow(val){
+            this.$emit("dbClickRow", val);                                      
+        },
+        editFromRow(val){
+            this.$emit("edit", val);
+        },
+        deleteFromRow(val){
+            this.$emit("delete", val);
+        },
+        convertDate(val){
+            return Convert.formatDateToShow(val);
         }
     }
 }
@@ -176,7 +198,8 @@ export default {
 .table-container{
     .main-table{
         .v-table__wrapper{
-            overflow: hidden;
+            // overflow: hidden;
+            height: 100%;
         }
         tbody{
             tr{
@@ -186,11 +209,11 @@ export default {
                     height: 48px !important;
                 }
                 .row-action{
-                    background-color:#e6fff2 !important;
+                    background-color:#EFF1F6 !important;
                     z-index: 100;
                     padding-left: 0;
                     display: none;
-                    position: absolute;
+                    position: sticky;
                     right: 0;
                     align-items: center;
                     .fa-trash-o{
@@ -206,15 +229,13 @@ export default {
             tr:hover{
                 background-color: #EFF1F6 !important;
                 .row-action{
-                    display: block;
+                    display: flex;
                 }
             }
         }
     }
     .table-page-number{
         border-radius: 4px;
-        margin-left: 10px;
-        margin-right: 10px;
         padding: 5px 10px;
         background-color: #f5f5f0;
         .page-number-sum{
@@ -251,7 +272,8 @@ export default {
 .table-container{
     .main-table{
         .v-table__wrapper{
-            overflow: hidden;
+            // overflow: hidden;
+            height: 100%;
         }
     }
     .h-select{

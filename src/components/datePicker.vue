@@ -77,19 +77,21 @@ export default {
     }, 
     methods:{
         valueChange(val){
-            var dateEmit = `${val.getMonth() + 1}/${val.getDate()}/${val.getFullYear()}`;
+            var dateEmit = null;
             if(val){
                 if(this.force){
                     this.isError = false;
                     this.$emit("update:error", this.isError);
                 }
+                dateEmit = `${val.getDate()}/${val.getMonth() + 1}/${val.getFullYear()}`;
             } else {
                 if(this.force){
                     this.isError = true;
                     this.$emit("update:error", this.isError);
                 }
+                dateEmit = null;
             }
-            this.$emit('update:value', dateEmit)
+                this.$emit('update:value', dateEmit)
         }
     }
 }

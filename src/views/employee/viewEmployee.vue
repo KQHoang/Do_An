@@ -85,8 +85,7 @@
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
-                        <v-col cols="5" class="label">Số CMND/CCCD
-                    </v-col>
+                        <v-col cols="5" class="label">Số CMND/CCCD</v-col>
                         <v-col cols="7" class="employee-info">001201029364</v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
@@ -231,14 +230,14 @@ import button from '@/components/button.vue';
 import table from "@/components/table.vue";
 import EmployeeEdit from "@/views/employee/editEmployee.vue";
 import ENUMS from "@/enum/enums.js"
-import loading from "@/components/loading.vue"
+// import loading from "@/components/loading.vue"
 export default{
     name: "ViewEmployee",
     components:{
         Button: button, 
         Table: table, 
         EditEmployee: EmployeeEdit,
-        Loading: loading
+        // Loading: loading
     }, 
     data(){
         return{

@@ -15,6 +15,7 @@
           :autofocus="autofocus"
           :clearable="clearable"
           :placeholder="placeholder"
+          no-data-text="Không có dữ liệu"
           @update:modelValue="valueChange"
         ></v-select>
         <div v-if="isError && force" class="error-message">
@@ -70,7 +71,7 @@
         placeholder:{
           type: String,
           default: ""
-        }
+        },
     }, 
     data(){
         return {
@@ -99,7 +100,15 @@
             this.$emit("update:error", this.isError);
           }
         }
+        this.$emit("update:value", val);
         this.$emit('value-change', val)
+      }
+    },
+    watch:{
+      items(val){
+        if(val){
+          this.valueSelect = null;
+        }
       }
     }
 
@@ -145,6 +154,11 @@
       }
       .v-field__append-inner{
         padding-top: 6px;
+      }
+      .v-select__selection-text{
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
     .v-col{
