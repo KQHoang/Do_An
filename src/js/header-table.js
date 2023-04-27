@@ -13,7 +13,8 @@ const HeaderTables = {
         {
             value: "GenderID",
             name: "Giới tính",
-            width: 100
+            width: 100,
+            type: "gender"
         },
         {
             value: "DateOfBirth",

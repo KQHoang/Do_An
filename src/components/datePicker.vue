@@ -58,7 +58,7 @@ export default {
         }, 
         format:{
             type: String, 
-            default: "dd/MM/yyyy"
+            default: "MM/dd/yyyy"
         }
     },
     data(){
@@ -83,7 +83,7 @@ export default {
                     this.isError = false;
                     this.$emit("update:error", this.isError);
                 }
-                dateEmit = `${val.getDate()}/${val.getMonth() + 1}/${val.getFullYear()}`;
+                dateEmit = `${val.getMonth() + 1}/${val.getDate()}/${val.getFullYear()}`;
             } else {
                 if(this.force){
                     this.isError = true;

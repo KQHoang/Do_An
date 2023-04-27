@@ -11,12 +11,12 @@
 </script>
 <style lang="scss">
 .main-loading{
-    height: 88%;
-    width: 83%;
+    height: calc(100% - 56px);
+    width: calc(100% - 200px);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #EEEFF1;
+    background-color:  rgba(97, 98, 99, 0.6);
     z-index: 100;
     position: fixed;
     .v-progress-circular{

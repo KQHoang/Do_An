@@ -33,7 +33,7 @@
                             ></v-checkbox>
                         </div>
                     </td>
-                    <td v-for="header in headers" :key="header.value" class="text-left"  >{{ header?.type == "date" ? convertDate(item[header.value]) : item[header.value] }}</td>
+                    <td v-for="header in headers" :key="header.value" class="text-left"  >{{ header?.type ? convertDataToShow(header?.type, item[header.value]) : item[header.value] }}</td>
                     <td class="row-action" v-if="editRow || deleteRow">
                         <i v-if="editRow" @click="editFromRow(item[keyTable])" class="fa fa-pencil" aria-hidden="true" style="font-size: 20px;"></i>
                         <i v-if="deleteRow" @click="deleteFromRow(item[keyTable])" class="fa fa-trash-o" aria-hidden="true" style="font-size: 20px;color: red;"></i>
@@ -189,6 +189,14 @@ export default {
         },
         convertDate(val){
             return Convert.formatDateToShow(val);
+        },
+        convertDataToShow(type, val){
+            if(type == "date"){
+                return Convert.formatDateToShow(val);
+            }
+            if(type == "gender"){
+               return val ==  1 ? "Nam":"Nữ";
+            }
         }
     }
 }

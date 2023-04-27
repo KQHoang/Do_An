@@ -1,5 +1,6 @@
 <template>
     <Loading v-if="showLoading"/>
+    <ToastMessage :title="titleMessage" :text="textMessage" :typeAlert="typeMessage" :max-width="widthMessage" v-if="showMessage"/>
     <div class="employee">
         <v-row class="title-action justify-space-between" >
             <v-col cols="5">
@@ -100,6 +101,34 @@
                                 item-title="GenderName"
                                 item-value="GenderID"
                                 placeholder="Chọn giới tính"
+                                :key="keySelect"
+                            />
+                        </v-col>
+                    </v-col>    
+                </div>
+                <div class="v-row m-t-8 m-b-24">
+                    <v-col class="label-info d-flex align-center m-r-60" cols="5">
+                        <v-col cols="5" class="label">Phòng ban</v-col>
+                        <v-col cols="7" class="p-0">
+                            <Combobox
+                                v-model:value="formData.DepartmentID"
+                                :items="lstDepartment"
+                                item-title="DepartmentName"
+                                item-value="DepartmentID"
+                                placeholder="Chọn phòng ban"
+                                :key="keySelect"
+                            />
+                        </v-col>
+                    </v-col>
+                    <v-col class="label-info d-flex align-center" cols="5">
+                        <v-col cols="5" class="label">Vị trí công việc</v-col>
+                        <v-col cols="7" class="p-0">
+                            <Combobox
+                                v-model:value="formData.PositionID"
+                                :items="lstPosition"
+                                item-title="PositionName"
+                                item-value="PositionID"
+                                placeholder="Chọn vị trí công việc"
                                 :key="keySelect"
                             />
                         </v-col>
@@ -309,9 +338,9 @@ export default{
                 WardsName: null,
                 StreetAddress: null,
                 IdentifyIssuedPlaceName: null,
-                PositionID: 1,
-                DepartmentID: 1,
-                LeadID: 10, 
+                PositionID: null,
+                DepartmentID: null,
+                LeadID: 5,
                 CreatedDate: null,
                 ModifiedDate: null
             }, 
@@ -319,7 +348,14 @@ export default{
             lstProvince: [],
             lstDistrict: [],
             lstWards: [],
+            lstDepartment: [],
+            lstPosition: [],
             isCreated: true,
+            titleMessage: null,
+            textMessage: null,
+            widthMessage: null, 
+            typeMessage: null,
+            showMessage: false
         }
     },
     props:{
@@ -331,12 +367,16 @@ export default{
     async created(){
         this.ENUMS = ENUMS;
         await this.getProvince();
+        await this.getDeparment();
+        await this.getPosition();
         // this.editMode = this.$route.query?.editMode;
         if(this.isEdit){
-            console.log("đã vào");
             this.title = "Chỉnh sửa hồ sơ nhân viên"
             await this.getDataByID();
-            console.log("created", this.formData);
+        }
+        else{
+            await this.getNewCode();
+            this.renderDOM();
         }
         // if(!this.isEdit)
         this.isCreated = false;
@@ -353,7 +393,10 @@ export default{
             }
             // this.$emit("cancelEdit", false);
         },
+        
         async saveEdit(){
+            console.log(this.formData);
+            debugger
             this.formData.DateOfBirth = Convert.formatDateToSave(this.formData.DateOfBirth);
             this.formData.IdentifyDate = Convert.formatDateToSave(this.formData.IdentifyDate);
             // this.formData.Country = "Việt Nam";
@@ -362,10 +405,23 @@ export default{
                 this.formData.ModifiedDate = new Date();         
                 var resUpdate = await ProfileAPI.updateProfile(this.formData);
                 if(resUpdate && resUpdate.data.Success){
-                    this.$emit("cancel-edit", false);
+                    this.textMessage = "Chỉnh sửa thành công!";
+                    this.typeMessage = "success";
+                    this.widthMessage = 300;
+                    this.showMessage = true;
+                    setTimeout(() => {
+                        this.showMessage = false;
+                        this.$emit("cancel-edit", false);
+                    }, 2000);
                 }
                 else {
-                    console.log("lỗi");
+                    this.textMessage = "Chỉnh sửa thất bại!";
+                    this.typeMessage = "error";
+                    this.widthMessage = 300;
+                    this.showMessage = true;
+                    setTimeout(() => {
+                        this.showMessage = false;
+                    }, 2000);
                 }
             }
             else{
@@ -373,10 +429,23 @@ export default{
                 var res = await ProfileAPI.insertProfile(this.formData);
                 if(res && res.data.Success){
                     // this.$emit("cancel-edit", false);
-                    this.$router.push({ name: 'ManageProfile'});
+                    this.textMessage = "Thêm mới thành công!";
+                    this.typeMessage = "success";
+                    this.widthMessage = 300;
+                    this.showMessage = true;
+                    setTimeout(() => {
+                        this.showMessage = false;
+                        this.$router.push({ name: 'ManageProfile'});
+                    }, 2000);
                 }
                 else {
-                    console.log("lỗi");
+                    this.textMessage = "Thêm mới thất bại!!";
+                    this.typeMessage = "error";
+                    this.widthMessage = 300;
+                    this.showMessage = true;
+                    setTimeout(() => {
+                        this.showMessage = false;
+                    }, 2000);
                 }
             }
         },
@@ -482,6 +551,9 @@ export default{
             if(this.formData.IdentifyType == ENUMS.PICK_LIST_IDENTIFY_TYPE[0].value){
                 this.listIdentifyPlace = ENUMS.PICK_LIST_CCCD;
             }
+            else {
+                this.listIdentifyPlace = JSON.parse(JSON.stringify(this.lstProvince));
+            }
             // if(this.formData.Country){
             //     if(this.formData.Country == ENUMS.PICK_LIST_COUNTRY[0].name){
             //         this.formData.Country = 1;
@@ -498,6 +570,37 @@ export default{
             }
             if(this.formData.DistrictID){
                 await this.districtChange(this.formData.DistrictID);
+            }
+        },
+
+        /**
+         * Lấy code mới
+         */
+        async getNewCode(){
+            var res = await ProfileAPI.getNewCode();
+            if(res && res.data.Success){
+                this.formData.EmployeeCode = res.data.Data;
+                this.keyInput ++;
+            }
+        },
+
+        /**
+         * Lấy danh sách phòng ban
+         */
+        async getDeparment(){
+            var res = await ProfileAPI.getDepartment();
+            if(res && res.data.Success){
+                this.lstDepartment = res.data.Data;
+            }
+        },
+
+        /**
+         * Lấy danh sách vị trí công việc
+         */
+        async getPosition(){
+            var res = await ProfileAPI.getPosition();
+            if(res && res.data.Success){
+                this.lstPosition = res.data.Data;
             }
         }
     }

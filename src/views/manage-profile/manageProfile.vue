@@ -1,5 +1,6 @@
 <template>
     <Loading v-if="showLoading"/>
+    <ToastMessage title="" :text="textMessage" :typeAlert="typeMessage" :max-width="300" v-if="showMessage"/>
     <div class="manage-profile" v-if="!showAddAndEdit" ref="manage-profile">
         <div class="title">Quản lý hồ sơ nhân viên</div>
         <div class="main-manage-profile m-t-12 p-b-12">
@@ -36,6 +37,7 @@
                 :showBorder="false"
                 @dbClickRow="rowClick"
                 @edit="editFromRow"
+                @delete="deleteFromRow"
                 :key="keyTable"
             >
             </table-vue>
@@ -88,17 +90,6 @@ export default {
                 }
             ],
             dataApiTable:[
-                // {
-                //     id: 1,
-                //     EmployeeCode: "NV10078",
-                //     FullName: "Khuất Quang Hoàng", 
-                //     GenderID: "Nam",
-                //     DateOfBirth: "24/01/2002",
-                //     TaxCode: "4312432432",
-                //     PhoneNumber: "0984868532",
-                //     IdentifyNumber: "543543534"
-
-                // }
             ], 
             pagingControl:{
                 filter: null, 
@@ -108,7 +99,10 @@ export default {
             keyTable: 0,
             totalRecord: 0,
             showAddAndEdit: false,
-            showLoading: false
+            showLoading: false, 
+            showMessage: false,
+            textMessage: null,
+            typeMessage: null,
         }
     },
     async created(){
@@ -137,7 +131,32 @@ export default {
             setTimeout(() => {
                 this.showLoading = false;
             }, 500);
-        }
+        },
+        /**
+         * Xoá
+         */
+         async deleteFromRow(val){
+            if(val){
+                var res = await ProfileAPI.getDeleteByID(val);
+                if(res && res.data.Success){
+                    this.textMessage = "Xoá thành công";
+                    this.typeMessage = "success";
+                    this.showMessage = true;
+                    setTimeout(() => {
+                        this.showMessage = false; 
+                    }, 2000);
+                    await this.getDataPaging();
+                }
+                else {
+                    this.textMessage = "Xoá Thất bại";
+                    this.typeMessage = "error";
+                    this.showMessage = true;
+                    setTimeout(() => {
+                        this.showMessage = false; 
+                    }, 2000);
+                }
+            }
+         }
     }
 }
 </script>

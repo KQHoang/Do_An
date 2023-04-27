@@ -12,5 +12,18 @@ export default {
     },
     getProfileByID(id){
         return axios.get(`${base.url}/Employee/${id}`);
-    }
+    },
+    getDeleteByID(id){
+        return axios.delete(`${base.url}/Employee/${id}`);
+    },
+    getNewCode(){
+        return axios.get(`${base.url}/Employee/getCode`);
+    },
+    getPosition(){
+        return axios.get(`${base.url}/Position`);
+    },
+    getDepartment(){
+        return axios.get(`${base.url}/Department`);
+    },
+
 }  
