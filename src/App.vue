@@ -211,11 +211,18 @@ export default {
     }
   }
   .layout-main{
-    width: calc(100% - 200px);
-    padding: 12px;
-    margin-left: 200px;
+    // width: calc(100% - 200px);
+    // padding: 12px;
+    // margin-left: 200px;
     background-color: #EEEFF1;
-    height: calc(100% - 56px)
+    height: calc(100% - 56px);
+
+    padding-left: 212px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    width: 100%;
+    padding-top: 12px;
+
   }
 }
 </style>

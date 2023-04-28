@@ -64,3 +64,20 @@ html {
 .text-white{
   color: #ffffff;
 }
+
+/* css icon close */
+.mdi-close::before {
+  font-size: 17px !important;
+}
+
+/* ẩn tăng giảm input type = number*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ẩn tăng giảm input type = number*/
+input[type=number] {
+  -moz-appearance: textfield;
+}

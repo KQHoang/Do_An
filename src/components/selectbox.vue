@@ -13,6 +13,7 @@
           :item-title="itemTitle"
           :item-value="itemValue"
           :autofocus="autofocus"
+          clear-icon="mdi-close"
           :clearable="clearable"
           :placeholder="placeholder"
           no-data-text="Không có dữ liệu"
@@ -166,6 +167,7 @@
       .error-message{
         color: red;
         padding-top: 5px;
+        padding-bottom: 10px;
       }
     }
   }

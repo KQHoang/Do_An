@@ -11,6 +11,7 @@
           :placeholder="placeholder"
           v-model="valueInput"
           :type="typeInput"
+          clear-icon="mdi-close"
           :clearable="clearable"
           :autofocus="autofocus"
           :disabled="disabled"
@@ -85,6 +86,7 @@ export default{
         this.isError = this.error;
       }
     }, 
+    // emits:["value-change"],
     methods:{
       valueInputChange(val){
         if(val){
@@ -99,6 +101,7 @@ export default{
           }
         }
         this.$emit("update:value", val);
+        // this.$emit("value-change", val);
       }
     }
 }
@@ -160,6 +163,7 @@ export default{
       .error-message{
         color: red;
         padding-top: 5px;
+        padding-bottom: 10px;
       }
     }
     .v-field{

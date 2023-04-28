@@ -41,6 +41,10 @@
                                 v-model:value="formData.EmployeeCode"
                                 placeholder="Nhập mã nhân viên"
                                 :key="keyInput"
+                                :error="errors[0]"
+                                error-message="Mã nhân viên trống hoặc đã tồn tại"
+                                :force="true"
+                                :autofocus="true"
                             />
                         </v-col>
                     </v-col>
@@ -51,6 +55,9 @@
                                 v-model:value="formData.FullName"
                                 placeholder="Nhập họ và tên"
                                 :key="keyInput"
+                                :error="errors[1]"
+                                error-message="Họ và tên không được bỏ trống"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>
@@ -63,6 +70,9 @@
                                 v-model:value="formData.DateOfBirth"
                                 placeholder="Chọn ngày sinh"
                                 :key="keyInput"
+                                :error="errors[2]"
+                                error-message="Ngày sinh không được để trống"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>
@@ -76,6 +86,9 @@
                                 item-value="value"
                                 placeholder="Chọn dân tộc"
                                 :key="keyInput"
+                                :error="errors[3]"
+                                error-message="Dân tộc không được để trống"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>
@@ -89,6 +102,9 @@
                                 placeholder="Nhập mã số thuế"
                                 type-input="number"
                                 :key="keyInput"
+                                :error="errors[4]"
+                                error-message="MST trống hoặc đã tồn tại"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>
@@ -102,6 +118,9 @@
                                 item-value="GenderID"
                                 placeholder="Chọn giới tính"
                                 :key="keySelect"
+                                :error="errors[5]"
+                                error-message="Giới tính không được để trống"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>    
@@ -117,6 +136,9 @@
                                 item-value="DepartmentID"
                                 placeholder="Chọn phòng ban"
                                 :key="keySelect"
+                                :error="errors[6]"
+                                error-message="Phòng ban không được để trống"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>
@@ -130,6 +152,9 @@
                                 item-value="PositionID"
                                 placeholder="Chọn vị trí công việc"
                                 :key="keySelect"
+                                :error="errors[7]"
+                                error-message="Vị trí công việc không được để trống"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>    
@@ -151,6 +176,9 @@
                                 placeholder="Chọn loại giấy tờ"
                                 :key="keySelect"
                                 @value-change="identifyTypeChange"
+                                :error="errors[8]"
+                                error-message="Loại giấy tờ không được để trống"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>
@@ -161,6 +189,9 @@
                                 v-model:value="formData.IdentifyDate"
                                 placeholder="Chọn ngày cấp"
                                 :key="keyInput"
+                                :error="errors[9]"
+                                error-message="Ngày cấp không được để trống"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>
@@ -174,6 +205,9 @@
                                 placeholder="Nhập số CMND/CCCD"
                                 type-input="number"
                                 :key="keyInput"
+                                :error="errors[10]"
+                                error-message="Số CMND/CCCD trống hoặc đã tồn tại"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>
@@ -187,6 +221,9 @@
                                 item-value="ProvinceID"
                                 placeholder="Chọn nơi cấp"
                                 :key="keyIdentifyIssuePlace"
+                                :error="errors[11]"
+                                error-message="Nơi cấp không được để trống"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>
@@ -209,6 +246,9 @@
                                 placeholder="Nhập số điện thoại"
                                 type-input="number"
                                 :key="keyInput"
+                                :error="errors[12]"
+                                error-message="SĐT không được để trống"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>
@@ -320,12 +360,12 @@ export default{
                 EmployeeCode: null,
                 EmployeeID: null,
                 FullName: null,
-                DateOfBirth: null,
+                DateOfBirth: "",
                 EthnicityID: null,
                 TaxCode: null,
                 GenderID: null,
                 IdentifyType: null,
-                IdentifyDate: null,
+                IdentifyDate: "",
                 IdentifyNumber: null, 
                 IdentifyIssuedPlaceID: null, 
                 PhoneNumber: null, 
@@ -355,7 +395,11 @@ export default{
             textMessage: null,
             widthMessage: null, 
             typeMessage: null,
-            showMessage: false
+            showMessage: false,
+            errors:[false, false, false, false, false, false, false, false, false, false, false, false, false],
+            errorEmployeeCode: "Mã nhân viên không được để trống",
+            errorTaxCode: "Mã số thuế không được để trống",
+            errorIdentify: "CMND/CCCD không được để trống",
         }
     },
     props:{
@@ -383,6 +427,31 @@ export default{
         
     }, 
     emits: ['cancel-edit'],
+    wath:{
+        // "this.formData.EmployeeCode"(val){
+        //     console.log("đã vào");
+        //     if(val == null || val == ""){
+        //         this.errorEmployeeCode = "Mã nhân viên không được để trống";
+        //     }
+        // },
+        // "this.formData.TaxCode"(val){
+        //     if(val == null || val == ""){
+        //         this.errorTaxCode = "Mã số thuế không được để trống";
+        //     }
+        // },
+        // "this.formData.IdentifyNumber"(val){
+        //     if(val == null || val == ""){
+        //         this.errorIdentify = "CMND/CCCD không được để trống";
+        //     }
+        // }
+        'formData.EmployeeCode':{
+            handler(val) {
+                console.log("úi", val);
+            },
+            immediate: true,
+            deep: true
+        }
+    },
     methods:{
         cancelEdit(){
             if(this.isEdit){
@@ -395,8 +464,9 @@ export default{
         },
         
         async saveEdit(){
-            console.log(this.formData);
-            debugger
+            if(this.validateBeforeSave()){
+                return;
+            }
             this.formData.DateOfBirth = Convert.formatDateToSave(this.formData.DateOfBirth);
             this.formData.IdentifyDate = Convert.formatDateToSave(this.formData.IdentifyDate);
             // this.formData.Country = "Việt Nam";
@@ -413,6 +483,31 @@ export default{
                         this.showMessage = false;
                         this.$emit("cancel-edit", false);
                     }, 2000);
+                }
+                else if(resUpdate && resUpdate.data.Success == false){
+                    this.textMessage = "Dữ liệu đã tồn tại!";
+                    this.typeMessage = "error";
+                    this.widthMessage = 300;
+                    this.showMessage = true;
+                    setTimeout(() => {
+                        this.showMessage = false;
+                    }, 2000);
+                    if(resUpdate.data.Data.EmployeeCode == true){
+                        this.errors[0] = true;
+                    }
+                    if(resUpdate.data.Data.TaxCode == true){
+                        this.errors[4] = true;
+                    }
+                    if(resUpdate.data.Data.TaxCode == true){
+                        this.errors[10] = true;
+                    }
+                    if(this.formData.DateOfBirth){
+                        this.formData.DateOfBirth = Convert.formatDateToEdit(this.formData.DateOfBirth);
+                    }
+                    if(this.formData.IdentifyDate){
+                        this.formData.IdentifyDate = Convert.formatDateToEdit(this.formData.IdentifyDate);
+                    }
+                    this.renderDOM();
                 }
                 else {
                     this.textMessage = "Chỉnh sửa thất bại!";
@@ -437,6 +532,33 @@ export default{
                         this.showMessage = false;
                         this.$router.push({ name: 'ManageProfile'});
                     }, 2000);
+                }
+                else if(res && res.data.Success == false){
+                    // this.$emit("cancel-edit", false);
+                    this.textMessage = "Dữ liệu đã tồn tại!";
+                    this.typeMessage = "error";
+                    this.widthMessage = 300;
+                    this.showMessage = true;
+                    setTimeout(() => {
+                        this.showMessage = false;
+                    }, 2000);
+                    if(res.data.Data.EmployeeCode == true){
+                        this.errors[0] = true;
+                    }
+                    if(res.data.Data.TaxCode == true){
+                        this.errors[4] = true;
+                    }
+                    if(res.data.Data.TaxCode == true){
+                        this.errors[10] = true;
+                    }
+                    if(this.formData.DateOfBirth){
+                        this.formData.DateOfBirth = Convert.formatDateToEdit(this.formData.DateOfBirth);
+                    }
+                    if(this.formData.IdentifyDate){
+                        this.formData.IdentifyDate = Convert.formatDateToEdit(this.formData.IdentifyDate);
+                    }
+                    this.renderDOM();
+                    this.errorEmployeeCode = "Mã nhân viên không được bỏ trống";
                 }
                 else {
                     this.textMessage = "Thêm mới thất bại!!";
@@ -602,6 +724,57 @@ export default{
             if(res && res.data.Success){
                 this.lstPosition = res.data.Data;
             }
+        },
+
+        /**
+         * Validate dữ liệu
+         */
+        validateBeforeSave(){
+            var faild = false;
+            var property = ["EmployeeCode", "FullName", "DateOfBirth", "EthnicityID", "TaxCode", "GenderID",
+                "DepartmentID", "PositionID", "IdentifyType", "IdentifyDate", "IdentifyNumber", "IdentifyIssuedPlaceID",
+                "PhoneNumber" ];
+            for(var i = 0; i < property.length; i++){
+                if(this.formData[property[i]] == null || this.formData[property[i]] == ""){
+                    this.errors[i] = true;
+                    faild = true;
+                }
+            }
+            this.renderDOM();   
+            return faild;
+            // if(this.formData.EmployeeCode == null || this.formData.EmployeeCode == ""){
+            //     this.errors[0] = true;
+            //     faild = true;
+            // }
+            // if(this.formData.FullName == null || this.formData.FullName == ""){
+            //     this.errors[1] = true;
+            //     faild = true;
+            // }
+            // if(this.formData.DateOfBirth == null || this.formData.DateOfBirth == ""){
+            //     this.errors[2] = true;
+            //     faild = true;
+            // }
+            // if(this.formData.EthnicityID == null || this.formData.EthnicityID == ""){
+            //     this.errors[3] = true;
+            //     faild = true;
+            // }
+            // if(this.formData.TaxCode == null || this.formData.TaxCode == ""){
+            //     this.errors[4] = true;
+            //     faild = true;
+            // }
+            // if(this.formData.GenderID == null || this.formData.GenderID == ""){
+            //     this.errors[5] = true;
+            //     faild = true;
+            // }
+        },
+        valueEmployeeCodeChange(){
+            this.errorEmployeeCode = "Mã nhân viên không được bỏ trống";
+        },
+        valueTaxCodeChange(){
+            this.errorTaxCode = "Mã số thuế không được bỏ trống";
+        },
+        valueIdentifyNumberChange(){
+            this.errorIdentify = "Số CMND/CCCD không được bỏ trống";
         }
     }
 }

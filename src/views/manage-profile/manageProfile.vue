@@ -1,5 +1,6 @@
 <template>
     <Loading v-if="showLoading"/>
+    <PopUpDelete v-if="showConfirmDelete" @action-cancel="cancelDelete" @action-done="deleteFromRow"/>
     <ToastMessage title="" :text="textMessage" :typeAlert="typeMessage" :max-width="300" v-if="showMessage"/>
     <div class="manage-profile" v-if="!showAddAndEdit" ref="manage-profile">
         <div class="title">Quản lý hồ sơ nhân viên</div>
@@ -9,6 +10,7 @@
                     <VueInput
                         placeholder="Tìm kiếm tên, mã nhân viên, MST"
                         :clearable="false"
+                        v-model:value="keySearch"
                     />
                 </v-col>
                 <v-col cols="4" class="text-right">
@@ -37,7 +39,8 @@
                 :showBorder="false"
                 @dbClickRow="rowClick"
                 @edit="editFromRow"
-                @delete="deleteFromRow"
+                @delete="confirmDeleteFromRow"
+                @page-change="pagingControlChange"
                 :key="keyTable"
             >
             </table-vue>
@@ -103,12 +106,23 @@ export default {
             showMessage: false,
             textMessage: null,
             typeMessage: null,
+            keySearch: null,
+            showConfirmDelete: false,
+            idDelete: null
         }
     },
     async created(){
         this.ENUMS = ENUMS;
         this.HEADERR_TABLE = HEADERR_TABLE;
         await this.getDataPaging();
+    },
+    watch:{
+        keySearch(val){
+            setTimeout(async () => {
+                this.pagingControl.filter = val;
+                await this.getDataPaging();
+            }, 1000);
+        }
     },
     methods:{
         addProfile(){
@@ -132,12 +146,17 @@ export default {
                 this.showLoading = false;
             }, 500);
         },
+        confirmDeleteFromRow(val){
+            this.showConfirmDelete = true;
+            this.idDelete = val
+        },
         /**
          * Xoá
          */
-         async deleteFromRow(val){
-            if(val){
-                var res = await ProfileAPI.getDeleteByID(val);
+         async deleteFromRow(){
+            this.showConfirmDelete = false;
+            if(this.idDelete){
+                var res = await ProfileAPI.getDeleteByID(this.idDelete);
                 if(res && res.data.Success){
                     this.textMessage = "Xoá thành công";
                     this.typeMessage = "success";
@@ -145,6 +164,7 @@ export default {
                     setTimeout(() => {
                         this.showMessage = false; 
                     }, 2000);
+                    this.idDelete = null;
                     await this.getDataPaging();
                 }
                 else {
@@ -154,9 +174,23 @@ export default {
                     setTimeout(() => {
                         this.showMessage = false; 
                     }, 2000);
+                    this.idDelete = null;
                 }
             }
-         }
+         },
+         cancelDelete(){
+            this.idDelete = null;
+            this.showConfirmDelete = false;
+         },
+
+         /**
+          * Thay đổi pagingControl
+          */
+          async pagingControlChange(val){
+            this.pagingControl.pageIndex = val.PageIndex;
+            this.pagingControl.pageSize = val.PageSize;
+            await this.getDataPaging();
+          }
     }
 }
 </script>

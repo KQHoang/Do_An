@@ -58,7 +58,7 @@ export default {
         }, 
         format:{
             type: String, 
-            default: "MM/dd/yyyy"
+            default: "dd/MM/yyyy"
         }
     },
     data(){
@@ -69,7 +69,9 @@ export default {
     },
     created(){
         if(this.value){
-            this.date = new Date(this.value);
+            var arr = this.value.split("/");
+            var dateConvert = `${arr[1]}/${arr[0]}/${arr[2]}`;
+            this.date = new Date(dateConvert);
         }
         if(this.error){
             this.isError = true;
@@ -83,7 +85,7 @@ export default {
                     this.isError = false;
                     this.$emit("update:error", this.isError);
                 }
-                dateEmit = `${val.getMonth() + 1}/${val.getDate()}/${val.getFullYear()}`;
+                dateEmit = `${val.getDate()}/${val.getMonth() + 1}/${val.getFullYear()}`;
             } else {
                 if(this.force){
                     this.isError = true;
@@ -128,6 +130,7 @@ export default {
       .error-message{
         color: red;
         padding-top: 5px;
+        padding-bottom: 10px;
       }
     }
   }

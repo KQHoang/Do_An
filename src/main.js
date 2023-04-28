@@ -6,6 +6,7 @@ import VueFontawesome from "font-awesome/css/font-awesome.min.css";
 import route from "@/js/router/route.js"
 import Loading from "@/components/loading.vue"
 import ToastMessage from '@/components/message.vue'
+import PopUpDelete from '@/components/popupDelete.vue'
 
 loadFonts()
 
@@ -15,4 +16,5 @@ createApp(App)
   .use(VueFontawesome)
   .component("Loading", Loading)
   .component("ToastMessage", ToastMessage)
+  .component("PopUpDelete", PopUpDelete)
   .mount('#app')

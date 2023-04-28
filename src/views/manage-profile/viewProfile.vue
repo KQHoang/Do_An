@@ -88,7 +88,7 @@
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
                         <v-col cols="5" class="label">Nơi cấp (CMND/CCCD)</v-col>
-                        <v-col cols="7" class="employee-info">{{ formData.IdentifyIssuedPlaceName }}</v-col>
+                        <v-col cols="7" class="employee-info" :title="formData.IdentifyIssuedPlaceName">{{ formData.IdentifyIssuedPlaceName }}</v-col>
                     </v-col>
                 </div>
 
