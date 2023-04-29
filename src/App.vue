@@ -65,9 +65,9 @@
           </v-list-item>
 
           <!-- nhân viên phòng nhân sự -->
-          <v-list-item title="Quản lý phòng ban" value="11" v-if="permission == 2">
+          <v-list-item title="Quản lý phòng ban" value="11" v-if="permission == 2" @click="redirectManageDepartment">
           </v-list-item>
-          <v-list-item title="Quản lý chức vụ" value="12" v-if="permission == 2">
+          <v-list-item title="Quản lý chức vụ" value="12" v-if="permission == 2" @click="redirectManagePosition">
           </v-list-item>
           <v-list-item title="Quản lý hợp đồng" value="13" v-if="permission == 2">
           </v-list-item>
@@ -137,6 +137,12 @@ export default {
     },
     redirecManageProfile(){
       this.$router.push({ name: 'ManageProfile'});
+    },
+    redirectManageDepartment(){
+      this.$router.push({ name: 'ManageDepartment'});
+    },
+    redirectManagePosition(){
+      this.$router.push({ name: 'ManagePosition'});
     }
     
   }

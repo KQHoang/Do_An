@@ -16,6 +16,8 @@
                     <th v-for="item in headers" :key="item.value" :style="{'min-width': item.width + 'px'}" class="font-weight-bold text-left">
                         {{item.name}}
                     </th>
+                    <th v-if="editRow || deleteRow" style="min-width: 100px;width: 100px;">
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -37,7 +39,7 @@
                         </div>
                     </td>
                     <td v-for="header in headers" :key="header.value" class="text-left"  >{{ header?.type ? convertDataToShow(header?.type, item[header.value]) : item[header.value] }}</td>
-                    <td class="row-action" v-if="editRow || deleteRow">
+                    <td class="row-action">
                         <i v-if="editRow" @click="editFromRow(item[keyTable])" class="fa fa-pencil" aria-hidden="true" style="font-size: 20px;"></i>
                         <i v-if="deleteRow" @click="deleteFromRow(item[keyTable])" class="fa fa-trash-o" aria-hidden="true" style="font-size: 20px;color: red;"></i>
                     </td>
@@ -133,7 +135,8 @@ export default {
         return {
             recordStart: 0,
             itemSelected: [], 
-            isSelectAll: false
+            isSelectAll: false,
+            valuePageSize: 15
         }
     },
     created() {
@@ -209,6 +212,12 @@ export default {
 <style lang="scss" scoped>
 .table-container{
     .main-table{
+        thead{
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            z-index: 100;
+        }
         .v-table__wrapper{
             // overflow: hidden;
             height: 100%;
@@ -221,27 +230,32 @@ export default {
                     height: 48px !important;
                 }
                 .row-action{
-                    background-color:#EFF1F6 !important;
-                    z-index: 100;
+                    z-index: 10;
                     padding-left: 0;
-                    display: none;
+                    display: flex;
                     position: sticky;
                     right: 0;
                     align-items: center;
+                    justify-content: end;
                     .fa-trash-o{
                         padding: 15px 10px 15px 10px;
                         cursor: pointer;
+                        display: none;
                     }
                     .fa-pencil{
                         padding: 15px 10px 15px 10px;
                         cursor: pointer;
+                        display: none;
                     }
                 }
             }
             tr:hover{
                 background-color: #EFF1F6 !important;
                 .row-action{
-                    display: flex;
+                    background-color:#EFF1F6 !important;
+                    .fa{
+                        display: block;
+                    }
                 }
             }
         }

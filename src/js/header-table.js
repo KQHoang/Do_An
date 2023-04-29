@@ -39,6 +39,36 @@ const HeaderTables = {
         },
 
 
+    ],
+    DEPARTMENT:
+    [
+        {
+            value: "DepartmentName",
+            name: "Tên phòng ban",
+            width: 200
+        },
+        {
+            value: "Description",
+            name: "Mô tả",
+            width: 500
+        },
+        {
+            value: "Address",
+            name: "Địa chỉ phòng ban",
+            width: 200
+        },
+    ],
+    POSITION:[
+        {
+            value: "PositionName",
+            name: "Tên chức vụ",
+            width: 200
+        },
+        {
+            value: "Description",
+            name: "Mô tả",
+            width: 500
+        },
     ]
 }
 export default HeaderTables;

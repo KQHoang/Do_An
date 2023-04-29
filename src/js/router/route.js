@@ -3,6 +3,8 @@ import ViewEmployee from "@/views/employee/viewEmployee.vue"
 import ManageProfile from "@/views/manage-profile/manageProfile.vue"
 import ViewProfileEmployee from "@/views/manage-profile/viewProfile.vue"
 import AddProfileEmployee from "@/views/manage-profile/addProfileEmployee.vue"
+import ManageDepartment from "@/views/department/department.vue"
+import ManagePosition from '@/views/position/position.vue'
 const routes = [
     { 
         path: '/employee', 
@@ -36,6 +38,26 @@ const routes = [
             }
         ]
     },
+    {
+        path: "/department",
+        children:[
+            {
+                path: '',
+                name: "ManageDepartment",
+                component: ManageDepartment,
+            },
+        ]
+    },
+    {
+        path: "/position",
+        children:[
+            {
+                path: '',
+                name: "ManagePosition",
+                component: ManagePosition,
+            },
+        ]
+    }
 ]
 const router = createRouter({
     // 4. Provide the history implementation to use. We are using the hash history for simplicity here.

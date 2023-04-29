@@ -11,7 +11,7 @@
                         placeholder="Tìm kiếm tên, mã nhân viên, MST"
                         :clearable="false"
                         v-model:value="keySearch"
-                        @keydown.enter="tesst()"
+                        @keydown.enter="search()"
                     />
                 </v-col>
                 <v-col cols="4" class="text-right">
@@ -32,7 +32,7 @@
                 ref="table-manage-profile"
                 keyTable="EmployeeID"
                 :totalRecord="totalRecord"
-                :pagingControl="ENUMS.PagingControl"
+                :pagingControl="pagingControl"
                 :dataApiTable="dataApiTable" 
                 :headers="HEADERR_TABLE.PROFILE_EMPLOYEE" 
                 :showPaging="true"
@@ -97,8 +97,8 @@ export default {
             ], 
             pagingControl:{
                 filter: null, 
-                pageSize: 15,
-                pageIndex: 1  
+                PageSize: 15,
+                PageIndex: 1  
             },
             keyTable: 0,
             totalRecord: 0,
@@ -188,11 +188,11 @@ export default {
           * Thay đổi pagingControl
           */
           async pagingControlChange(val){
-            this.pagingControl.pageIndex = val.PageIndex;
-            this.pagingControl.pageSize = val.PageSize;
+            this.pagingControl.PageIndex = val.PageIndex;
+            this.pagingControl.PageSize = val.PageSize;
             await this.getDataPaging();
           },
-          async tesst(){
+          async search(){
             this.pagingControl.filter = this.keySearch;
             await this.getDataPaging();
           }

@@ -35,7 +35,7 @@
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
-                        <v-col cols="5" class="label">Mã nhân viên</v-col>
+                        <v-col cols="5" class="label font-500">Mã nhân viên <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <Input
                                 v-model:value="formData.EmployeeCode"
@@ -49,7 +49,7 @@
                         </v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
-                        <v-col cols="5" class="label">Họ và tên</v-col>
+                        <v-col cols="5" class="label font-500">Họ và tên <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <Input
                                 v-model:value="formData.FullName"
@@ -64,7 +64,7 @@
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
-                        <v-col cols="5" class="label">Ngày sinh</v-col>
+                        <v-col cols="5" class="label font-500">Ngày sinh <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <DateTimePicker
                                 v-model:value="formData.DateOfBirth"
@@ -77,7 +77,7 @@
                         </v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
-                        <v-col cols="5" class="label">Dân tộc</v-col>
+                        <v-col cols="5" class="label font-500" >Dân tộc <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <Combobox
                                 v-model:value="formData.EthnicityID"
@@ -95,7 +95,7 @@
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
-                        <v-col cols="5" class="label">MST cá nhân</v-col>
+                        <v-col cols="5" class="label font-500">MST cá nhân <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <Input
                                 v-model:value="formData.TaxCode"
@@ -109,7 +109,7 @@
                         </v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
-                        <v-col cols="5" class="label">Giới tính</v-col>
+                        <v-col cols="5" class="label font-500">Giới tính <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <Combobox
                                 v-model:value="formData.GenderID"
@@ -127,7 +127,7 @@
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
-                        <v-col cols="5" class="label">Phòng ban</v-col>
+                        <v-col cols="5" class="label font-500">Phòng ban <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <Combobox
                                 v-model:value="formData.DepartmentID"
@@ -143,7 +143,7 @@
                         </v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
-                        <v-col cols="5" class="label">Vị trí công việc</v-col>
+                        <v-col cols="5" class="label font-500">Vị trí công việc <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <Combobox
                                 v-model:value="formData.PositionID"
@@ -166,7 +166,7 @@
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
-                        <v-col cols="5" class="label">Loại giấy tờ</v-col>
+                        <v-col cols="5" class="label font-500">Loại giấy tờ <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <Combobox
                                 v-model:value="formData.IdentifyType"
@@ -183,7 +183,7 @@
                         </v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
-                        <v-col cols="5" class="label">Ngày cấp (CMND/CCCD)</v-col>
+                        <v-col cols="5" class="label font-500">Ngày cấp <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <DateTimePicker
                                 v-model:value="formData.IdentifyDate"
@@ -198,7 +198,7 @@
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
-                        <v-col cols="5" class="label">Số CMND/CCCD</v-col>
+                        <v-col cols="5" class="label font-500">Số CMND/CCCD <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <Input
                                 v-model:value="formData.IdentifyNumber"
@@ -212,7 +212,7 @@
                         </v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
-                        <v-col cols="5" class="label">Nơi cấp (CMND/CCCD)</v-col>
+                        <v-col cols="5" class="label font-500">Nơi cấp <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <Combobox
                                 v-model:value="formData.IdentifyIssuedPlaceID"
@@ -239,7 +239,7 @@
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
-                        <v-col cols="5" class="label">ĐT di động</v-col>
+                        <v-col cols="5" class="label font-500">ĐT di động <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <Input
                                 v-model:value="formData.PhoneNumber"
@@ -253,7 +253,7 @@
                         </v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
-                        <v-col cols="5" class="label">Email cá nhân</v-col>
+                        <v-col cols="5" class="label font-500">Email cá nhân</v-col>
                         <v-col cols="7" class="p-0">
                             <Input
                                 v-model:value="formData.Email"
@@ -271,7 +271,7 @@
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
-                        <v-col cols="5" class="label">Tỉnh/Thành phố</v-col>
+                        <v-col cols="5" class="label font-500">Tỉnh/Thành phố</v-col>
                         <v-col cols="7" class="p-0">
                             <Combobox
                                 v-model:value="formData.ProvinceID"
@@ -285,7 +285,7 @@
                         </v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
-                        <v-col cols="5" class="label">Phường/Xã</v-col>
+                        <v-col cols="5" class="label font-500">Phường/Xã</v-col>
                         <v-col cols="7" class="p-0">
                             <Combobox
                                 v-model:value="formData.WardsID"
@@ -300,7 +300,7 @@
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
-                        <v-col cols="5" class="label">Quận/Huyện</v-col>
+                        <v-col cols="5" class="label font-500">Quận/Huyện</v-col>
                         <v-col cols="7" class="p-0">
                             <Combobox
                                 v-model:value="formData.DistrictID"
@@ -314,7 +314,7 @@
                         </v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
-                        <v-col cols="5" class="label">Số nhà, đường phố</v-col>
+                        <v-col cols="5" class="label font-500">Số nhà, đường phố</v-col>
                         <v-col cols="7" class="p-0">
                             <Input
                                 v-model:value="formData.StreetAddress"
