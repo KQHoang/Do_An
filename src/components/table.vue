@@ -1,5 +1,8 @@
 <template>
-    <div v-if="dataApiTable.length > 0" class="table-container" :class="{'border-table': showBorder}">
+    <div v-if="dataApiTable.length == 0 && emptyTable">
+        <v-col cols="12" class="employee-info">Chưa có dữ liệu</v-col>
+    </div>
+    <div v-else class="table-container" :class="{'border-table': showBorder}">
         <v-table class="main-table">
             <thead>
                 <tr >
@@ -68,9 +71,6 @@
             </div>
         </div>
     </div>
-    <div v-if="dataApiTable.length == 0">
-        <v-col cols="12" class="employee-info">Chưa có dữ liệu</v-col>
-    </div>
 </template>
 
 <script>
@@ -122,6 +122,10 @@ export default {
         },
         keyTable:{
             type: String
+        },
+        emptyTable:{
+            type: Boolean,
+            default: true
         }
     },
     emits:['dbClickRow', 'edit', 'delete', 'page-change', ],

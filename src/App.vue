@@ -71,10 +71,10 @@
           </v-list-item>
           <v-list-item title="Quản lý hợp đồng" value="13" v-if="permission == 2">
           </v-list-item>
-          <v-list-item title="Quản lý khen thưởng" value="14" v-if="permission == 2">
+          <!-- <v-list-item title="Quản lý khen thưởng" value="14" v-if="permission == 2">
           </v-list-item>
           <v-list-item title="Quản lý kỷ luật" value="15" v-if="permission == 2">
-          </v-list-item>
+          </v-list-item> -->
 
           <!-- Quản trị hệ thống -->
           <v-list-item title="Quản lý tài khoản" value="3" v-if="permission == 1">

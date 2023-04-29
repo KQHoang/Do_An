@@ -11,6 +11,7 @@
                         placeholder="Tìm kiếm tên, mã nhân viên, MST"
                         :clearable="false"
                         v-model:value="keySearch"
+                        @keydown.enter="tesst()"
                     />
                 </v-col>
                 <v-col cols="4" class="text-right">
@@ -117,12 +118,12 @@ export default {
         await this.getDataPaging();
     },
     watch:{
-        keySearch(val){
-            setTimeout(async () => {
-                this.pagingControl.filter = val;
-                await this.getDataPaging();
-            }, 1000);
-        }
+        // keySearch(val){
+        //     setTimeout(async () => {
+        //         this.pagingControl.filter = val;
+        //         await this.getDataPaging();
+        //     }, 1000);
+        // }
     },
     methods:{
         addProfile(){
@@ -189,6 +190,10 @@ export default {
           async pagingControlChange(val){
             this.pagingControl.pageIndex = val.PageIndex;
             this.pagingControl.pageSize = val.PageSize;
+            await this.getDataPaging();
+          },
+          async tesst(){
+            this.pagingControl.filter = this.keySearch;
             await this.getDataPaging();
           }
     }
