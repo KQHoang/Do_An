@@ -69,6 +69,53 @@ const HeaderTables = {
             name: "Mô tả",
             width: 500
         },
+    ],
+    CONTRACT:[
+        {
+            value: "ContractNumber",
+            name: "Số hợp đồng",
+            width: 200
+        },
+        {
+            value: "FullName",
+            name: "Họ và tên nhân viên",
+            width: 200
+        },
+        {
+            value: "SignatureDate",
+            name: "Ngày ký kết",
+            width: 200,
+            type: "date"
+        },
+        {
+            value: "Salary",
+            name: "Lương thoả thuận",
+            width: 200
+        },
+        {
+            value: "ContractType",
+            name: "Loại hợp đồng",
+            width: 200,
+            type: "contractType"
+        },
+        {
+            value: "Position",
+            name: "Vị trí",
+            width: 200,
+        },
+        {
+            value: "EffectiveDate",
+            name: "Ngày hiệu lực",
+            width: 200,
+            type: "date"
+        },
+        {
+            value: "DateEnd",
+            name: "Ngày hết hạn",
+            width: 200,
+            type: "date"
+        },
+
     ]
 }
 export default HeaderTables;

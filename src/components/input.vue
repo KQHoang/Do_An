@@ -18,7 +18,7 @@
           @update:model-value="valueInputChange"
         >
         </v-text-field>
-        <div v-if="isError && force" class="error-message">
+        <div v-show="isError && force" class="error-message">
           {{ errorMessage }}
         </div>
       </v-col>

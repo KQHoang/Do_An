@@ -115,6 +115,27 @@ const ENUMS = {
             ProvinceName: "Cục Cảnh sát ĐKQL cư trú và DLQG về dân cư"
         }
         
+    ],
+
+    PICK_LIST_CONTRACT_TYPE:[
+        {
+            ContractTypeID: 1,
+            ContractTypeName: "Thử việc"
+        },
+        {
+            ContractTypeID: 2,
+            ContractTypeName: "Hợp đồng xác định thời hạn"
+        }
+    ],
+    CONTRACT_STATUS:[
+        {
+            ContractStatusID: 1,
+            ContractStatusName: "Có hiệu lực"
+        },
+        {
+            ContractStatusID: 2,
+            ContractStatusName: "Hết hiệu lực"
+        }
     ]
 }
 export default ENUMS;

@@ -33,7 +33,7 @@
                         Thông tin chung
                 </span>
                 </div>
-                <div class="v-row m-t-8 m-b-24">
+                <v-row  class="m-t-8 m-b-24" style="height: 50px;">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label font-500">Mã nhân viên <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
@@ -61,8 +61,8 @@
                             />
                         </v-col>
                     </v-col>
-                </div>
-                <div class="v-row m-t-8 m-b-24">
+                </v-row >
+                <div class="v-row m-t-8 m-b-24" style="height: 50px;">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label font-500">Ngày sinh <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
@@ -93,7 +93,7 @@
                         </v-col>
                     </v-col>
                 </div>
-                <div class="v-row m-t-8 m-b-24">
+                <div class="v-row m-t-8 m-b-24" style="height: 50px;">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label font-500">MST cá nhân <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
@@ -125,7 +125,7 @@
                         </v-col>
                     </v-col>    
                 </div>
-                <div class="v-row m-t-8 m-b-24">
+                <div class="v-row m-t-8 m-b-24" style="height: 50px;">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label font-500">Phòng ban <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
@@ -164,8 +164,8 @@
                         CMND/Thẻ căn cước
                     </span>
                 </div>
-                <div class="v-row m-t-8 m-b-24">
-                    <v-col class="label-info d-flex align-center m-r-60" cols="5">
+                <div class="v-row m-t-8 m-b-24" style="height: 50px;">
+                    <v-col class="label-info d-flex align-center m-r-60" cols="5" >
                         <v-col cols="5" class="label font-500">Loại giấy tờ <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
                             <Combobox
@@ -196,7 +196,7 @@
                         </v-col>
                     </v-col>
                 </div>
-                <div class="v-row m-t-8 m-b-24">
+                <div class="v-row m-t-8 m-b-24" style="height: 50px;">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label font-500">Số CMND/CCCD <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
@@ -237,7 +237,7 @@
                         Số điện thoại/Email
                     </span>
                 </div>
-                <div class="v-row m-t-8 m-b-24">
+                <div class="v-row m-t-8 m-b-24" style="height: 50px;">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label font-500">ĐT di động <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
@@ -269,7 +269,7 @@
                         Địa chỉ
                     </span>
                 </div>
-                <div class="v-row m-t-8 m-b-24">
+                <div class="v-row m-t-8 m-b-24" style="height: 50px;">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label font-500">Tỉnh/Thành phố</v-col>
                         <v-col cols="7" class="p-0">
@@ -298,7 +298,7 @@
                         </v-col>
                     </v-col>
                 </div>
-                <div class="v-row m-t-8 m-b-24">
+                <div class="v-row m-t-8 m-b-24" style="height: 50px;">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label font-500">Quận/Huyện</v-col>
                         <v-col cols="7" class="p-0">

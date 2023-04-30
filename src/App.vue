@@ -69,7 +69,7 @@
           </v-list-item>
           <v-list-item title="Quản lý chức vụ" value="12" v-if="permission == 2" @click="redirectManagePosition">
           </v-list-item>
-          <v-list-item title="Quản lý hợp đồng" value="13" v-if="permission == 2">
+          <v-list-item title="Quản lý hợp đồng" value="13" v-if="permission == 2" @click="redirectManageContract">
           </v-list-item>
           <!-- <v-list-item title="Quản lý khen thưởng" value="14" v-if="permission == 2">
           </v-list-item>
@@ -143,6 +143,9 @@ export default {
     },
     redirectManagePosition(){
       this.$router.push({ name: 'ManagePosition'});
+    },
+    redirectManageContract(){
+      this.$router.push({ name: 'ManageContract'});
     }
     
   }

@@ -204,6 +204,9 @@ export default {
             if(type == "gender"){
                return val ==  1 ? "Nam":"Nữ";
             }
+            if(type == "contractType"){
+                return val == 1 ? "Có hiệu lực" : "Hết hiệu lực";
+            }
         }
     }
 }
