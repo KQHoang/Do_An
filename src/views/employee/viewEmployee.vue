@@ -5,15 +5,15 @@
             <v-col >
                 <v-row class="employee-name-and-code align-center">
                     <div class="employee-name">
-                        Khuất Quang Hoàng
+                        {{ formDataEmployee.FullName }}
                     </div>
                     <div class="employee-code">
-                        (B-1065)
+                        ({{ formDataEmployee.EmployeeCode }})
                     </div>
                     <i class="fa fa-check d-flex align-center justify-center" aria-hidden="true"></i>
                 </v-row>
                 <v-row>
-                    <span>Lập trình viên - Dự án Ivan</span>
+                    <span>{{ positionName }} - {{ department.DepartmentName }}</span>
                 </v-row>
             </v-col>
             <v-col class="text-right">
@@ -41,31 +41,31 @@
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label">Mã nhân viên</v-col>
-                        <v-col cols="7" class="employee-info">B-1065</v-col>
+                        <v-col cols="7" class="employee-info">{{ formDataEmployee.EmployeeCode }}</v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
                         <v-col cols="5" class="label">MST cá nhân</v-col>
-                        <v-col cols="7" class="employee-info">8763485621</v-col>
+                        <v-col cols="7" class="employee-info">{{ formDataEmployee.TaxCode }}</v-col>
                     </v-col>
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label">Họ và tên</v-col>
-                        <v-col cols="7" class="employee-info">Khuất Quang Hoàng</v-col>
+                        <v-col cols="7" class="employee-info">{{ formDataEmployee.FullName }}</v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
                         <v-col cols="5" class="label">Dân tộc</v-col>
-                        <v-col cols="7" class="employee-info">Kinh</v-col>
+                        <v-col cols="7" class="employee-info">{{ getEthnicityName(formDataEmployee.EthnicityID) }}</v-col>
                     </v-col>
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label">Ngày sinh</v-col>
-                        <v-col cols="7" class="employee-info">24/01/2001</v-col>
+                        <v-col cols="7" class="employee-info">{{ convertDate(formDataEmployee.DateOfBirth) }}</v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
                         <v-col cols="5" class="label">Giới tính</v-col>
-                        <v-col cols="7" class="employee-info">Nam</v-col>
+                        <v-col cols="7" class="employee-info">{{ formDataEmployee.GenderID == 1 ? "Nam" : "Nữ" }}</v-col>
                     </v-col>
                 </div>
                 <div class="v-row m-t-24">
@@ -76,21 +76,23 @@
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label">Loại giấy tờ</v-col>
-                        <v-col cols="7" class="employee-info">CCCD</v-col>
+                        <v-col cols="7" class="employee-info">{{ formDataEmployee.IdentifyType == 1 ? "CCCD" : "CMND" }}</v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
                         <v-col cols="5" class="label">Ngày cấp (CMND/CCCD)</v-col>
-                        <v-col cols="7" class="employee-info">13/11/2021</v-col>
+                        <v-col cols="7" class="employee-info">{{ convertDate(formDataEmployee.IdentifyDate) }}</v-col>
                     </v-col>
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label">Số CMND/CCCD</v-col>
-                        <v-col cols="7" class="employee-info">001201029364</v-col>
+                        <v-col cols="7" class="employee-info">{{ formDataEmployee.IdentifyNumber }}</v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
                         <v-col cols="5" class="label">Nơi cấp (CMND/CCCD)</v-col>
-                        <v-col cols="7" class="employee-info">Cục Cảnh sát quản lý hành chính về trật tự xã hội</v-col>
+                        <v-col cols="7" class="employee-info"
+                            :title="formDataEmployee.IdentifyIssuedPlaceName"
+                        >{{ formDataEmployee.IdentifyIssuedPlaceName }}</v-col>
                     </v-col>
                 </div>
 
@@ -106,11 +108,11 @@
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label">ĐT di động
                     </v-col>
-                        <v-col cols="7" class="employee-info">0984868532</v-col>
+                        <v-col cols="7" class="employee-info">{{ formDataEmployee.PhoneNumber }}</v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
                         <v-col cols="5" class="label">Email cá nhân</v-col>
-                        <v-col cols="7" class="employee-info">quanghoang8532@gmail.com</v-col>
+                        <v-col cols="7" class="employee-info">{{ formDataEmployee.Email }}</v-col>
                     </v-col>
                 </div>
 
@@ -121,32 +123,22 @@
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
-                        <v-col cols="5" class="label">Quốc gia</v-col>
-                        <v-col cols="7" class="employee-info">Việt Nam</v-col>
+                        <v-col cols="5" class="label">Tỉnh/Thành phố</v-col>
+                        <v-col cols="7" class="employee-info">{{ formDataEmployee.ProvinceName }}</v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
                         <v-col cols="5" class="label">Phường/Xã</v-col>
-                        <v-col cols="7" class="employee-info">Xã Thạch Hòa</v-col>
-                    </v-col>
-                </div>
-                <div class="v-row m-t-8 m-b-24">
-                    <v-col class="label-info d-flex align-center m-r-60" cols="5">
-                        <v-col cols="5" class="label">Tỉnh/Thành phố</v-col>
-                        <v-col cols="7" class="employee-info">Hà Nội</v-col>
-                    </v-col>
-                    <v-col class="label-info d-flex align-center" cols="5">
-                        <v-col cols="5" class="label">Số nhà, đường phố</v-col>
-                        <v-col cols="7" class="employee-info">Thôn 4</v-col>
+                        <v-col cols="7" class="employee-info">{{ formDataEmployee.WardsName }}</v-col>
                     </v-col>
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label">Quận/Huyện</v-col>
-                        <v-col cols="7" class="employee-info">Huyện Thạch Thất</v-col>
+                        <v-col cols="7" class="employee-info">{{ formDataEmployee.DistrictName }}</v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
-                        <v-col cols="5" class="label">Địa chỉ</v-col>
-                        <v-col cols="7" class="employee-info">Thôn 4,Xã Thạch Hòa, Huyện Thạch Thất, Hà Nội, Việt Nam</v-col>
+                        <v-col cols="5" class="label">Số nhà, đường phố</v-col>
+                        <v-col cols="7" class="employee-info">{{ formDataEmployee.StreetAddress }}</v-col>
                     </v-col>
                 </div>
 
@@ -161,24 +153,24 @@
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label">Đơn vị công tác</v-col>
-                        <v-col cols="7" class="employee-info">Dự án iVAN</v-col>
+                        <v-col cols="7" class="employee-info">{{ department.DepartmentName }}</v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
                         <v-col cols="5" class="label">Địa điểm làm việc</v-col>
-                        <v-col cols="7" class="employee-info">Tòa N03-T1, Khu Ngoại Giao đoàn, Phường Xuân Tảo, Quận Bắc Từ Liêm, Hà Nội (Tầng lửng, 2, 4)</v-col>
+                        <v-col cols="7" class="employee-info">{{ department.Address }}</v-col>
                     </v-col>
                 </div>
                 <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label">Vị trí công việc</v-col>
-                        <v-col cols="7" class="employee-info">Lập trình viên</v-col>
+                        <v-col cols="7" class="employee-info">{{ positionName }}</v-col>
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
-                        <v-col cols="5" class="label">Loại hợp đồng</v-col>
+                        <v-col cols="5" class="label">Quản lý trực tiếp</v-col>
                         <v-col cols="7" class="employee-info">Hợp đồng xác định thời hạn</v-col>
                     </v-col>
                 </div>
-                <div class="v-row m-t-8 m-b-24">
+                <!-- <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label">Vị trí công việc</v-col>
                         <v-col cols="7" class="employee-info">Lập trình viên</v-col>
@@ -187,8 +179,8 @@
                         <v-col cols="5" class="label">Quản lý trực tiếp</v-col>
                         <v-col cols="7" class="employee-info">Hợp đồng xác định thời hạn</v-col>
                     </v-col>
-                </div>
-                <div class="v-row m-t-8 m-b-24">
+                </div> -->
+                <!-- <div class="v-row m-t-8 m-b-24">
                     <v-col class="label-info d-flex align-center m-r-60" cols="5">
                         <v-col cols="5" class="label">Lương cơ bản</v-col>
                         <v-col cols="7" class="employee-info">5.050.000 VND</v-col>
@@ -197,7 +189,7 @@
                         <v-col cols="5" class="label">Lương đóng BH</v-col>
                         <v-col cols="7" class="employee-info">5.050.000 VND</v-col>
                     </v-col>
-                </div>
+                </div> -->
 
                 <div class="title m-t-60 m-b-24">
                     Thông tin gia đình
@@ -208,9 +200,15 @@
 
                 <div class="title m-t-60 m-b-24">
                     Hợp đồng lao động
+
+                    <Button @click="handleShowContract">
+                        <template v-slot:prepend>
+                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                        </template>
+                    </Button>
                 </div>
-                <Table :dataApiTable="dataApiTable" :headers="headers" :showPaging="false"
-                    :showSelect="false" :editRow="false" :deleteRow="false" :showBorder="true"
+                <Table v-show="showTableContract" :dataApiTable="dataContract" :headers="HEADERR_TABLE.CONTRACT" :showPaging="false"
+                    :showSelect="false" :editRow="false" :deleteRow="false" :showBorder="true" keyTable="ContractID"
                 />
 
                 <div class="title m-t-60 m-b-24">
@@ -229,7 +227,10 @@
 import button from '@/components/button.vue';
 import table from "@/components/table.vue";
 import EmployeeEdit from "@/views/employee/editEmployee.vue";
+import EmployeeAPI from "@/js/api/employee.js"
 import ENUMS from "@/enum/enums.js"
+import HEADERR_TABLE from "@/js/header-table.js"
+import Convert from "@/js/convert.js"
 // import loading from "@/components/loading.vue"
 export default{
     name: "ViewEmployee",
@@ -275,18 +276,28 @@ export default{
                     Ethnicity: "Kinh",
                     PhoneNumber: "0984868532"
                 }
-            ]
+            ], 
+            formDataEmployee: {},
+            id: null,
+            positionName: null,
+            department: {},
+            dataContract: [], // dữ liệu bảng hợp đồng
+            showTableContract: false
         }
     },
-    created(){
+    async created(){
         this.showLoading = true;
         this.ENUMS = ENUMS;
-        var query = this.$route.query;
-        if(query && query?.editmode == ENUMS.ACTION_TYPE[0].value){
-            this.editMode = true;
+        this.HEADERR_TABLE = HEADERR_TABLE;
+        if(this.$route.params?.id){
+            this.id = this.$route.params?.id;
         }
-        else{
-            this.editMode = false;
+        await this.getEmployeeByID();
+        if(this.formDataEmployee?.DepartmentID){
+            await this.getDepartmentByID(this.formDataEmployee?.DepartmentID);
+        }
+        if(this.formDataEmployee?.PositionID){
+            await this.getPostionByID(this.formDataEmployee?.PositionID);
         }
         setTimeout(() => {
             this.showLoading = false;
@@ -294,7 +305,67 @@ export default{
     },
     methods:{
         handelShowEdit(){
-            this.editMode = true;
+            this.$router.push({ name: 'EditEmployee', params: { id: '1' }} );
+        },
+
+        /**
+         * Lấy thông tin nhân viên
+         */
+        async getEmployeeByID(){
+            var res = await EmployeeAPI.getEmployee(this.id);
+            if(res && res.data.Success){
+                this.formDataEmployee = res.data.Data;
+            }
+        },
+
+        /**
+         * Lấy tên dân tộc
+         */
+        getEthnicityName(val){
+            if(val)
+                return ENUMS.PICK_LIST_ETHNICITY.find(x => x.value == val)?.name;
+            else 
+                return "";
+        },
+
+        /**
+         * Convert ngày hiển thị
+         */
+        convertDate(val){
+            return Convert.formatDateToShow(val);
+        },
+
+        /**
+         * Lấy vị trí công việc theo id
+         */
+        async getPostionByID(id){
+            var res = await EmployeeAPI.getPositionByID(id);
+            if(res && res.data.Success){
+                this.positionName = res.data.Data?.PositionName;
+            }
+        },
+
+        /**
+         * Lấy phòng ban theo id
+         */
+        async getDepartmentByID(id){
+            var res = await EmployeeAPI.getDepartmentByID(id);
+            if(res && res.data.Success){
+                this.department = res.data.Data;
+            }
+        },
+
+        /**
+         * Hiển thị hợp đồng
+         */
+        async handleShowContract(){
+            if(!this.showTableContract){
+                this.showTableContract = true
+                var res = await EmployeeAPI.getContactByEmployeeID(this.id)
+                if(res && res.data.Success){
+                    this.dataContract = res.data.Data;
+                }
+            }
         }
     }
 }

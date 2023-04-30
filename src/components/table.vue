@@ -39,7 +39,7 @@
                         </div>
                     </td>
                     <td v-for="header in headers" :key="header.value" class="text-left"  >{{ header?.type ? convertDataToShow(header?.type, item[header.value]) : item[header.value] }}</td>
-                    <td class="row-action">
+                    <td class="row-action" :class="{'p-0': !editRow && !deleteRow}">
                         <i v-if="editRow" @click="editFromRow(item[keyTable])" class="fa fa-pencil" aria-hidden="true" style="font-size: 20px;"></i>
                         <i v-if="deleteRow" @click="deleteFromRow(item[keyTable])" class="fa fa-trash-o" aria-hidden="true" style="font-size: 20px;color: red;"></i>
                     </td>

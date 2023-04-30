@@ -133,7 +133,7 @@ export default {
       console.log(this.aaaa, this.test);
     },
     handleClickNav(){
-      this.$router.push({ name: 'ViewEmployee', params: { id: '123' }});
+      this.$router.push({ name: 'ViewEmployee', params: { id: '1' }});
     },
     redirecManageProfile(){
       this.$router.push({ name: 'ManageProfile'});

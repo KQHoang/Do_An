@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ViewEmployee from "@/views/employee/viewEmployee.vue"
+import EditEmployee from "@/views/employee/editEmployee.vue"
 import ManageProfile from "@/views/manage-profile/manageProfile.vue"
 import ViewProfileEmployee from "@/views/manage-profile/viewProfile.vue"
 import AddProfileEmployee from "@/views/manage-profile/addProfileEmployee.vue"
@@ -16,7 +17,12 @@ const routes = [
                 path: ':id',
                 name: "ViewEmployee",
                 component: ViewEmployee,
-            }
+            },
+            {
+                path: ':id/edit',
+                name: "EditEmployee",
+                component: EditEmployee,
+            },
         ]
     },
     { 
