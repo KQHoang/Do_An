@@ -136,6 +136,42 @@ const ENUMS = {
             ContractStatusID: 2,
             ContractStatusName: "Hết hiệu lực"
         }
+    ],
+    WORK_SHEETS_TYPE:[
+        {
+            value: 1,
+            name: "Hành chính"
+        },
+        {
+            value: 2,
+            name: "Tăng ca"
+        }
+    ],
+    PICK_LIST_MONTH:[
+        {value: 1},
+        {value: 2},
+        {value: 3},
+        {value: 4},
+        {value: 5},
+        {value: 6},
+        {value: 7},
+        {value: 8},
+        {value: 9},
+        {value: 10},
+        {value: 11},
+        {value: 12},
+    ],
+    PICK_LIST_YEAR:[
+        {value: 2024},
+        {value: 2023},
+        {value: 2022},
+        {value: 2021},
+        {value: 2020},
+        {value: 2019},
+        {value: 2018},
+        {value: 2017},
+        {value: 2016},
+        {value: 2015},
     ]
 }
 export default ENUMS;

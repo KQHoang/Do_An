@@ -207,6 +207,9 @@ export default {
             if(type == "contractType"){
                 return val == 1 ? "Có hiệu lực" : "Hết hiệu lực";
             }
+            if(type == "workType"){
+                return val == 1 ? "Hành chính" : "Tăng ca";
+            }
         }
     }
 }

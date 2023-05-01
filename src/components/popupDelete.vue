@@ -57,7 +57,7 @@ export default{
 <style lang="scss" scoped>
 .popup-delete{
     background-color:  rgba(97, 98, 99, 0.6);
-    z-index: 100000;
+    z-index: 1005;
     position: fixed;
     top: 0;
     left: 0;

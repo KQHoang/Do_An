@@ -44,7 +44,7 @@
           </v-list-group>
 
           <!-- nhân sự -->
-          <v-list-item title="Quản lý chấm công" value="16" v-if="permission == 2">
+          <v-list-item title="Quản lý chấm công" value="16" v-if="permission == 2" @click="redirectManageTimeSheets">
           </v-list-item>
           
           <v-list-group value="Admin9">
@@ -146,6 +146,9 @@ export default {
     },
     redirectManageContract(){
       this.$router.push({ name: 'ManageContract'});
+    },
+    redirectManageTimeSheets(){
+      this.$router.push({ name: 'ManageTimeSheets'});
     }
     
   }

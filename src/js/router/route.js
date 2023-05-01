@@ -8,6 +8,7 @@ import ManageDepartment from "@/views/department/department.vue"
 import ManagePosition from '@/views/position/position.vue'
 import ManageContract from '@/views/contract/contract.vue'
 import AddContract from '@/views/contract/addAndEditContract.vue'
+import manageTimeSheets from '@/views/manage-time-sheets/timeSheets.vue'
 const routes = [
     { 
         path: '/employee', 
@@ -74,6 +75,27 @@ const routes = [
                 path: '',
                 name: "ManageContract",
                 component: ManageContract,
+            },
+            {
+                path: ':id/edit',
+                name: "AddContractEdit",
+                component: AddContract,
+            },
+            {
+                path: 'add',
+                name: "AddContract",
+                component: AddContract,
+            }
+        ]
+    },
+    { 
+        path: '/manageTimeSheets', 
+        children:
+        [
+            {
+                path: '',
+                name: "ManageTimeSheets",
+                component: manageTimeSheets,
             },
             {
                 path: ':id/edit',

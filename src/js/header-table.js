@@ -116,6 +116,40 @@ const HeaderTables = {
             type: "date"
         },
 
+    ],
+    MANAGE_TIMESHEETS:[
+        {
+            value: "EmployeeCode",
+            name: "Mã nhân viên",
+            width: 200,
+        }, 
+        {
+            value: "FullName",
+            name: "Tên nhân viên",
+            width: 200,
+        }, 
+        {
+            value: "WorkDate",
+            name: "Ngày làm việc",
+            width: 200,
+            type: "date"
+        }, 
+        {
+            value: "TimeToEnter",
+            name: "Giờ vào",
+            width: 100,
+        }, 
+        {
+            value: "TimeToOut",
+            name: "Giờ ra về",
+            width: 100,
+        }, 
+        {
+            value: "WorkType",
+            name: "Loại công việc",
+            width: 200,
+            type: "workType"
+        }, 
     ]
 }
 export default HeaderTables;
