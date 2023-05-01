@@ -4,10 +4,10 @@ export default {
     getPagingTimeSheets(pageRequest){
         return axios.post(`${base.url}/TimeSheets/paging`, pageRequest);
     },
-    insertPosition(param){
+    insertTimeSheets(param){
         return axios.post(`${base.url}/TimeSheets`, param);
     },
-    updatePosition(param){
+    updateTimeSheets(param){
         return axios.put(`${base.url}/TimeSheets`, param);
     },
     deleteTimeSheets(id){

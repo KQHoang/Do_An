@@ -155,7 +155,6 @@ export default{
             await this.getDataPaging();
         },
         async monthChange(value){
-            console.log("úi", value);
             var customFilter = {
                 month: value,
                 year: this.year
@@ -209,7 +208,7 @@ export default{
         },
 
         editFromRow(val){
-            this.formEdit = this.dataApiTable.find(x => x.PositionID == val);
+            this.formEdit = this.dataApiTable.find(x => x.TimeSheetsID == val);
             this.mode = ENUMS.ACTION_TYPE[0].value;
             this.showAddAndEdit = true;
         },

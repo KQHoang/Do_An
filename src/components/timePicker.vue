@@ -66,22 +66,23 @@ export default {
         }
     },
     created(){
-        // if(this.value){
-        //     var arr = this.value.split("/");
-        //     var dateConvert = `${arr[1]}/${arr[0]}/${arr[2]}`;
-        //     this.date = new Date(dateConvert);
-        // }
+        if(this.value){
+            var arr = this.value.split(":");
+            
+            this.date = {hours: arr[0], minutes: arr[1], seconds: 0};
+        }
         if(this.error){
             this.isError = true;
         }
     }, 
     methods:{
         valueChange(val){
-            console.log(val);
+            var timeEmit= null;
             if(val){
                 if(this.force){
                     this.isError = false;
                     this.$emit("update:error", this.isError);
+                    timeEmit = `${val.hours}`+ ":"+`${val.minutes}`;
                 }
             } else {
                 if(this.force){
@@ -89,7 +90,7 @@ export default {
                     this.$emit("update:error", this.isError);
                 }
             }
-                // this.$emit('update:value', dateEmit)
+            this.$emit('update:value', timeEmit)
         }
     },
     computed:{

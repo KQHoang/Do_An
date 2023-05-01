@@ -119,7 +119,6 @@ export default{
             if(this.mode == ENUMS.ACTION_TYPE[0].value){
                 // edit
                 var resUpdate = await DepartmentAPI.updateDepartment(this.formData);
-                console.log("úi", resUpdate);
                 if(resUpdate && resUpdate.data.Success){
                     this.$emit("action-done", true);
                 }
@@ -160,7 +159,7 @@ export default{
 <style lang="scss" scoped>
 .popup-delete{
     background-color:  rgba(97, 98, 99, 0.6);
-    z-index: 100000;
+    z-index: 1005;
     position: fixed;
     top: 0;
     left: 0;

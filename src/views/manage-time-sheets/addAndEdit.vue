@@ -37,15 +37,12 @@
                 <div class="d-flex m-t-8 m-b-24">
                     <v-col cols="4" class="label font-500" >Giờ vào làm <span class="text-red">*</span></v-col>
                     <v-col cols="8" class="p-0">
-                        <SelectBox
+                        <TimePicker
                             v-model:value="formData.TimeToEnter"
-                            :items="lstTime"
-                            item-title="value"
-                            item-value="value"
                             placeholder="Chọn thời gian"
-                            :key="keySelect"
-                            v-model:error="errors[2]"
-                            error-message="Vui lòng chọn thời gian"
+                            :key="keyInput"
+                            :error="errors[2]"
+                            error-message="Thời gian được để trống"
                             :force="true"
                         />
                     </v-col>
@@ -53,15 +50,12 @@
                 <div class="d-flex m-t-8 m-b-24">
                     <v-col cols="4" class="label font-500" >Giờ ra về <span class="text-red">*</span></v-col>
                     <v-col cols="8" class="p-0">
-                        <SelectBox
+                        <TimePicker
                             v-model:value="formData.TimeToOut"
-                            :items="lstTime"
-                            item-title="value"
-                            item-value="value"
                             placeholder="Chọn thời gian"
-                            :key="keySelect"
-                            v-model:error="errors[3]"
-                            error-message="Vui lòng chọn thời gian"
+                            :key="keyInput"
+                            :error="errors[3]"
+                            error-message="Thời gian được để trống"
                             :force="true"
                         />
                     </v-col>
@@ -95,7 +89,7 @@
                     color="#4095F5"
                     class="text-white"
                     text="Lưu"
-                    @click="actionDone"
+                    @click="save"
                 >
                 </vue-button>
             </div>
@@ -107,14 +101,17 @@ import buttonVue from '@/components/button.vue'
 import SelectBox from "@/components/selectbox.vue"
 import ENUMS from '@/enum/enums.js'
 import TimeSheetsAPI from "@/js/api/timeSheetsAPI.js"
-import DateTimePicker from "@/components/timePicker.vue"
+import DateTimePicker from "@/components/datePicker.vue"
+import TimePicker from "@/components/timePicker.vue"
+import Convert from "@/js/convert.js"
 export default{
     name: "PopUpDelete",
     emits:['action-cancel', 'action-done'],
     components: {
         'vue-button': buttonVue,
         SelectBox: SelectBox,
-        DateTimePicker: DateTimePicker
+        DateTimePicker: DateTimePicker,
+        TimePicker: TimePicker
     },
     props:{
         mode:{
@@ -142,7 +139,9 @@ export default{
             errors: [false, false, false, false, false],
             keyInput: 0, 
             keySelect: 0, 
-            lstEmployee: []
+            lstEmployee: [],
+            timeToEnter: null, 
+            timeOut: null
         }
 
     },
@@ -151,6 +150,7 @@ export default{
         if(this.mode == ENUMS.ACTION_TYPE[0].value){
             this.title = "Chỉnh sửa ngày công nhân viên";
             this.formData = JSON.parse(JSON.stringify(this.formEdit));
+            this.formData.WorkDate = Convert.formatDateToEdit( this.formData.WorkDate);
         }
         await this.getAllEmployee();
     },
@@ -158,13 +158,14 @@ export default{
         actionCancel(){
             this.$emit('action-cancel');
         },
-        async actionDone(){
+        async save(){
             if(this.validate()){
                 return;
             }
+            this.formData.WorkDate = Convert.formatDateToSave(this.formData.WorkDate);
             if(this.mode == ENUMS.ACTION_TYPE[0].value){
                 // edit
-                var resUpdate = await TimeSheetsAPI.updatePosition(this.formData);
+                var resUpdate = await TimeSheetsAPI.updateTimeSheets(this.formData);
                 if(resUpdate && resUpdate.data.Success){
                     this.$emit("action-done", true);
                 }
@@ -175,7 +176,7 @@ export default{
             }
             else
             {
-                var res = await TimeSheetsAPI.insertPosition(this.formData);
+                var res = await TimeSheetsAPI.insertTimeSheets(this.formData);
                 if(res && res.data.Success){
                     this.$emit("action-done", true);
                 }
@@ -184,15 +185,39 @@ export default{
                     this.$emit("action-done", false);
                 }
             }
-            // this.$emit('action-done');
         },
         validate(){
             var faild = false;
-            if(this.formData.PositionName == null || this.formData.PositionName == ""){
+            // var property = ["EmployeeID", "WorkDate", "WorkType"];
+            // for(var i = 0; i < property.length; i++){
+            //     if(this.formData[property[i]] == null || this.formData[property[i]] == ""){
+            //         this.errors[i] = true;
+            //         faild = true;
+            //     }
+            // }
+            if(this.formData.EmployeeID == null || this.formData.EmployeeID == ""){
                 this.errors[0] = true;
                 faild = true;
             }
+            if(this.formData.WorkDate == null || this.formData.WorkDate == ""){
+                this.errors[1] = true;
+                faild = true;
+            }
+            console.log();
+            if(this.formData.TimeToEnter == null || this.formData.TimeToEnter == ""){
+                this.errors[2] = true;
+                faild = true;
+            }
+            if(this.formData.TimeToOut == null || this.formData.TimeToOut == ""){
+                this.errors[3] = true;
+                faild = true;
+            }
+            if(this.formData.WorkType == null || this.formData.WorkType == ""){
+                this.errors[4] = true;
+                faild = true;
+            }
             this.keyInput ++;
+            this.keySelect ++;
             return faild;
         },
 
@@ -203,6 +228,7 @@ export default{
             var res = await TimeSheetsAPI.getAllEmployee();
             if(res && res.data.Success){
                 this.lstEmployee = res.data.Data;
+                this.keySelect ++;
             }
         },
     }
@@ -211,7 +237,7 @@ export default{
 <style lang="scss" scoped>
 .popup-delete{
     background-color:  rgba(97, 98, 99, 0.6);
-    z-index: 100000;
+    z-index: 1005;
     position: fixed;
     top: 0;
     left: 0;
