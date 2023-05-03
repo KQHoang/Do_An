@@ -30,7 +30,10 @@
           <v-list-item title="Quản lý hồ sơ nhân viên" v-if="permission == 2" value="2" @click="redirecManageProfile">
           </v-list-item>
 
-          <v-list-group value="Admin5">
+          <v-list-item title="Chấm công"  value="5" @click="redirectPersonalTimeSheets">
+          </v-list-item>
+
+          <!-- <v-list-group value="Admin5">
             <template v-slot:activator="{ props }">
               <v-list-item
                 v-bind="props"
@@ -38,16 +41,19 @@
               >
               </v-list-item>
             </template>
-            <v-list-item v-show="!rail" title="Bảng chấm công" value="5"></v-list-item>
+            <v-list-item v-show="!rail" title="Bảng chấm công" value="5" @click="redirectPersonalTimeSheets"></v-list-item>
             <v-list-item v-show="!rail" title="Đơn xin nghỉ" value="6"></v-list-item>
             <v-list-item v-show="!rail" title="Đề nghị cập nhật công" value="7"></v-list-item>
-          </v-list-group>
+          </v-list-group> -->
 
           <!-- nhân sự -->
           <v-list-item title="Quản lý chấm công" value="16" v-if="permission == 2" @click="redirectManageTimeSheets">
           </v-list-item>
+
+          <v-list-item title="Tiền lương" value="8" >
+          </v-list-item>
           
-          <v-list-group value="Admin9">
+          <!-- <v-list-group value="Admin9">
             <template v-slot:activator="{ props }">
               <v-list-item
                 v-bind="props"
@@ -58,10 +64,10 @@
             <v-list-item v-show="!rail" title="Phiếu lương" value="8"></v-list-item>
             <v-list-item v-show="!rail" title="Phiếu thưởng" value="9"></v-list-item>
             <v-list-item v-show="!rail" title="Thống kê lương" value="10"></v-list-item>
-          </v-list-group>
+          </v-list-group> -->
 
           <!-- tài chính -->
-          <v-list-item title="Quản lý tiền lương" value="16" v-if="permission == 3">
+          <v-list-item title="Quản lý tiền lương" value="16" v-if="permission == 3" @click="redirectManageSalary">
           </v-list-item>
 
           <!-- nhân viên phòng nhân sự -->
@@ -103,7 +109,7 @@ export default {
 
   data(){
     return {
-      permission: 2, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
+      permission: 3, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
       drawer: true,
       items: [
         { title: 'Home', icon: 'mdi-home-city' },
@@ -149,7 +155,13 @@ export default {
     },
     redirectManageTimeSheets(){
       this.$router.push({ name: 'ManageTimeSheets'});
-    }
+    },
+    redirectPersonalTimeSheets(){
+      this.$router.push({ name: 'PersonalTimeSheets',  params: { id: '1' }});
+    },
+    redirectManageSalary(){
+      this.$router.push({ name: 'ManageSalary'});
+    },
     
   }
 }
