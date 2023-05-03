@@ -18,60 +18,68 @@
                             v-model:error="errors[0]"
                             error-message="Vui lòng chọn nhân viên"
                             :force="true"
+                            :disable="mode == ENUMS.ACTION_TYPE[0].value"
                         />
                     </v-col>
                 </div>
                 <div class="d-flex m-t-8 m-b-24">
-                    <v-col cols="4" class="label font-500" >Ngày làm việc <span class="text-red">*</span></v-col>
-                    <v-col cols="8" class="p-0">
-                        <DateTimePicker
-                            v-model:value="formData.WorkDate"
-                            placeholder="Chọn ngày làm việc"
-                            :key="keyInput"
-                            :error="errors[1]"
-                            error-message="Ngày làm việc không được để trống"
-                            :force="true"
-                        />
-                    </v-col>
-                </div>
-                <div class="d-flex m-t-8 m-b-24">
-                    <v-col cols="4" class="label font-500" >Giờ vào làm <span class="text-red">*</span></v-col>
-                    <v-col cols="8" class="p-0">
-                        <TimePicker
-                            v-model:value="formData.TimeToEnter"
-                            placeholder="Chọn thời gian"
-                            :key="keyInput"
-                            :error="errors[2]"
-                            error-message="Thời gian được để trống"
-                            :force="true"
-                        />
-                    </v-col>
-                </div>
-                <div class="d-flex m-t-8 m-b-24">
-                    <v-col cols="4" class="label font-500" >Giờ ra về <span class="text-red">*</span></v-col>
-                    <v-col cols="8" class="p-0">
-                        <TimePicker
-                            v-model:value="formData.TimeToOut"
-                            placeholder="Chọn thời gian"
-                            :key="keyInput"
-                            :error="errors[3]"
-                            error-message="Thời gian được để trống"
-                            :force="true"
-                        />
-                    </v-col>
-                </div>
-                <div class="d-flex m-t-8 m-b-24">
-                    <v-col cols="4" class="label font-500" >Loại hình công việc <span class="text-red">*</span></v-col>
+                    <v-col cols="4" class="label font-500" >Tháng chi trả <span class="text-red">*</span></v-col>
                     <v-col cols="8" class="p-0">
                         <SelectBox
-                            v-model:value="formData.WorkType"
-                            :items="ENUMS.WORK_SHEETS_TYPE"
+                            v-model:value="formData.MonthSalary"
+                            :items="ENUMS.PICK_LIST_MONTH"
                             item-title="name"
                             item-value="value"
-                            placeholder="Chọn loại hình công việc"
+                            placeholder="Chọn tháng chi trả"
+                            :key="keySelect"
+                            v-model:error="errors[1]"
+                            error-message="Vui lòng chọn tháng"
+                            :force="true"
+                        />
+                    </v-col>
+                </div>
+                <div class="d-flex m-t-8 m-b-24">
+                    <v-col cols="4" class="label font-500" >Năm chi trả<span class="text-red">*</span></v-col>
+                    <v-col cols="8" class="p-0">
+                        <SelectBox
+                            v-model:value="formData.YearSalary"
+                            :items="ENUMS.PICK_LIST_YEAR"
+                            item-title="name"
+                            item-value="value"
+                            placeholder="Chọn năm chi trả"
+                            :key="keySelect"
+                            v-model:error="errors[2]"
+                            error-message="Vui lòng chọn năm"
+                            :force="true"
+                        />
+                    </v-col>
+                </div>
+                <div class="d-flex m-t-8 m-b-24">
+                    <v-col cols="4" class="label font-500" title="Tiền đóng bảo hiểm xã hội">Tiền thưởng <span class="text-red">*</span></v-col>
+                    <v-col cols="8" class="p-0">
+                        <vue-input
+                            v-model:value="formData.Bonus"
+                            placeholder="Nhập số tiền"
+                            type-input="number"
+                            :key="keyInput"
+                            :error="errors[3]"
+                            error-message="Số tiền không được để trống"
+                            :force="true"
+                        />
+                    </v-col>
+                </div>
+                <div class="d-flex m-t-8 m-b-24">
+                    <v-col cols="4" class="label font-500" title="Tiền đóng bảo hiểm xã hội">Trạng thái <span class="text-red">*</span></v-col>
+                    <v-col cols="8" class="p-0">
+                        <SelectBox
+                            v-model:value="formData.Status"
+                            :items="ENUMS.STATUS_SALARY_PERIOD"
+                            item-title="label"
+                            item-value="value"
+                            placeholder="Chọn  trạng thái"
                             :key="keySelect"
                             v-model:error="errors[4]"
-                            error-message="Vui lòng chọn loại công việc"
+                            error-message="Vui lòng chọn trạng thái"
                             :force="true"
                         />
                     </v-col>
@@ -100,18 +108,15 @@
 import buttonVue from '@/components/button.vue'
 import SelectBox from "@/components/selectbox.vue"
 import ENUMS from '@/enum/enums.js'
-import TimeSheetsAPI from "@/js/api/timeSheetsAPI.js"
-import DateTimePicker from "@/components/datePicker.vue"
-import TimePicker from "@/components/timePicker.vue"
-import Convert from "@/js/convert.js"
+import ManageSalaryPeriod from "@/js/api/manageSalaryPeriod.js"
+import inputVue from "@/components/input.vue"
 export default{
     name: "PopUpDelete",
     emits:['action-cancel', 'action-done'],
     components: {
         'vue-button': buttonVue,
         SelectBox: SelectBox,
-        DateTimePicker: DateTimePicker,
-        TimePicker: TimePicker
+        'vue-input': inputVue
     },
     props:{
         mode:{
@@ -125,16 +130,16 @@ export default{
     },
     data(){
         return {
-            title: "Thêm mới ngày công nhân viên",
+            title: "Thêm mới kỳ chi trả lương",
             formData:{
-                TimeSheetsID: 0,
+                SalaryPeriodID: 0,
                 EmployeeID: null,
-                WorkDate: null,
-                TimeToEnter: null,
-                TimeToOut: null,
-                WorkType: null,
+                MonthSalary: null,
+                YearSalary: null,
                 CreatedDate: null,
-                ModifiedDate: null
+                ModifiedDate: null,
+                Bonus: null, 
+                Status: null
             },
             errors: [false, false, false, false, false],
             keyInput: 0, 
@@ -148,9 +153,8 @@ export default{
     async created(){
         this.ENUMS = ENUMS;
         if(this.mode == ENUMS.ACTION_TYPE[0].value){
-            this.title = "Chỉnh sửa ngày công nhân viên";
+            this.title = "Chỉnh sửa kỳ chi trả lương";
             this.formData = JSON.parse(JSON.stringify(this.formEdit));
-            this.formData.WorkDate = Convert.formatDateToEdit( this.formData.WorkDate);
         }
         await this.getAllEmployee();
     },
@@ -162,11 +166,10 @@ export default{
             if(this.validate()){
                 return;
             }
-            this.formData.WorkDate = Convert.formatDateToSave(this.formData.WorkDate);
             if(this.mode == ENUMS.ACTION_TYPE[0].value){
-                this.formData.ModifiedDate = new Date();
                 // edit
-                var resUpdate = await TimeSheetsAPI.updateTimeSheets(this.formData);
+                this.formData.ModifiedDate = new Date();
+                var resUpdate = await ManageSalaryPeriod.updateSalaryPeriod(this.formData);
                 if(resUpdate && resUpdate.data.Success){
                     this.$emit("action-done", true);
                 }
@@ -178,7 +181,7 @@ export default{
             else
             {
                 this.formData.CreatedDate = new Date();
-                var res = await TimeSheetsAPI.insertTimeSheets(this.formData);
+                var res = await ManageSalaryPeriod.insertSalaryPeriod(this.formData);
                 if(res && res.data.Success){
                     this.$emit("action-done", true);
                 }
@@ -190,34 +193,14 @@ export default{
         },
         validate(){
             var faild = false;
-            // var property = ["EmployeeID", "WorkDate", "WorkType"];
-            // for(var i = 0; i < property.length; i++){
-            //     if(this.formData[property[i]] == null || this.formData[property[i]] == ""){
-            //         this.errors[i] = true;
-            //         faild = true;
-            //     }
-            // }
-            if(this.formData.EmployeeID == null || this.formData.EmployeeID == ""){
-                this.errors[0] = true;
-                faild = true;
+            var property = ["EmployeeID", "MonthSalary", "YearSalary", "Bonus", "Status"];
+            for(var i = 0; i < property.length; i++){
+                if(this.formData[property[i]] == null || this.formData[property[i]] == ""){
+                    this.errors[i] = true;
+                    faild = true;
+                }
             }
-            if(this.formData.WorkDate == null || this.formData.WorkDate == ""){
-                this.errors[1] = true;
-                faild = true;
-            }
-            console.log();
-            if(this.formData.TimeToEnter == null || this.formData.TimeToEnter == ""){
-                this.errors[2] = true;
-                faild = true;
-            }
-            if(this.formData.TimeToOut == null || this.formData.TimeToOut == ""){
-                this.errors[3] = true;
-                faild = true;
-            }
-            if(this.formData.WorkType == null || this.formData.WorkType == ""){
-                this.errors[4] = true;
-                faild = true;
-            }
+        
             this.keyInput ++;
             this.keySelect ++;
             return faild;
@@ -227,7 +210,7 @@ export default{
          * Láy tất cả nhân viên
          */
          async getAllEmployee(){
-            var res = await TimeSheetsAPI.getAllEmployee();
+            var res = await ManageSalaryPeriod.getAllEmployee();
             if(res && res.data.Success){
                 this.lstEmployee = res.data.Data;
                 this.keySelect ++;

@@ -150,6 +150,79 @@ const HeaderTables = {
             width: 200,
             type: "workType"
         }, 
-    ]
+    ],
+    MANAGE_SALARY:[
+        {
+            value: "EmployeeCode",
+            name: "Mã nhân viên",
+            width: 200,
+        }, 
+        {
+            value: "FullName",
+            name: "Tên nhân viên",
+            width: 200,
+        }, 
+        {
+            value: "BasicPay",
+            name: "Tiền lương",
+            width: 200,
+        }, 
+        {
+            value: "TaxMoney",
+            name: "Đóng thuế",
+            width: 200,
+        }, 
+        {
+            value: "SocialInsurance",
+            name: "Đóng bảo hiểm xã hội",
+            width: 200,
+        }, 
+
+    ],
+
+    MANAGE_SALARY_PERIOD:[
+        {
+            value: "EmployeeCode",
+            name: "Mã nhân viên",
+            width: 200,
+        }, 
+        {
+            value: "FullName",
+            name: "Tên nhân viên",
+            width: 200,
+        }, 
+        {
+            value: "MonthSalary",
+            name: "Tháng chi trả",
+            width: 200,
+        }, 
+        {
+            value: "YearSalary",
+            name: "Năm chi trả",
+            width: 200,
+        }, 
+        {
+            value: "TotalWorkDay",
+            name: "Tổng ngày công",
+            width: 200,
+        }, 
+        {
+            value: "Bonus",
+            name: "Tiền thưởng",
+            width: 200,
+        }, 
+        {
+            value: "Status",
+            name: "Trạng thái",
+            width: 200,
+            type: "statusSalaryPeriod"
+        }, 
+        {
+            value: "TotalReceive",
+            name: "Tổng tiền được nhận",
+            width: 200,
+        }, 
+
+    ],
 }
 export default HeaderTables;

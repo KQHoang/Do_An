@@ -79,7 +79,7 @@ export default{
                 PositionName: null,
                 Description: null,
                 CreatedDate: null,
-                ModifyDate: null
+                ModifiedDate: null
             },
             errors: [false],
             keyInput: 0

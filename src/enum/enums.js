@@ -140,7 +140,7 @@ const ENUMS = {
     WORK_SHEETS_TYPE:[
         {
             value: 1,
-            name: "Hành chính"
+            name: "Ca hành chính"
         },
         {
             value: 2,
@@ -148,30 +148,51 @@ const ENUMS = {
         }
     ],
     PICK_LIST_MONTH:[
-        {value: 1},
-        {value: 2},
-        {value: 3},
-        {value: 4},
-        {value: 5},
-        {value: 6},
-        {value: 7},
-        {value: 8},
-        {value: 9},
-        {value: 10},
-        {value: 11},
-        {value: 12},
+        {value: 1, name: "tháng 1"},
+        {value: 2 , name: "tháng 2"},
+        {value: 3 , name: "tháng 3"},
+        {value: 4 , name: "tháng 4"},
+        {value: 5 , name: "tháng 5"},
+        {value: 6, name: "tháng 6"},
+        {value: 7 , name: "tháng 7"},
+        {value: 8, name: "tháng 8"},
+        {value: 9, name: "tháng 9"},
+        {value: 10, name: "tháng 10"},
+        {value: 11, name: "tháng 11"},
+        {value: 12, name: "tháng 12"},
     ],
     PICK_LIST_YEAR:[
-        {value: 2024},
-        {value: 2023},
-        {value: 2022},
-        {value: 2021},
-        {value: 2020},
-        {value: 2019},
-        {value: 2018},
-        {value: 2017},
-        {value: 2016},
-        {value: 2015},
+        {value: 2024, name: "năm 2024"},
+        {value: 2023, name: "năm 2023"},
+        {value: 2022, name: "năm 2022"},
+        {value: 2021, name: "năm 2021"},
+        {value: 2020, name: "năm 2020"},
+        {value: 2019, name: "năm 2019"},
+        {value: 2018, name: "năm 2018"},
+        {value: 2017, name: "năm 2017"},
+        {value: 2016, name: "năm 2016"},
+        {value: 2015, name: "năm 2015"},
+    ],
+    RADIO_SALARY:
+    [
+        {
+            label: "Lương",
+            value: 1,
+        },
+        {
+            label: "Kỳ lương",
+            value: 2,
+        }
+    ],
+    STATUS_SALARY_PERIOD:[
+        {
+            label: "Đã chi trả",
+            value: 1,
+        },
+        {
+            label: "Chưa chi trả",
+            value: 2,
+        }
     ]
 }
 export default ENUMS;

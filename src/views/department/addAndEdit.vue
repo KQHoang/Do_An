@@ -93,7 +93,7 @@ export default{
                 Description: null,
                 Address: null,
                 CreatedDate: null,
-                ModifyDate: null
+                ModifiedDate: null
             },
             errors: [false, false],
             keyInput: 0

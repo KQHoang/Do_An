@@ -35,9 +35,11 @@ export default{
 <style lang="scss">
 .alert-message{
     position: fixed;
-    width: calc(100% - 200px);
+    // width: calc(100% - 200px);
     display: flex;
     top: 20px;
     justify-content: center;
+    left: 0;
+    width: 100%;
 }
 </style>

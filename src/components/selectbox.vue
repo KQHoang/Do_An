@@ -17,6 +17,7 @@
           :clearable="clearable"
           :placeholder="placeholder"
           no-data-text="Không có dữ liệu"
+          :disabled="disabled"
           @update:modelValue="valueChange"
         ></v-select>
         <div v-if="isError && force" class="error-message">
@@ -73,6 +74,10 @@
           type: String,
           default: ""
         },
+        disabled:{
+        type: Boolean, 
+        default: false
+      }, 
     }, 
     data(){
         return {

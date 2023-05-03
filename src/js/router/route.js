@@ -9,6 +9,8 @@ import ManagePosition from '@/views/position/position.vue'
 import ManageContract from '@/views/contract/contract.vue'
 import AddContract from '@/views/contract/addAndEditContract.vue'
 import manageTimeSheets from '@/views/manage-time-sheets/timeSheets.vue'
+import PersonalTimeSheets from "@/views/time-sheets/timeSheets.vue"
+import ManageSalary from "@/views/manage-salary/layoutTab.vue"
 const routes = [
     { 
         path: '/employee', 
@@ -107,6 +109,26 @@ const routes = [
                 name: "AddContract",
                 component: AddContract,
             }
+        ]
+    },
+    {
+        path: "/timeSheets",
+        children:[
+            {
+                path: ':id',
+                name: "PersonalTimeSheets",
+                component: PersonalTimeSheets,
+            },
+        ]
+    },
+    {
+        path: "/manageSalary",
+        children:[
+            {
+                path: '',
+                name: "ManageSalary",
+                component: ManageSalary,
+            },
         ]
     },
 ]

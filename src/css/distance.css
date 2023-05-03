@@ -25,3 +25,9 @@
 .p-0{
     padding: 0 !important;
 }
+.m-r-16{
+    margin-right: 16px !important;
+}
+.m-l-16{
+    margin-left: 16px;
+}

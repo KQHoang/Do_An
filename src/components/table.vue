@@ -130,7 +130,7 @@ export default {
             default: true
         }
     },
-    emits:['dbClickRow', 'edit', 'delete', 'page-change', ],
+    emits:['dbClickRow', 'edit', 'delete', 'page-change', 'list-row-select'],
     data(){
         return {
             recordStart: 0,
@@ -143,6 +143,11 @@ export default {
         this.ENUMS = ENUMS;
         if(this.showPaging)
             this.recordStart = this.totalRecord == 0 ? 0 : ((this.pagingControl.PageIndex - 1) * this.pagingControl.PageSize ) + 1;
+    },
+    watch:{
+        itemSelected(val){
+            this.$emit("list-row-select", val);
+        }
     },
     methods:{
         // PageSize thay đổi
@@ -166,7 +171,6 @@ export default {
             }
         },
         itemSelectChange(val){
-            console.log(val);
             if(val){
                 if(!this.itemSelected.includes(val))
                     this.itemSelected.push(val);
@@ -175,15 +179,18 @@ export default {
             }
         }, 
         selectBoxChange(){
+            // this.$emit("list-row-select", this.itemSelected);
         },
         selectAllChange(val){
             if(val){
                 let itemNoneSeleted = this.dataApiTable.filter(x => !this.itemSelected.includes(x[this.keyTable])).map(x => x[this.keyTable]);
                 this.itemSelected.push(...itemNoneSeleted);
+                this.itemSelected = JSON.parse(JSON.stringify(this.itemSelected));
             }
             else{
                 this.itemSelected = [];
             }
+            // this.$emit("list-row-select", this.itemSelected);
         },
         doubleClickRow(val){
             this.$emit("dbClickRow", val);                                      
@@ -208,7 +215,10 @@ export default {
                 return val == 1 ? "Có hiệu lực" : "Hết hiệu lực";
             }
             if(type == "workType"){
-                return val == 1 ? "Hành chính" : "Tăng ca";
+                return val == 1 ? "Ca hành chính" : "Tăng ca";
+            }
+            if(type == "statusSalaryPeriod"){
+                return val == 1 ? "Đã chi trả" : "Chưa chi trả"; 
             }
         }
     }
