@@ -13,7 +13,7 @@
                             @keydown.enter="search()"
                         />
                     </v-col>
-                    <v-col cols="3"> 
+                    <!-- <v-col cols="3"> 
                         <select-vue
                             v-model:value="month"
                             :clearable="false"
@@ -22,7 +22,7 @@
                             item-value="value"
                             @value-change="monthChange"
                         ></select-vue>
-                    </v-col>
+                    </v-col> -->
                     <v-col cols="3"> 
                         <select-vue
                             v-model:value="year"
@@ -69,6 +69,7 @@
     <AddAndEdit v-if="showAddAndEdit"
         @action-cancel="cancelAddAndEdit"
         @action-done="afterAddAndEdit"
+        @data-exist="dataExist"
         :mode="mode"
         :formEdit="formEdit"
     ></AddAndEdit>
@@ -185,6 +186,18 @@ export default {
             else{
                 this.textMessage = "Có lỗi xảy ra?";
                 this.typeMessage = "error";
+                this.showMessage = true;
+                setTimeout(() => {
+                    this.showMessage = false; 
+                }, 2000);
+            }
+        },
+
+        dataExist(val){
+            this.showAddAndEdit = false;
+            if(val){
+                this.textMessage = "Đã tồn tại kỳ chi trả lương!";
+                this.typeMessage = "warning";
                 this.showMessage = true;
                 setTimeout(() => {
                     this.showMessage = false; 

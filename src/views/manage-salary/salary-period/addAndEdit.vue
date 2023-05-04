@@ -112,7 +112,7 @@ import ManageSalaryPeriod from "@/js/api/manageSalaryPeriod.js"
 import inputVue from "@/components/input.vue"
 export default{
     name: "PopUpDelete",
-    emits:['action-cancel', 'action-done'],
+    emits:['action-cancel', 'action-done', 'data-exist'],
     components: {
         'vue-button': buttonVue,
         SelectBox: SelectBox,
@@ -185,8 +185,11 @@ export default{
                 if(res && res.data.Success){
                     this.$emit("action-done", true);
                 }
-                else 
+                else if(res.data.Data.IsExist == true)
                 {
+                    this.$emit("data-exist", true);
+                }
+                else {
                     this.$emit("action-done", false);
                 }
             }

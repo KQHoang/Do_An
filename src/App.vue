@@ -50,7 +50,7 @@
           <v-list-item title="Quản lý chấm công" value="16" v-if="permission == 2" @click="redirectManageTimeSheets">
           </v-list-item>
 
-          <v-list-item title="Tiền lương" value="8" >
+          <v-list-item title="Tiền lương" value="8" @click="redirectSalaryEmployee">
           </v-list-item>
           
           <!-- <v-list-group value="Admin9">
@@ -161,6 +161,9 @@ export default {
     },
     redirectManageSalary(){
       this.$router.push({ name: 'ManageSalary'});
+    },
+    redirectSalaryEmployee(){
+      this.$router.push({ name: 'SalaryEmployee',  params: { id: '1' }});
     },
     
   }
