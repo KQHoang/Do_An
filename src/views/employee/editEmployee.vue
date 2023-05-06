@@ -270,6 +270,9 @@
                                 v-model:value="formData.Email"
                                 placeholder="Nhập địa chỉ Email"
                                 :key="keyInput"
+                                error-message="Email không đúng định dạng"
+                                :error="errorEmail"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>
@@ -412,7 +415,8 @@ export default{
             errorIdentify: "CMND/CCCD không được để trống",
             id: null, 
             positionName: null,
-            departmentName: null
+            departmentName: null, 
+            errorEmail: false
         }
     },
     async created(){
@@ -657,6 +661,20 @@ export default{
                 if(this.formData[property[i]] == null || this.formData[property[i]] == ""){
                     this.errors[i] = true;
                     faild = true;
+                }
+                else{
+                    this.errors[i] = false;
+                }
+            }
+           
+            var validateRegex = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/;
+            if(this.formData.Email){
+                if(!this.formData.Email.match(validateRegex)){
+                    this.errorEmail = true;
+                    faild = true;
+                }
+                else {
+                    this.errorEmail = false;
                 }
             }
             this.renderDOM();   

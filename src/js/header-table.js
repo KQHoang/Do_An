@@ -224,5 +224,34 @@ const HeaderTables = {
         }, 
 
     ],
+    ACCOUNT:[
+        {
+            value: "FullName",
+            name: "Họ và tên",
+            width: 200,
+        },  
+        {
+            value: "Email",
+            name: "Email",
+            width: 200,
+        },  
+        {
+            value: "PhoneNumber",
+            name: "Số điện thoại",
+            width: 200,
+        },  
+    ],
+    PERMISSION:[
+        {
+            value: "EmployeeCode",
+            name: "Mã nhân viên",
+            width: 200,
+        }, 
+        {
+            value: "FullName",
+            name: "Họ và tên",
+            width: 200,
+        },  
+    ]
 }
 export default HeaderTables;

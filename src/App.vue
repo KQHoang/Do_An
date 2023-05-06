@@ -83,9 +83,9 @@
           </v-list-item> -->
 
           <!-- Quản trị hệ thống -->
-          <v-list-item title="Quản lý tài khoản" value="3" v-if="permission == 1">
+          <v-list-item title="Quản lý tài khoản" value="3" v-if="permission == 1" @click="redirectManageAccount">
           </v-list-item>
-          <v-list-item title="Phân quyền" value="4" v-if="permission == 1">
+          <v-list-item title="Phân quyền" value="4" v-if="permission == 1" @click="redirectManagePermission">
           </v-list-item>
         </v-list>
         <!-- <template v-slot:append>
@@ -109,7 +109,7 @@ export default {
 
   data(){
     return {
-      permission: 3, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
+      permission: 1, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
       drawer: true,
       items: [
         { title: 'Home', icon: 'mdi-home-city' },
@@ -164,6 +164,12 @@ export default {
     },
     redirectSalaryEmployee(){
       this.$router.push({ name: 'SalaryEmployee',  params: { id: '1' }});
+    },
+    redirectManageAccount(){
+      this.$router.push({ name: 'ManageAccount'});
+    },
+    redirectManagePermission(){
+      this.$router.push({ name: 'ManagePermission'});
     },
     
   }

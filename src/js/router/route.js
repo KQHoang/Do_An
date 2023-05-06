@@ -12,6 +12,8 @@ import manageTimeSheets from '@/views/manage-time-sheets/timeSheets.vue'
 import PersonalTimeSheets from "@/views/time-sheets/timeSheets.vue"
 import ManageSalary from "@/views/manage-salary/layoutTab.vue"
 import SalaryEmployee from "@/views/salary/salary.vue"
+import ManageAccount from "@/views/account/account.vue"
+import ManagePermission from "@/views/permission/permission.vue"
 const routes = [
     { 
         path: '/employee', 
@@ -139,6 +141,26 @@ const routes = [
                 path: ':id',
                 name: "SalaryEmployee",
                 component: SalaryEmployee,
+            },
+        ]
+    },
+    {
+        path: "/account",
+        children:[
+            {
+                path: '',
+                name: "ManageAccount",
+                component: ManageAccount,
+            },
+        ]
+    },
+    {
+        path: "/permission",
+        children:[
+            {
+                path: '',
+                name: "ManagePermission",
+                component: ManagePermission,
             },
         ]
     },

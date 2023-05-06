@@ -259,6 +259,9 @@
                                 v-model:value="formData.Email"
                                 placeholder="Nhập địa chỉ Email"
                                 :key="keyInput"
+                                :error="errorEmail"
+                                error-message="Email không đúng định dạng"
+                                :force="true"
                             />
                         </v-col>
                     </v-col>
@@ -400,6 +403,7 @@ export default{
             errorEmployeeCode: "Mã nhân viên không được để trống",
             errorTaxCode: "Mã số thuế không được để trống",
             errorIdentify: "CMND/CCCD không được để trống",
+            errorEmail: false
         }
     },
     props:{
@@ -739,6 +743,23 @@ export default{
                     this.errors[i] = true;
                     faild = true;
                 }
+                else{
+                    this.errors[i] = false;
+                }
+            }
+
+            var validateRegex = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/;
+            if(this.formData.Email){
+                if(!this.formData.Email.match(validateRegex)){
+                    this.errorEmail = true;
+                    faild = true;
+                }
+                else {
+                    this.errorEmail = false;
+                }
+            }
+            else {
+                this.errorEmail = false;
             }
             this.renderDOM();   
             return faild;
