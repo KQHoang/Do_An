@@ -16,4 +16,7 @@ export default {
     getAllEmployee(){
         return axios.get(`${base.url}/Employee`);
     },
+    login(email, password){
+        return axios.post(`${base.url}/Account/login/${email}/${password}`);
+    }
 }

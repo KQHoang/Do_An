@@ -9,9 +9,10 @@ import ToastMessage from '@/components/message.vue'
 import PopUpDelete from '@/components/popupDelete.vue'
 
 loadFonts()
-
-createApp(App)
-  .use(vuetify)
+const app = createApp(App);
+app.config.globalProperties.GlobalAccountID = null;
+app.config.globalProperties.GlobalEmployeeID = null;
+app.use(vuetify)
   .use(route)
   .use(VueFontawesome)
   .component("Loading", Loading)

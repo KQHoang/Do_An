@@ -14,6 +14,7 @@ import ManageSalary from "@/views/manage-salary/layoutTab.vue"
 import SalaryEmployee from "@/views/salary/salary.vue"
 import ManageAccount from "@/views/account/account.vue"
 import ManagePermission from "@/views/permission/permission.vue"
+import Login from "@/views/login/login.vue"
 const routes = [
     { 
         path: '/employee', 
@@ -161,6 +162,16 @@ const routes = [
                 path: '',
                 name: "ManagePermission",
                 component: ManagePermission,
+            },
+        ]
+    },
+    {
+        path: "/login",
+        children:[
+            {
+                path: '',
+                name: "Login",
+                component: Login,
             },
         ]
     },

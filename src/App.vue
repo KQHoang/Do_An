@@ -27,7 +27,7 @@
           </v-list-item>
 
           <!-- nhân viên phòng nhân sự -->
-          <v-list-item title="Quản lý hồ sơ nhân viên" v-if="permission == 2" value="2" @click="redirecManageProfile">
+          <v-list-item title="Quản lý hồ sơ nhân viên" v-show="permission == 2" value="2" @click="redirecManageProfile">
           </v-list-item>
 
           <v-list-item title="Chấm công"  value="5" @click="redirectPersonalTimeSheets">
@@ -47,7 +47,7 @@
           </v-list-group> -->
 
           <!-- nhân sự -->
-          <v-list-item title="Quản lý chấm công" value="16" v-if="permission == 2" @click="redirectManageTimeSheets">
+          <v-list-item title="Quản lý chấm công" value="16" v-show="permission == 2" @click="redirectManageTimeSheets">
           </v-list-item>
 
           <v-list-item title="Tiền lương" value="8" @click="redirectSalaryEmployee">
@@ -67,15 +67,15 @@
           </v-list-group> -->
 
           <!-- tài chính -->
-          <v-list-item title="Quản lý tiền lương" value="16" v-if="permission == 3" @click="redirectManageSalary">
+          <v-list-item title="Quản lý tiền lương" value="16" v-show="permission == 3" @click="redirectManageSalary">
           </v-list-item>
 
           <!-- nhân viên phòng nhân sự -->
-          <v-list-item title="Quản lý phòng ban" value="11" v-if="permission == 2" @click="redirectManageDepartment">
+          <v-list-item title="Quản lý phòng ban" value="11" v-show="permission == 2" @click="redirectManageDepartment">
           </v-list-item>
-          <v-list-item title="Quản lý chức vụ" value="12" v-if="permission == 2" @click="redirectManagePosition">
+          <v-list-item title="Quản lý chức vụ" value="12" v-show="permission == 2" @click="redirectManagePosition">
           </v-list-item>
-          <v-list-item title="Quản lý hợp đồng" value="13" v-if="permission == 2" @click="redirectManageContract">
+          <v-list-item title="Quản lý hợp đồng" value="13" v-show="permission == 2" @click="redirectManageContract">
           </v-list-item>
           <!-- <v-list-item title="Quản lý khen thưởng" value="14" v-if="permission == 2">
           </v-list-item>
@@ -83,9 +83,9 @@
           </v-list-item> -->
 
           <!-- Quản trị hệ thống -->
-          <v-list-item title="Quản lý tài khoản" value="3" v-if="permission == 1" @click="redirectManageAccount">
+          <v-list-item title="Quản lý tài khoản" value="3" v-show="permission == 1" @click="redirectManageAccount">
           </v-list-item>
-          <v-list-item title="Phân quyền" value="4" v-if="permission == 1" @click="redirectManagePermission">
+          <v-list-item title="Phân quyền" value="4" v-show="permission == 1" @click="redirectManagePermission">
           </v-list-item>
         </v-list>
         <!-- <template v-slot:append>
@@ -121,12 +121,43 @@ export default {
       
     }
   },
+  mounted() {
+    if (localStorage.Permission) {
+      console.log("mounted");
+      this.permission = localStorage.Permission;
+    }
+  },
+
   watch:{
     rail(val){
         this.iconCloseNav = val ? "mdi-chevron-right" : "mdi-chevron-left";
+    },
+    permission(newName) {
+      console.log("đã thay ffooir", newName);
+    },
+    // "window.localStorage.Permission":{
+    //   handler(value) {
+    //     console.log("úi úi",value);
+    //     // this will be run immediately on component creation.
+    //   },
+    //   // force eager callback execution
+    //   immediate: true,
+    //   deep: true
+    // }
+  },
+  computed:{
+    "window.localStorage.Permission":{
+      handler(value) {
+        console.log("úi úi",value);
+        // this will be run immediately on component creation.
+      },
+      // force eager callback execution
+      immediate: true,
+      deep: true
     }
   },
   created(){
+    this.$router.push({ name: 'Login'});
   },
   methods:{
     getDataPaging(val){
@@ -139,7 +170,8 @@ export default {
       console.log(this.aaaa, this.test);
     },
     handleClickNav(){
-      this.$router.push({ name: 'ViewEmployee', params: { id: '1' }});
+      var id = localStorage.getItem("GlobalEmployeeID");
+      this.$router.push({ name: 'ViewEmployee', params: { id: id }});
     },
     redirecManageProfile(){
       this.$router.push({ name: 'ManageProfile'});
@@ -157,13 +189,15 @@ export default {
       this.$router.push({ name: 'ManageTimeSheets'});
     },
     redirectPersonalTimeSheets(){
-      this.$router.push({ name: 'PersonalTimeSheets',  params: { id: '1' }});
+      var id = localStorage.getItem("GlobalEmployeeID");
+      this.$router.push({ name: 'PersonalTimeSheets',  params: { id: id }});
     },
     redirectManageSalary(){
       this.$router.push({ name: 'ManageSalary'});
     },
     redirectSalaryEmployee(){
-      this.$router.push({ name: 'SalaryEmployee',  params: { id: '1' }});
+      var id = localStorage.getItem("GlobalEmployeeID");
+      this.$router.push({ name: 'SalaryEmployee',  params: { id: id }});
     },
     redirectManageAccount(){
       this.$router.push({ name: 'ManageAccount'});
@@ -171,7 +205,11 @@ export default {
     redirectManagePermission(){
       this.$router.push({ name: 'ManagePermission'});
     },
-    
+    getPermission(){
+      if(localStorage.getItem("Login"))
+        return localStorage.getItem("Permission");
+      return 0;
+    }
   }
 }
 </script>
