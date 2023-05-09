@@ -18,5 +18,12 @@ export default {
     },
     login(email, password){
         return axios.post(`${base.url}/Account/login/${email}/${password}`);
+    },
+    getByAccountID(id){
+        return axios.get(`${base.url}/Account/${id}`);
+    }, 
+    changePassword(id, password, oldPassword){
+        return axios.post(`${base.url}/Account/changePassword/${id}/${password}/${oldPassword}`);
     }
+
 }

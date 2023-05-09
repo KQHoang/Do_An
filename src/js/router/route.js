@@ -15,6 +15,7 @@ import SalaryEmployee from "@/views/salary/salary.vue"
 import ManageAccount from "@/views/account/account.vue"
 import ManagePermission from "@/views/permission/permission.vue"
 import Login from "@/views/login/login.vue"
+import ChangePassword from "@/views/change-password/changePassword.vue"
 const routes = [
     { 
         path: '/employee', 
@@ -172,6 +173,16 @@ const routes = [
                 path: '',
                 name: "Login",
                 component: Login,
+            },
+        ]
+    },
+    {
+        path: "/change-password",
+        children:[
+            {
+                path: '',
+                name: "ChangePassword",
+                component: ChangePassword,
             },
         ]
     },

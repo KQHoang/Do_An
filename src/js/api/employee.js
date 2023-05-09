@@ -15,5 +15,11 @@ export default {
     },
     getContactByEmployeeID(id){
         return axios.get(`${base.url}/Contract/getByEmployeeID/${id}`);
+    },
+    getSalaryByEmployeeID(id){
+        return axios.get(`${base.url}/Salary/getByEmployeeID/${id}`);
+    },
+    getRelarionshipByEmployeeID(id){
+        return axios.get(`${base.url}/RelationShip/getByEmployeeID/${id}`);
     }
 }

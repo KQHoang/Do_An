@@ -252,6 +252,30 @@ const HeaderTables = {
             name: "Họ và tên",
             width: 200,
         },  
+    ],
+    RELATION_SHIP:[
+        {
+            value: "FullName",
+            name: "Họ và tên",
+            width: 200,
+        },
+        {
+            value: "GenderID",
+            name: "Giớ tính",
+            width: 100,
+            type: "gender"
+        },
+        {
+            value: "DateOfBirth",
+            name: "Ngày sinh",
+            width: 200,
+            type: "date"
+        },
+        {
+            value: "PhoneNumber",
+            name: "Số điện thoại",
+            width: 200,
+        },
     ]
 }
 export default HeaderTables;

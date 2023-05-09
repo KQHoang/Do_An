@@ -14,6 +14,7 @@
                             :error="errorEmail"
                             error-message="Email không được để trống"
                             :force="true"
+                            :autofocus="true"
                         />
                     </v-col>
                 </div>
@@ -21,7 +22,7 @@
                     <v-col cols="12" class="p-0">
                         <vue-input
                             v-model:value="passwordLogin"
-                            placeholder="Nhập số điện thoại"
+                            placeholder="Nhập mật khẩu"
                             type-input="number"
                             :key="keyInput"
                             :error="errorPassword"
@@ -54,7 +55,7 @@ import AccountAPI from "@/js/api/accountAPI.js"
 import inputVue from "@/components/input.vue"
 export default{
     name: "PopUpDelete",
-    emits:['action-cancel', 'action-done'],
+    emits:['getting-started', 'action-done'],
     components: {
         'vue-button': buttonVue,
         'vue-input': inputVue
@@ -88,7 +89,7 @@ export default{
 
     },
     async created(){
-        localStorage.setItem('Login', false);
+        this.$emit("getting-started")
         this.ENUMS = ENUMS;
         if(this.mode == ENUMS.ACTION_TYPE[0].value){
             this.title = "Chỉnh sửa tài khoản";
@@ -96,7 +97,7 @@ export default{
             this.formData.Password = window.atob(this.formData.Password);
             this.confirmPassword = this.formData.Password;
         }
-        await this.getAllEmployee();
+        console.log("vào khởi tạo dăng nhập");
     },
     methods:{
         actionCancel(){
@@ -107,34 +108,31 @@ export default{
                 return;
             }
             this.GlobalAccountID = 3;
-            
+            var permission = null;
             this.passwordLogin = window.btoa(this.passwordLogin);
             var res = await AccountAPI.login(this.emailLogin, this.passwordLogin);
             if(res && res.data.Success){
                 localStorage.setItem('GlobalAccountID', res.data.Data.AccountID);
                 localStorage.setItem('GlobalEmployeeID', res.data.Data.AccountID);
                 if(this.emailLogin == "admin@gmail.com" && window.atob(this.passwordLogin) == "admin123"){
-                    localStorage.setItem('Permission', 1);
+                    permission = 1;
                 }
                 else
                 if(res.data.Data.PositionID == 4){
-                    localStorage.setItem('Permission', 2);
+                    permission = 2;
                 }
                 else if(res.data.Data.PositionID == 5){
-                    localStorage.setItem('Permission', 3);
+                    permission = 3;
                 }
                 else {
-                    localStorage.setItem('Permission', 4);
+                    permission = 4;
                 }
                 this.GlobalAccountID = res.data.Data.AccountID;
                 this.GlobalEmployeeID = res.data.Data.EmployeeID;
-                setTimeout(() => {
-                    localStorage.setItem('Login', true);
-                    this.$router.push({ name: 'ViewEmployee', params: { id: res.data.Data.EmployeeID }});
-                }, 1000);
+                this.$emit("action-done", permission);
             }
             else {
-                
+                this.passwordLogin = window.atob(this.passwordLogin);
                 this.faildLogin = true;
             }
         },  

@@ -193,8 +193,14 @@
 
                 <div class="title m-t-60 m-b-24">
                     Thông tin gia đình
+
+                    <Button @click="handleShowRelationship">
+                        <template v-slot:prepend>
+                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                        </template>
+                    </Button>
                 </div>
-                <Table :dataApiTable="dataApiTable" :headers="headers" :showPaging="false"
+                <Table v-show="showTableRelationship" :dataApiTable="dataRelationship" :headers="HEADERR_TABLE.RELATION_SHIP" :showPaging="false"
                     :showSelect="false" :editRow="false" :deleteRow="false" :showBorder="true"
                 />
 
@@ -213,8 +219,14 @@
 
                 <div class="title m-t-60 m-b-24">
                     Lịch sử lương
+
+                    <Button @click="handleShowHistorySalary">
+                        <template v-slot:prepend>
+                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                        </template>
+                    </Button>
                 </div>
-                <Table :dataApiTable="dataApiTable" :headers="headers" :showPaging="false"
+                <Table v-show="showTableSalary" :dataApiTable="dataSalary" :headers="HEADERR_TABLE.MANAGE_SALARY" :showPaging="false"
                     :showSelect="false" :editRow="false" :deleteRow="false" :showBorder="true"
                 />
             </div> 
@@ -282,7 +294,12 @@ export default{
             positionName: null,
             department: {},
             dataContract: [], // dữ liệu bảng hợp đồng
-            showTableContract: false
+            showTableContract: false,
+            dataRelationship: [], // dữ liệu bảng thông tin gia đình
+            showTableRelationship: false,
+            dataSalary: [], // dữ liệu bảng lịch sử lương
+            showTableSalary: false,
+
         }
     },
     async created(){
@@ -366,7 +383,32 @@ export default{
                     this.dataContract = res.data.Data;
                 }
             }
-        }
+        },
+
+        /**
+         * Hiển thị lương
+         */
+         async handleShowHistorySalary(){
+            if(!this.showTableSalary){
+                this.showTableSalary = true
+                var res = await EmployeeAPI.getSalaryByEmployeeID(this.id)
+                if(res && res.data.Success){
+                    this.dataSalary = res.data.Data;
+                }
+            }
+        },
+        /**
+         * Hiển thị lương
+         */
+         async handleShowRelationship(){
+            if(!this.showTableRelationship){
+                this.showTableRelationship = true
+                var res = await EmployeeAPI.getRelarionshipByEmployeeID(this.id)
+                if(res && res.data.Success){
+                    this.dataRelationship = res.data.Data;
+                }
+            }
+        },
     }
 }
 </script>
