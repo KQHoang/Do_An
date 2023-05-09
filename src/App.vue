@@ -144,7 +144,7 @@ export default {
       ],
       rail: false,
       iconCloseNav: "mdi-chevron-left",
-      isLogin: true,
+      isLogin: false,
       isShowPopUpAccount: false,
       dataAccountNav: {},
       showChangePassword: false

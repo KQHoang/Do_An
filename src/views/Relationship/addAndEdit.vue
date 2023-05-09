@@ -82,7 +82,7 @@
 import buttonVue from '@/components/button.vue'
 import SelectBox from "@/components/selectbox.vue"
 import ENUMS from '@/enum/enums.js'
-import TimeSheetsAPI from "@/js/api/timeSheetsAPI.js"
+import RelationShipAPI from '@/js/api/relationShipAPI.js'
 import DateTimePicker from "@/components/datePicker.vue"
 import inputVue from '@/components/input.vue'
 import Convert from "@/js/convert.js"
@@ -137,16 +137,13 @@ export default{
     },
     async created(){
         this.ENUMS = ENUMS;
-        if(this.employeeIDProps){
-            this.formData.EmployeeID = this.employeeIDProps;
-        }
         if(this.mode == ENUMS.ACTION_TYPE[0].value){
             this.title = "Chỉnh sửa thông tin gia đình";
             this.formData = JSON.parse(JSON.stringify(this.formEdit));
             this.formData.DateOfBirth = Convert.formatDateToEdit( this.formData.DateOfBirth);
         }
         else{
-            this.formData.RelationShipID = this.idRelationship;
+            this.formData.EmployeeID = localStorage.getItem('GlobalEmployeeID');
         }
     },
     methods:{
@@ -158,7 +155,31 @@ export default{
                 return;
             }
             this.formData.DateOfBirth = Convert.formatDateToSave(this.formData.DateOfBirth);
-            this.$emit("action-done", this.formData);
+
+            if(this.mode == ENUMS.ACTION_TYPE[0].value){
+                this.formData.ModifiedDate = new Date();
+                // edit
+                var res = await RelationShipAPI.updateRelationShip(this.formData);
+                if(res && res.data.Success){
+                    this.$emit("action-done", true);
+                }
+                else 
+                {
+                    this.$emit("action-done", false);
+                }
+            }
+            else{
+                this.formData.CreatedDate = new Date();
+                // edit
+                var resUpdate = await RelationShipAPI.insertRelationShip(this.formData);
+                if(resUpdate && resUpdate.data.Success){
+                    this.$emit("action-done", true);
+                }
+                else 
+                {
+                    this.$emit("action-done", false);
+                }
+            }
         },
         validate(){
             var faild = false;
@@ -188,16 +209,6 @@ export default{
             return faild;
         },
 
-        /**
-         * Láy tất cả nhân viên
-         */
-         async getAllEmployee(){
-            var res = await TimeSheetsAPI.getAllEmployee();
-            if(res && res.data.Success){
-                this.lstEmployee = res.data.Data;
-                this.keySelect ++;
-            }
-        },
     }
 }
 </script>

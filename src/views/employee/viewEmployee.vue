@@ -1,5 +1,9 @@
 <template>
     <Loading v-if="showLoading"/>
+    <ToastMessage title="" :text="textMessage" :typeAlert="typeMessage" :max-width="300" v-if="showMessage"/>
+    <PopUpDelete v-if="showConfirmDelete" content="Bạn có chắn chắn muốn xoá thông tin này?"
+        @action-cancel="cancelDelete" @action-done="deleteFromRow"
+    />
     <div class="employee" v-if="!editMode">
         <v-row class="employee-header-info justify-space-between d-flex align-center">
             <v-col >
@@ -190,18 +194,31 @@
                         <v-col cols="7" class="employee-info">5.050.000 VND</v-col>
                     </v-col>
                 </div> -->
-
-                <div class="title m-t-60 m-b-24">
-                    Thông tin gia đình
-
-                    <Button @click="handleShowRelationship">
+                <div class="d-flex  m-t-60 m-b-24 align-center justify-space-between">
+                    <div class="title">
+                        Thông tin gia đình
+    
+                        <Button @click="handleShowRelationship">
+                            <template v-slot:prepend>
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            </template>
+                        </Button>
+                    </div>
+                    <Button
+                        text="Thêm mới"
+                        color="#4095F5"
+                        class="text-white"
+                        @click="addEditRelationship"
+                    >
                         <template v-slot:prepend>
-                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            <i class="fa fa-plus" style="color: white" aria-hidden="true"></i>
                         </template>
                     </Button>
                 </div>
                 <Table v-show="showTableRelationship" :dataApiTable="dataRelationship" :headers="HEADERR_TABLE.RELATION_SHIP" :showPaging="false"
-                    :showSelect="false" :editRow="false" :deleteRow="false" :showBorder="true"
+                    :showSelect="false"  @edit="editFromRow"
+                    @delete="confirmDeleteFromRow" :showBorder="true"
+                    keyTable="RelationShipID"
                 />
 
                 <div class="title m-t-60 m-b-24">
@@ -233,6 +250,13 @@
         </v-row>  
     </div>
     <EditEmployee v-if="editMode" @cancelEdit="this.editMode = $event"/>
+    <add-edit-relation
+        v-if="showAddEditRelation"
+        @action-done="doneAddEditRelation"
+        @action-cancel="cancelAddEditRelation"
+        :mode="modeRelation"
+        :formEdit="formEdit"
+    />
 </template>
 
 <script>
@@ -240,9 +264,11 @@ import button from '@/components/button.vue';
 import table from "@/components/table.vue";
 import EmployeeEdit from "@/views/employee/editEmployee.vue";
 import EmployeeAPI from "@/js/api/employee.js"
+import RelationshipAPI from "@/js/api/relationShipAPI.js"
 import ENUMS from "@/enum/enums.js"
 import HEADERR_TABLE from "@/js/header-table.js"
 import Convert from "@/js/convert.js"
+import AddAndEditRelationship from '@/views/Relationship/addAndEdit.vue'
 // import loading from "@/components/loading.vue"
 export default{
     name: "ViewEmployee",
@@ -250,6 +276,7 @@ export default{
         Button: button, 
         Table: table, 
         EditEmployee: EmployeeEdit,
+        'add-edit-relation': AddAndEditRelationship
         // Loading: loading
     }, 
     data(){
@@ -299,6 +326,14 @@ export default{
             showTableRelationship: false,
             dataSalary: [], // dữ liệu bảng lịch sử lương
             showTableSalary: false,
+            modeRelation: 0,
+            showAddEditRelation: false,
+            formEdit: {}, 
+            textMessage: null,
+            typeMessage: null,
+            showMessage: false, 
+            showConfirmDelete: false, 
+            idDelete: null
 
         }
     },
@@ -409,6 +444,89 @@ export default{
                 }
             }
         },
+
+        async addEditRelationship(){
+            await this.handleShowRelationship();
+            this.modeRelation = ENUMS.ACTION_TYPE[2].value;
+            this.showAddEditRelation = true;
+        },
+
+        cancelAddEditRelation(){
+            this.showAddEditRelation = false;
+        },
+
+        async doneAddEditRelation(val){
+            this.showAddEditRelation = false;
+            if(!val){
+                this.typeMessage = "error";
+                this.textMessage = "Có lỗi xảy ra";
+                this.showMessage = true;
+                setTimeout(() => {
+                    this.showMessage = false;
+                }, 2000);
+            }
+            else
+            {
+                this.showMessage = true;
+                if(this.modeRelation == ENUMS.ACTION_TYPE[2].value){
+                    this.typeMessage = "success";
+                    this.textMessage = "Thêm thông tin gia đình thành công";
+                }
+                else{
+                    this.typeMessage = "success";
+                    this.textMessage = "Sửa thông tin gia đình thành công";
+                }
+                setTimeout(() => {
+                    this.showMessage = false;
+                }, 2000);
+                var res = await EmployeeAPI.getRelarionshipByEmployeeID(this.id)
+                if(res && res.data.Success){
+                    this.dataRelationship = res.data.Data;
+                }
+            }
+        },
+
+        editFromRow(val){
+            this.formEdit = this.dataRelationship.find(x => x.RelationShipID == val);
+            this.modeRelation = ENUMS.ACTION_TYPE[0].value;
+            this.showAddEditRelation = true;
+        },
+
+        cancelDelete(){
+            this.showConfirmDelete = false;
+        },
+        confirmDeleteFromRow(val){
+            this.idDelete = val;
+            this.showConfirmDelete = true;
+        },
+
+       async deleteFromRow(){
+            this.showConfirmDelete = false;
+            if(this.idDelete){
+                var res = await RelationshipAPI.deleteRelationShip(this.idDelete);
+                if(res && res.data.Success){
+                    this.showMessage = true;
+                    this.typeMessage = "success";
+                    this.textMessage = "Xoá thông tin gia đình thành công";
+                    setTimeout(() => {
+                        this.showMessage = false;
+                    }, 2000);
+                    var resGet = await EmployeeAPI.getRelarionshipByEmployeeID(this.id)
+                    if(resGet && resGet.data.Success){
+                        this.dataRelationship = resGet.data.Data;
+                    }
+                }
+                else {
+                    this.showMessage = true;
+                    this.typeMessage = "error";
+                    this.textMessage = "Có lỗi xảy ra!";
+                    setTimeout(() => {
+                        this.showMessage = false;
+                    }, 2000);
+                }
+            }
+        }
+
     }
 }
 </script>
