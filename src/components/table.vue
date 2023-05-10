@@ -220,6 +220,10 @@ export default {
             if(type == "statusSalaryPeriod"){
                 return val == 1 ? "Đã chi trả" : "Chưa chi trả"; 
             }
+            if(type == "relationID"){
+                var item = ENUMS.PICK_LIST_RELATION.find(x => x.value == val);
+                return item?.label;
+            }
         }
     }
 }

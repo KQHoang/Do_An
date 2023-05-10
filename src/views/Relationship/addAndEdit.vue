@@ -35,6 +35,22 @@
                     </v-col>
                 </div>
                 <div class="d-flex m-t-8 m-b-24">
+                    <v-col cols="4" class="label font-500" >Quan hệ với nhân viên <span class="text-red">*</span></v-col>
+                    <v-col cols="8" class="p-0">
+                        <SelectBox
+                            v-model:value="formData.RelationID"
+                            :items="ENUMS.PICK_LIST_RELATION"
+                            item-title="label"
+                            item-value="value"
+                            placeholder="Chọn mối quan hệ"
+                            :key="keySelect"
+                            :error="errors[3]"
+                            error-message="Mối quan hệ không được để trống"
+                            :force="true"
+                        />
+                    </v-col>
+                </div>
+                <div class="d-flex m-t-8 m-b-24">
                     <v-col cols="4" class="label font-500" >Ngày sinh <span class="text-red">*</span></v-col>
                     <v-col cols="8" class="p-0">
                         <DateTimePicker
@@ -121,12 +137,13 @@ export default{
                 EmployeeID: null,
                 FullName: null, 
                 Gender: null, 
+                RelationID: null,
                 DateOfBirth: null, 
                 PhoneNumber: null,
                 CreatedDate: null,
                 ModifiedDate: null
             },
-            errors: [false, false, false],
+            errors: [false, false, false, false],
             keyInput: 0, 
             keySelect: 0, 
             lstEmployee: [],
@@ -203,6 +220,13 @@ export default{
             }
             else{
                 this.errors[2] = false;
+            }
+            if(this.formData.RelationID == null || this.formData.RelationID == ""){
+                this.errors[3] = true;
+                faild = true;
+            }
+            else{
+                this.errors[3] = false;
             }
             this.keyInput ++;
             this.keySelect ++;

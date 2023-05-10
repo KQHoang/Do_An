@@ -260,6 +260,12 @@ const HeaderTables = {
             width: 200,
         },
         {
+            value: "RelationID",
+            name: "Quan hệ với nhân viên",
+            width: 200,
+            type: "relationID"
+        },
+        {
             value: "GenderID",
             name: "Giớ tính",
             width: 100,
