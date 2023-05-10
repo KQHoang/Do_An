@@ -89,7 +89,7 @@ export default{
 
     },
     async created(){
-        this.$emit("getting-started")
+        this.$emit("getting-started");
         this.ENUMS = ENUMS;
         if(this.mode == ENUMS.ACTION_TYPE[0].value){
             this.title = "Chỉnh sửa tài khoản";
@@ -97,7 +97,6 @@ export default{
             this.formData.Password = window.atob(this.formData.Password);
             this.confirmPassword = this.formData.Password;
         }
-        console.log("vào khởi tạo dăng nhập");
     },
     methods:{
         actionCancel(){
@@ -107,13 +106,13 @@ export default{
             if(this.validate()){
                 return;
             }
-            this.GlobalAccountID = 3;
+            // this.GlobalAccountID = 3;
             var permission = null;
             this.passwordLogin = window.btoa(this.passwordLogin);
             var res = await AccountAPI.login(this.emailLogin, this.passwordLogin);
             if(res && res.data.Success){
                 localStorage.setItem('GlobalAccountID', res.data.Data.AccountID);
-                localStorage.setItem('GlobalEmployeeID', res.data.Data.AccountID);
+                localStorage.setItem('GlobalEmployeeID', res.data.Data.EmployeeID);
                 if(this.emailLogin == "admin@gmail.com" && window.atob(this.passwordLogin) == "admin123"){
                     permission = 1;
                 }
@@ -127,8 +126,8 @@ export default{
                 else {
                     permission = 4;
                 }
-                this.GlobalAccountID = res.data.Data.AccountID;
-                this.GlobalEmployeeID = res.data.Data.EmployeeID;
+                // this.GlobalAccountID = res.data.Data.AccountID;
+                // this.GlobalEmployeeID = res.data.Data.EmployeeID;
                 this.$emit("action-done", permission);
             }
             else {

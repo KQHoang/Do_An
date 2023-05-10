@@ -171,7 +171,7 @@
                     </v-col>
                     <v-col class="label-info d-flex align-center" cols="5">
                         <v-col cols="5" class="label">Quản lý trực tiếp</v-col>
-                        <v-col cols="7" class="employee-info">Hợp đồng xác định thời hạn</v-col>
+                        <v-col cols="7" class="employee-info">{{ manageName }}</v-col>
                     </v-col>
                 </div>
                 <!-- <div class="v-row m-t-8 m-b-24">
@@ -333,7 +333,8 @@ export default{
             typeMessage: null,
             showMessage: false, 
             showConfirmDelete: false, 
-            idDelete: null
+            idDelete: null, 
+            manageName: null
 
         }
     },
@@ -351,6 +352,9 @@ export default{
         if(this.formDataEmployee?.PositionID){
             await this.getPostionByID(this.formDataEmployee?.PositionID);
         }
+        if(this.formDataEmployee?.LeadID){
+            await this.getLead(this.formDataEmployee?.LeadID);
+        }
         setTimeout(() => {
             this.showLoading = false;
         }, 500);
@@ -367,6 +371,12 @@ export default{
             var res = await EmployeeAPI.getEmployee(this.id);
             if(res && res.data.Success){
                 this.formDataEmployee = res.data.Data;
+            }
+        },
+        async getLead(val){
+            var res = await EmployeeAPI.getEmployee(val);
+            if(res && res.data.Success){
+                this.manageName = res.data.Data.FullName;
             }
         },
 

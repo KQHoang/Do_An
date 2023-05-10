@@ -139,7 +139,7 @@ export default{
          */
         async afterAddAndEdit(val){
             this.showAddAndEdit = false;
-            if(val){
+            if(val == true){
                 if(this.mode == ENUMS.ACTION_TYPE[0].value){
                     this.textMessage = "Chỉnh sửa thành công";
                 }
@@ -153,8 +153,18 @@ export default{
                     await this.getDataPaging();
                 }, 2000);
             }
-            else{
-                this.textMessage = "Có lỗi xảy ra?";
+            else if(val?.IsExsits == true)
+            {
+                this.textMessage = "Nhân viên đã có tài khoản";
+                this.typeMessage = "warning";
+                this.showMessage = true;
+                setTimeout(() => {
+                    this.showMessage = false; 
+                }, 2000);
+            }
+            else
+            {
+                this.textMessage = "Có lỗi xảy ra!";
                 this.typeMessage = "error";
                 this.showMessage = true;
                 setTimeout(() => {

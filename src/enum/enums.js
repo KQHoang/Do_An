@@ -193,6 +193,56 @@ const ENUMS = {
             label: "Chưa chi trả",
             value: 2,
         }
+    ],
+    PICK_LIST_RELATION:[
+        {
+            value: 1,
+            label: "Ông"
+        },
+        {
+            value: 2,
+            label: "Bà"
+        },
+        {
+            value: 3,
+            label: "Bố"
+        },
+        {
+            value: 4,
+            label: "Mẹ"
+        },
+        {
+            value: 5,
+            label: "Chồng"
+        },
+        {
+            value: 6,
+            label: "Vợ"
+        },
+        {
+            value: 7,
+            label: "Anh"
+        },
+        {
+            value: 8,
+            label: "Chị"
+        },
+        {
+            value: 9,
+            label: "Em trai"
+        },
+        {
+            value: 10,
+            label: "Em gái"
+        },
+        {
+            value: 11,
+            label: "Con gái"
+        },
+        {
+            value: 12,
+            label: "Con trai"
+        },
     ]
 }
 export default ENUMS;

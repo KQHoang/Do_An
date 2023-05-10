@@ -118,7 +118,8 @@
   </v-app>
   <vue-login @action-done="handleLogin" v-if="!isLogin" @getting-started="handleStarted">
   </vue-login>
-  <vue-change-password v-if="showChangePassword" @action-cancel="handleCancelChange" @action-done="handleChageSuccess" @ui="test"/>
+  <vue-change-password v-if="showChangePassword" @action-cancel="handleCancelChange" @action-done="handleChageSuccess"/>
+  <ToastMessage title="" text="Bạn không có quyền thực hiện chức năng này!" typeAlert="warning" :max-width="500" v-if="showMessage"/>
 </template>
 
 <script>
@@ -147,8 +148,8 @@ export default {
       isLogin: false,
       isShowPopUpAccount: false,
       dataAccountNav: {},
-      showChangePassword: false
-      
+      showChangePassword: false,
+      showMessage: false
     }
   },
 
@@ -181,15 +182,10 @@ export default {
     }
   },
   methods:{
-    test(){
-      console.log("thích chị Sương");
-    },
-
     /**
      * Xử lý đăng nhập thành công
      */
     handleLogin(value){
-      console.log("úi vào rồi nhé");
       this.permission = value;
       this.isLogin = true;
       localStorage.setItem('IsLogin', true);
@@ -211,45 +207,95 @@ export default {
      */
     handleChageSuccess(){
       this.showChangePassword = false;
-      console.log("đã vào đỏi mk thành công");
       localStorage.setItem('IsLogin', false);
       this.isLogin = false;
     },
 
-    getDataPaging(val){
-      console.log(val);
-    }, 
-    tesssst(){
-      console.log(this.selected);
-    }, 
-    handle(){
-      console.log(this.aaaa, this.test);
-    },
     handleClickNav(){
       var id = localStorage.getItem("GlobalEmployeeID");
       this.$router.push({ name: 'ViewEmployee', params: { id: id }});
     },
-    redirecManageProfile(){
-      this.$router.push({ name: 'ManageProfile'});
+    async redirecManageProfile(){
+      var id = localStorage.getItem('GlobalAccountID');
+      var res = await AccountAPI.checkPermission(id, 'ManageProfile');
+      if(res && res.data.Success){
+        this.$router.push({ name: 'ManageProfile'});
+      }
+      else {
+        this.showMessage = true;
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 2000);
+      }
     },
-    redirectManageDepartment(){
-      this.$router.push({ name: 'ManageDepartment'});
+    async redirectManageDepartment(){ 
+      var id = localStorage.getItem('GlobalAccountID');
+      var res = await AccountAPI.checkPermission(id, 'ManageDepartment');
+      if(res && res.data.Success){
+        this.$router.push({ name: 'ManageDepartment'});
+      }
+      else {
+        this.showMessage = true;
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 2000);
+      }
     },
-    redirectManagePosition(){
-      this.$router.push({ name: 'ManagePosition'});
+    async redirectManagePosition(){ 
+      var id = localStorage.getItem('GlobalAccountID');
+      var res = await AccountAPI.checkPermission(id, 'ManagePosition');
+      if(res && res.data.Success){
+        this.$router.push({ name: 'ManagePosition'});
+      }
+      else {
+        this.showMessage = true;
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 2000);
+      }
     },
-    redirectManageContract(){
-      this.$router.push({ name: 'ManageContract'});
+    async redirectManageContract(){ 
+      var id = localStorage.getItem('GlobalAccountID');
+      var res = await AccountAPI.checkPermission(id, 'ManageContract');
+      if(res && res.data.Success){
+        this.$router.push({ name: 'ManageContract'});
+      }
+      else {
+        this.showMessage = true;
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 2000);
+      }
     },
-    redirectManageTimeSheets(){
-      this.$router.push({ name: 'ManageTimeSheets'});
+    async redirectManageTimeSheets(){ 
+      var id = localStorage.getItem('GlobalAccountID');
+      var res = await AccountAPI.checkPermission(id, 'ManageTimeSheets');
+      if(res && res.data.Success){
+        this.$router.push({ name: 'ManageTimeSheets'});
+      }
+      else {
+        this.showMessage = true;
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 2000);
+      }
     },
     redirectPersonalTimeSheets(){
       var id = localStorage.getItem("GlobalEmployeeID");
       this.$router.push({ name: 'PersonalTimeSheets',  params: { id: id }});
     },
-    redirectManageSalary(){
-      this.$router.push({ name: 'ManageSalary'});
+    async redirectManageSalary(){
+      var id = localStorage.getItem('GlobalAccountID');
+      var res = await AccountAPI.checkPermission(id, 'ManageSalary');
+      if(res && res.data.Success){
+        this.$router.push({ name: 'ManageSalary'});
+      }
+      else {
+        this.showMessage = true;
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 2000);
+      }
     },
     redirectSalaryEmployee(){
       var id = localStorage.getItem("GlobalEmployeeID");

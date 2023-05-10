@@ -182,7 +182,7 @@ export default{
                 }
                 else 
                 {
-                    this.$emit("action-done", false);
+                    this.$emit("action-done", res.data.Data);
                 }
             }
         },

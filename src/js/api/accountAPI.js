@@ -24,6 +24,10 @@ export default {
     }, 
     changePassword(id, password, oldPassword){
         return axios.post(`${base.url}/Account/changePassword/${id}/${password}/${oldPassword}`);
-    }
+    },
+    checkPermission(id, systemName){
+        return axios.post(`${base.url}/Account/check-permission/${id}/${systemName}`);
+    },
+
 
 }
