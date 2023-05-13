@@ -12,7 +12,7 @@
                             v-model:value="AccountID"
                             :items="lstEmployee"
                             item-title="FullName"
-                            item-value="EmployeeID"
+                            item-value="AccountID"
                             placeholder="Chọn nhân viên"
                             :key="keySelect"
                             v-model:error="errorAccountID"
@@ -31,7 +31,7 @@
                             v-model:valueCheckBox="formData.ManageSalary"
                             class="checkbox-custom"
                             :disabled="ishrm"
-
+                            :key="keyCheckbox"
                         />
                     </v-col>
                 </div>
@@ -42,6 +42,7 @@
                             v-model:valueCheckBox="formData.ManageDepartment"
                             class="checkbox-custom"
                             :disabled="!ishrm"
+                            :key="keyCheckbox"
                         />
                     </v-col>
                 </div>
@@ -52,6 +53,7 @@
                             v-model:valueCheckBox="formData.ManagePosition"
                             class="checkbox-custom"
                             :disabled="!ishrm"
+                            :key="keyCheckbox"
                         />
                     </v-col>
                 </div>
@@ -62,6 +64,7 @@
                             v-model:valueCheckBox="formData.ManageProfile"
                             class="checkbox-custom"
                             :disabled="!ishrm"
+                            :key="keyCheckbox"
                         />
                     </v-col>
                 </div>
@@ -72,6 +75,7 @@
                             v-model:valueCheckBox="formData.ManageContract"
                             class="checkbox-custom"
                             :disabled="!ishrm"
+                            :key="keyCheckbox"
                         />
                     </v-col>
                 </div>
@@ -82,6 +86,7 @@
                             v-model:valueCheckBox="formData.ManageTimeSheets"
                             class="checkbox-custom"
                             :disabled="!ishrm"
+                            :key="keyCheckbox"
                         />
                     </v-col>
                 </div>
@@ -155,7 +160,8 @@ export default{
             timeToEnter: null, 
             timeOut: null,
             ishrm: false,
-            errorAccountID: false
+            errorAccountID: false,
+            keyCheckbox: 0
         }
 
     },
@@ -242,14 +248,30 @@ export default{
         },
         valueChange(value){
             if(value){
+                this.resetValue();
                 var data = this.lstEmployee.find(x => x.AccountID == value);
-                if(data.PositionID == 4){
+                if(data.DepartmentID == 3){
                     this.ishrm = true;
                 }
                 else {
                     this.ishrm = false;
                 }
             }
+        },
+        /**
+         * Reset lại các tích chọn
+         */
+        resetValue(){
+            this.formData = {
+                ManageSalary: false,
+                ManagePosition: false, 
+                ManageDepartment: false, 
+                ManageProfile: false, 
+                ManageContract: false, 
+                ManageTimeSheets: false
+            };
+            this.formData = JSON.parse(JSON.stringify(this.formData));
+            this.keyCheckbox ++;
         }
     }
 }

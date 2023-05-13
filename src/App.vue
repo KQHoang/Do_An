@@ -136,7 +136,7 @@ export default {
 
   data(){
     return {
-      permission: null, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
+      permission: 1, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
       drawer: true,
       items: [
         { title: 'Home', icon: 'mdi-home-city' },
@@ -145,7 +145,7 @@ export default {
       ],
       rail: false,
       iconCloseNav: "mdi-chevron-left",
-      isLogin: false,
+      isLogin: true,
       isShowPopUpAccount: false,
       dataAccountNav: {},
       showChangePassword: false,

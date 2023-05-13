@@ -66,6 +66,16 @@
                         <v-col cols="7" class="employee-info">{{ formData.GenderID == 1 ? "Nam" : "Nữ"}} </v-col>
                     </v-col>
                 </div>
+                <div class="v-row m-t-8 m-b-24">
+                    <v-col class="label-info d-flex align-center m-r-60" cols="5">
+                        <v-col cols="5" class="label">Đơn vị công tác</v-col>
+                        <v-col cols="7" class="employee-info">{{ department.DepartmentName }}</v-col>
+                    </v-col>
+                    <v-col class="label-info d-flex align-center" cols="5">
+                        <v-col cols="5" class="label">Vị trí công việc</v-col>
+                        <v-col cols="7" class="employee-info">{{ positionName }}</v-col>
+                    </v-col>
+                </div>
                 <div class="v-row m-t-24">
                     <span class="text-child">
                         CMND/Thẻ căn cước
@@ -152,6 +162,7 @@ import AddAndEditProfile from '@/views/manage-profile/addProfileEmployee.vue'
 import ENUMS from "@/enum/enums.js"
 import ProfileAPI from '@/js/api/profileAPI';
 import Convert from '@/js/convert';
+import EmployeeAPI from "@/js/api/employee.js"
 export default{
     name: "EditEmployee",
     components:{
@@ -164,7 +175,9 @@ export default{
             showEdit: null,
             id: null, 
             formData: {},
-            showLoading: false
+            showLoading: false,
+            department: {},
+            positionName: null
 
         }
     },
@@ -178,6 +191,12 @@ export default{
         else{
             this.showEdit = false;
             await this.getDataByID();
+            if(this.formData?.DepartmentID){
+                await this.getDepartmentByID(this.formData?.DepartmentID);
+            }
+            if(this.formData?.PositionID){
+                await this.getPostionByID(this.formData?.PositionID);
+            }
         }
     }, 
     methods:{
@@ -210,7 +229,27 @@ export default{
         async cancelEdit(val){
             this.showEdit = val;
             await this.getDataByID();
-        }
+        },
+
+        /**
+         * Lấy phòng ban theo id
+         */
+         async getDepartmentByID(id){
+            var res = await EmployeeAPI.getDepartmentByID(id);
+            if(res && res.data.Success){
+                this.department = res.data.Data;
+            }
+        },
+
+        /**
+         * Lấy vị trí công việc theo id
+         */
+         async getPostionByID(id){
+            var res = await EmployeeAPI.getPositionByID(id);
+            if(res && res.data.Success){
+                this.positionName = res.data.Data?.PositionName;
+            }
+        },
     }
 }
 </script>
