@@ -7,8 +7,19 @@
             </v-col>
             <v-col class="d-flex p-0 justify-end">
                 <!-- <v-col > -->
+                    <button-vue
+                        v-if="hasData"
+                        text="Xuất khẩu"
+                        color="#4095F5"
+                        class="text-white"
+                        @click="exportSalary"
+                    >
+                        <template v-slot:prepend>
+                            <i class="fa fa-download" style="color: white" aria-hidden="true"></i>
+                        </template>
+                    </button-vue>
                     <select-vue
-                        class="m-r-16 bg-white"
+                        class="m-r-16 m-l-16 bg-white"
                         v-model:value="customFilter.month"
                         :clearable="false"
                         :items="ENUMS.PICK_LIST_MONTH"
@@ -27,6 +38,7 @@
                         item-value="value"
                         @value-change="yearChange"
                     ></select-vue>
+
                 <!-- </v-col> -->
             </v-col>
         </v-row>
@@ -117,10 +129,12 @@ import ENUMS from '@/enum/enums';
 import vueSelect from '@/components/selectbox.vue';
 import SalaryAPI from "@/js/api/salaryAPI.js";
 import Convert from "@/js/format.js"
+import buttonVue from '@/components/button.vue';
 export default{
     name: "ManagePosition",
     components:{
-        'select-vue': vueSelect
+        'select-vue': vueSelect,
+        'button-vue': buttonVue,
     }, 
     data(){
         return {
@@ -190,6 +204,9 @@ export default{
                 return Convert.formatCash2(valueString);
             }
             return 0;
+        },
+        exportSalary(){
+            window.open(SalaryAPI.export(this.id, this.customFilter));
         }
     }
 }
