@@ -130,7 +130,7 @@ export default {
             default: true
         }
     },
-    emits:['dbClickRow', 'edit', 'delete', 'page-change', 'list-row-select'],
+    emits:['dbClickRow', 'edit', 'delete', 'page-change', 'list-row-select', 'page-size-change'],
     data(){
         return {
             recordStart: 0,
@@ -154,7 +154,7 @@ export default {
         pageSizeChange(val){
             let pagingClone = JSON.parse(JSON.stringify(this.pagingControl));
             pagingClone.PageSize = val;
-            this.$emit('page-change', pagingClone);
+            this.$emit('page-size-change', pagingClone);
         },
         pageLeftOnClick(){
             if(this.recordStart > 1){

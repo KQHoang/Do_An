@@ -41,6 +41,7 @@
                 :showBorder="false"
                 @edit="editFromRow"
                 @page-change="pagingControlChange"
+                @page-size-change="pageSizeChange"
                 @delete="confirmDeleteFromRow"
                 :key="keyTable"
                 :emptyTable="false"
@@ -135,6 +136,13 @@ export default{
          */
         async pagingControlChange(val){
             this.pagingControl.PageIndex = val.PageIndex;
+            this.pagingControl.PageSize = val.PageSize;
+            this.pagingControl = JSON.parse(JSON.stringify(this.pagingControl));
+            await this.getDataPaging();
+        },
+        
+        async pageSizeChange(val){
+            this.pagingControl.PageIndex = 1;
             this.pagingControl.PageSize = val.PageSize;
             this.pagingControl = JSON.parse(JSON.stringify(this.pagingControl));
             await this.getDataPaging();

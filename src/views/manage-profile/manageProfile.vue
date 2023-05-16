@@ -42,6 +42,7 @@
                 @edit="editFromRow"
                 @delete="confirmDeleteFromRow"
                 @page-change="pagingControlChange"
+                @page-size-change="pageSizeChange"
                 :key="keyTable"
             >
             </table-vue>
@@ -190,6 +191,12 @@ export default {
           async pagingControlChange(val){
             this.pagingControl.PageIndex = val.PageIndex;
             this.pagingControl.PageSize = val.PageSize;
+            await this.getDataPaging();
+          },
+          async pageSizeChange(val){
+            this.pagingControl.PageIndex = 1;
+            this.pagingControl.PageSize = val.PageSize;
+            this.pagingControl = JSON.parse(JSON.stringify(this.pagingControl));
             await this.getDataPaging();
           },
           async search(){
