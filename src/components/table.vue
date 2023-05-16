@@ -59,7 +59,7 @@
                 />
                 <div class="page-number">
                     <div class="font-weight-bold">{{ recordStart }} -
-                        {{ dataApiTable.length }} bản ghi
+                        {{ recordStart + dataApiTable.length - 1 }} bản ghi
                     </div>
                 </div>
                 <div class="page-pre-next d-flex">
@@ -67,7 +67,7 @@
                         <i class="fa fa-chevron-left" :class="{ 'opacity-2' : recordStart <= 1}"  aria-hidden="true"></i>
                     </div>
                     <div class="page-left" @click="pageRightOnClick">
-                      <i class="fa fa-chevron-right" :class="{ 'opacity-2' : dataApiTable.length == totalRecord}" aria-hidden="true"></i>
+                      <i class="fa fa-chevron-right" :class="{ 'opacity-2' : (recordStart + dataApiTable.length - 1) == totalRecord}" aria-hidden="true"></i>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@ export default {
             }
         },
         pageRightOnClick(){
-            if(this.dataApiTable.length != this.totalRecord){
+            if((this.recordStart + this.dataApiTable.length -1) != this.totalRecord){
                 let pagingClone = JSON.parse(JSON.stringify(this.pagingControl));
                 pagingClone.PageIndex += 1;
                 this.$emit('page-change', pagingClone);

@@ -6,7 +6,7 @@
         :mode="mode"
         :formEdit="formEdit"
     ></time-sheets-add-edit>
-    <PopUpDelete v-if="showConfirmDelete" @action-cancel="cancelDelete" @action-done="deleteFromRow"/>
+    <PopUpDelete v-if="showConfirmDelete" content="Bạn có chắc chắn muốn xoá ngày công đã chọn?" @action-cancel="cancelDelete" @action-done="deleteFromRow"/>
     <ToastMessage title="" :text="textMessage" :typeAlert="typeMessage" :max-width="300" v-if="showMessage"/>
     <div class="manage-profile">
         <div class="title">Quản lý chấm công</div>

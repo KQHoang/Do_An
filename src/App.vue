@@ -8,9 +8,9 @@
         <span>Nhân viên</span>
       </div>
       <div class="d-flex">
-        <div class="nav-bell m-r-8" title="Thông báo">
+        <!-- <div class="nav-bell m-r-8" title="Thông báo">
           <i class="fa fa-bell-o" aria-hidden="true"></i>
-        </div>
+        </div> -->
         <div class="nav-bell account-user-nav" title="Thông báo" @click="handleClickAccount">
           <i class="fa fa-user-circle" aria-hidden="true"></i>
           <div class="nav-account" v-if="isShowPopUpAccount">
@@ -34,7 +34,7 @@
       </div>
     </div>
     <v-navigation-drawer
-        v-model="drawer"
+        :model-value="drawer"
         :rail="rail"
         permanent
         theme="dark"
@@ -43,69 +43,39 @@
         <v-divider></v-divider>
         <v-list density="compact" nav>
           <!-- Nhân viên, quản trị hệ thống, nv tài chính -->
-          <v-list-item title="Hồ sơ cá nhân" value="1" @click="handleClickNav">
+          <v-list-item title="Hồ sơ cá nhân" :active="navActive == 1" value="1" @click="handleClickNav">
           </v-list-item>
 
           <!-- nhân viên phòng nhân sự -->
-          <v-list-item title="Quản lý hồ sơ nhân viên" v-show="permission == 2" value="2" @click="redirecManageProfile">
+          <v-list-item title="Quản lý hồ sơ nhân viên" :active="navActive == 2" v-show="permission == 2" value="2" @click="redirecManageProfile">
           </v-list-item>
 
-          <v-list-item title="Chấm công"  value="5" @click="redirectPersonalTimeSheets">
+          <v-list-item title="Chấm công" :active="navActive == 3"  value="3" @click="redirectPersonalTimeSheets">
           </v-list-item>
-
-          <!-- <v-list-group value="Admin5">
-            <template v-slot:activator="{ props }">
-              <v-list-item
-                v-bind="props"
-                title="Chấm công"
-              >
-              </v-list-item>
-            </template>
-            <v-list-item v-show="!rail" title="Bảng chấm công" value="5" @click="redirectPersonalTimeSheets"></v-list-item>
-            <v-list-item v-show="!rail" title="Đơn xin nghỉ" value="6"></v-list-item>
-            <v-list-item v-show="!rail" title="Đề nghị cập nhật công" value="7"></v-list-item>
-          </v-list-group> -->
 
           <!-- nhân sự -->
-          <v-list-item title="Quản lý chấm công" value="16" v-show="permission == 2" @click="redirectManageTimeSheets">
+          <v-list-item title="Quản lý chấm công" :active="navActive == 4" value="4" v-show="permission == 2" @click="redirectManageTimeSheets">
           </v-list-item>
 
-          <v-list-item title="Tiền lương" value="8" @click="redirectSalaryEmployee">
+          <v-list-item title="Tiền lương" :active="navActive == 5" value="5" @click="redirectSalaryEmployee">
           </v-list-item>
           
-          <!-- <v-list-group value="Admin9">
-            <template v-slot:activator="{ props }">
-              <v-list-item
-                v-bind="props"
-                title="Tiền lương"
-              >
-              </v-list-item>
-            </template>
-            <v-list-item v-show="!rail" title="Phiếu lương" value="8"></v-list-item>
-            <v-list-item v-show="!rail" title="Phiếu thưởng" value="9"></v-list-item>
-            <v-list-item v-show="!rail" title="Thống kê lương" value="10"></v-list-item>
-          </v-list-group> -->
-
           <!-- tài chính -->
-          <v-list-item title="Quản lý tiền lương" value="16" v-show="permission == 3" @click="redirectManageSalary">
+          <v-list-item title="Quản lý tiền lương" :active="navActive == 6" value="6" v-show="permission == 3" @click="redirectManageSalary">
           </v-list-item>
 
           <!-- nhân viên phòng nhân sự -->
-          <v-list-item title="Quản lý phòng ban" value="11" v-show="permission == 2" @click="redirectManageDepartment">
+          <v-list-item title="Quản lý phòng ban" :active="navActive == 7" value="7" v-show="permission == 2" @click="redirectManageDepartment">
           </v-list-item>
-          <v-list-item title="Quản lý chức vụ" value="12" v-show="permission == 2" @click="redirectManagePosition">
+          <v-list-item title="Quản lý chức vụ" :active="navActive == 8" value="8" v-show="permission == 2" @click="redirectManagePosition">
           </v-list-item>
-          <v-list-item title="Quản lý hợp đồng" value="13" v-show="permission == 2" @click="redirectManageContract">
+          <v-list-item title="Quản lý hợp đồng" :active="navActive == 9" value="9" v-show="permission == 2" @click="redirectManageContract">
           </v-list-item>
-          <!-- <v-list-item title="Quản lý khen thưởng" value="14" v-if="permission == 2">
-          </v-list-item>
-          <v-list-item title="Quản lý kỷ luật" value="15" v-if="permission == 2">
-          </v-list-item> -->
 
           <!-- Quản trị hệ thống -->
-          <v-list-item title="Quản lý tài khoản" value="3" v-show="permission == 1" @click="redirectManageAccount">
+          <v-list-item title="Quản lý tài khoản" :active="navActive == 10" value="10" v-show="permission == 1" @click="redirectManageAccount">
           </v-list-item>
-          <v-list-item title="Phân quyền" value="4" v-show="permission == 1" @click="redirectManagePermission">
+          <v-list-item title="Phân quyền" :active="navActive == 11" value="11" v-show="permission == 1" @click="redirectManagePermission">
           </v-list-item>
         </v-list>
         <!-- <template v-slot:append>
@@ -137,7 +107,7 @@ export default {
   data(){
     return {
       permission: 1, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
-      drawer: true,
+      drawer: 1,
       items: [
         { title: 'Home', icon: 'mdi-home-city' },
         { title: 'My Account', icon: 'mdi-account' },
@@ -149,7 +119,8 @@ export default {
       isShowPopUpAccount: false,
       dataAccountNav: {},
       showChangePassword: false,
-      showMessage: false
+      showMessage: false, 
+      navActive: 1
     }
   },
 
@@ -212,10 +183,12 @@ export default {
     },
 
     handleClickNav(){
+      this.navActive = 1;
       var id = localStorage.getItem("GlobalEmployeeID");
       this.$router.push({ name: 'ViewEmployee', params: { id: id }});
     },
     async redirecManageProfile(){
+      this.navActive = 2;
       var id = localStorage.getItem('GlobalAccountID');
       var res = await AccountAPI.checkPermission(id, 'ManageProfile');
       if(res && res.data.Success){
@@ -229,6 +202,7 @@ export default {
       }
     },
     async redirectManageDepartment(){ 
+      this.navActive = 7;
       var id = localStorage.getItem('GlobalAccountID');
       var res = await AccountAPI.checkPermission(id, 'ManageDepartment');
       if(res && res.data.Success){
@@ -242,6 +216,7 @@ export default {
       }
     },
     async redirectManagePosition(){ 
+      this.navActive = 8;
       var id = localStorage.getItem('GlobalAccountID');
       var res = await AccountAPI.checkPermission(id, 'ManagePosition');
       if(res && res.data.Success){
@@ -255,6 +230,7 @@ export default {
       }
     },
     async redirectManageContract(){ 
+      this.navActive = 9;
       var id = localStorage.getItem('GlobalAccountID');
       var res = await AccountAPI.checkPermission(id, 'ManageContract');
       if(res && res.data.Success){
@@ -268,6 +244,7 @@ export default {
       }
     },
     async redirectManageTimeSheets(){ 
+      this.navActive = 4;
       var id = localStorage.getItem('GlobalAccountID');
       var res = await AccountAPI.checkPermission(id, 'ManageTimeSheets');
       if(res && res.data.Success){
@@ -281,10 +258,12 @@ export default {
       }
     },
     redirectPersonalTimeSheets(){
+      this.navActive = 3;
       var id = localStorage.getItem("GlobalEmployeeID");
       this.$router.push({ name: 'PersonalTimeSheets',  params: { id: id }});
     },
     async redirectManageSalary(){
+      this.navActive = 6;
       var id = localStorage.getItem('GlobalAccountID');
       var res = await AccountAPI.checkPermission(id, 'ManageSalary');
       if(res && res.data.Success){
@@ -298,13 +277,16 @@ export default {
       }
     },
     redirectSalaryEmployee(){
+      this.navActive = 5;
       var id = localStorage.getItem("GlobalEmployeeID");
       this.$router.push({ name: 'SalaryEmployee',  params: { id: id }});
     },
     redirectManageAccount(){
+      this.navActive = 10;
       this.$router.push({ name: 'ManageAccount'});
     },
     redirectManagePermission(){
+      this.navActive = 11;
       this.$router.push({ name: 'ManagePermission'});
     },
     getPermission(){

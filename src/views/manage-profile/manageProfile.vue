@@ -1,6 +1,6 @@
 <template>
     <Loading v-if="showLoading"/>
-    <PopUpDelete v-if="showConfirmDelete" @action-cancel="cancelDelete" @action-done="deleteFromRow"/>
+    <PopUpDelete v-if="showConfirmDelete" content="Bạn có chắc chắn muốn xoá nhân viên đã chọn?" @action-cancel="cancelDelete" @action-done="deleteFromRow"/>
     <ToastMessage title="" :text="textMessage" :typeAlert="typeMessage" :max-width="300" v-if="showMessage"/>
     <div class="manage-profile" v-if="!showAddAndEdit" ref="manage-profile">
         <div class="title">Quản lý hồ sơ nhân viên</div>

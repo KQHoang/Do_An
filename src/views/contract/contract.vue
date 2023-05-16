@@ -1,6 +1,6 @@
 <template>
     <Loading v-if="showLoading"/>
-    <PopUpDelete v-if="showConfirmDelete" content="Bạn có chắn chắn muốn xoá phòng ban này?"
+    <PopUpDelete v-if="showConfirmDelete" content="Bạn có chắn chắn muốn xoá hợp đồng này?"
         @action-cancel="cancelDelete" @action-done="deleteFromRow"
     />
     <ToastMessage title="" :text="textMessage" :typeAlert="typeMessage" :max-width="300" v-if="showMessage"/>
