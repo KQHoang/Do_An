@@ -89,7 +89,7 @@
   <vue-login @action-done="handleLogin" v-if="!isLogin" @getting-started="handleStarted">
   </vue-login>
   <vue-change-password v-if="showChangePassword" @action-cancel="handleCancelChange" @action-done="handleChageSuccess"/>
-  <ToastMessage title="" text="Bạn không có quyền thực hiện chức năng này!" typeAlert="warning" :max-width="500" v-if="showMessage"/>
+  <ToastMessage title="" text="Bạn không có quyền thực hiện chức năng này!" typeAlert="warning" :max-width="400" v-if="showMessage"/>
 </template>
 
 <script>
@@ -139,6 +139,7 @@ export default {
     // }
   },
   created(){
+    this.navActive = 1;
     var login = localStorage.getItem("IsLogin");
     if(login == true){
       this.isLogin = login;
