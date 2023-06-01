@@ -171,10 +171,17 @@ export default{
             this.title = "Chỉnh sửa quyền truy cập";
             this.formData = JSON.parse(JSON.stringify(this.formEdit));
             this.AccountID = this.accountID;
+            this.keyCheckbox ++;
         }
         await this.getAllEmployee();
         if(this.mode == ENUMS.ACTION_TYPE[0].value){
-            this.valueChange(this.AccountID);
+            var data = this.lstEmployee.find(x => x.AccountID == this.AccountID);
+            if(data.DepartmentID == 3){
+                this.ishrm = true;
+            }
+            else {
+                this.ishrm = false;
+            }
         }
     },
     methods:{

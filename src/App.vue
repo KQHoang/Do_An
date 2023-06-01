@@ -106,7 +106,7 @@ export default {
 
   data(){
     return {
-      permission: 2, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
+      permission: 1, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
       drawer: 1,
       items: [
         { title: 'Home', icon: 'mdi-home-city' },

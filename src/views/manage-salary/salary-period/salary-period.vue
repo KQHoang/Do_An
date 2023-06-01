@@ -13,7 +13,7 @@
                             @keydown.enter="search()"
                         />
                     </v-col>
-                    <!-- <v-col cols="3"> 
+                    <v-col cols="3"> 
                         <select-vue
                             v-model:value="month"
                             :clearable="false"
@@ -22,7 +22,7 @@
                             item-value="value"
                             @value-change="monthChange"
                         ></select-vue>
-                    </v-col> -->
+                    </v-col>
                     <v-col cols="3"> 
                         <select-vue
                             v-model:value="year"
