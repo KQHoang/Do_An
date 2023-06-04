@@ -361,7 +361,7 @@ export default{
     },
     methods:{
         handelShowEdit(){
-            this.$router.push({ name: 'EditEmployee', params: { id: '1' }} );
+            this.$router.push({ name: 'EditEmployee', params: { id: this.id }} );
         },
 
         /**

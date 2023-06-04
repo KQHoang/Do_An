@@ -37,7 +37,7 @@
                 :dataApiTable="dataApiTable" 
                 :headers="HEADERR_TABLE.PERMISSION" 
                 :showPaging="true"
-                :showSelect="true"
+                :showSelect="false"
                 :showBorder="false"
                 @edit="editFromRow"
                 @page-change="pagingControlChange"

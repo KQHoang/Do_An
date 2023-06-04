@@ -229,6 +229,12 @@ export default{
         async cancelEdit(val){
             this.showEdit = val;
             await this.getDataByID();
+            if(this.formData?.DepartmentID){
+                await this.getDepartmentByID(this.formData?.DepartmentID);
+            }
+            if(this.formData?.PositionID){
+                await this.getPostionByID(this.formData?.PositionID);
+            }
         },
 
         /**

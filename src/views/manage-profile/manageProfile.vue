@@ -36,7 +36,7 @@
                 :dataApiTable="dataApiTable" 
                 :headers="HEADERR_TABLE.PROFILE_EMPLOYEE" 
                 :showPaging="true"
-                :showSelect="true"
+                :showSelect="false"
                 :showBorder="false"
                 @dbClickRow="rowClick"
                 @edit="editFromRow"

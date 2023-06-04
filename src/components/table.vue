@@ -108,7 +108,7 @@ export default {
         },
         showSelect:{
             type: Boolean, 
-            default: true
+            default: false
         },
         editRow:{
             type: Boolean, 
@@ -212,7 +212,7 @@ export default {
                return val ==  1 ? "Nam":"Nữ";
             }
             if(type == "contractType"){
-                return val == 1 ? "Có hiệu lực" : "Hết hiệu lực";
+                return val == 1 ? "Thử việc" : "Hợp đồng xác định thời hạn";
             }
             if(type == "workType"){
                 return val == 1 ? "Ca hành chính" : "Tăng ca";

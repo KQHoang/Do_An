@@ -108,7 +108,7 @@ export default{
                 PageIndex: 1,
                 PageSize: 15,
                 CustomFilter: {
-                    month: (new Date()).getMonth() + 1,
+                    month: (new Date()).getMonth(),
                     year: (new Date()).getFullYear(),
                 }
             },
@@ -117,7 +117,7 @@ export default{
             mode: 1,
             formEdit: {},
             idDelete: null,
-            month: (new Date()).getMonth() + 1,
+            month: (new Date()).getMonth(),
             year: (new Date()).getFullYear(),
         }
     },

@@ -143,7 +143,7 @@ export default{
             formData: {},
             idDelete: null,
             customFilter:{
-                month: (new Date()).getMonth() + 1,
+                month: (new Date()).getMonth(),
                 year: (new Date()).getFullYear(),
             },
             id: null,

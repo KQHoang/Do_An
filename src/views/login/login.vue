@@ -117,10 +117,10 @@ export default{
                     permission = 1;
                 }
                 else
-                if(res.data.Data.PositionID == 4){
+                if(res.data.Data?.DepartmentID == 3){
                     permission = 2;
                 }
-                else if(res.data.Data.PositionID == 5){
+                else if(res.data.Data.DepartmentID == 4){
                     permission = 3;
                 }
                 else {

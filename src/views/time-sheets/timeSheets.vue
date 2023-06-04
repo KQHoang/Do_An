@@ -88,18 +88,18 @@ export default{
                 PageIndex: 1,
                 PageSize: 15,
                 CustomFilter: {
-                    month: (new Date()).getMonth() + 1,
+                    month: (new Date()).getMonth(),
                     year: (new Date()).getFullYear(),
                 }
             },
             customFilter: {
-                month: (new Date()).getMonth() + 1,
+                month: (new Date()).getMonth(),
                 year: (new Date()).getFullYear(),
             },
             totalRecord: 0,
             keyTable: 0,
             mode: 1,
-            month: (new Date()).getMonth() + 1,
+            month: (new Date()).getMonth(),
             year: (new Date()).getFullYear(),
             id: null
         }

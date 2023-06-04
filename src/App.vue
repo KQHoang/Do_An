@@ -106,7 +106,7 @@ export default {
 
   data(){
     return {
-      permission: 1, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
+      permission: null, // 1 - quản trị, 2 - nhân sự, 3 - tiền lương, 4 nhân viên
       drawer: 1,
       items: [
         { title: 'Home', icon: 'mdi-home-city' },
@@ -115,7 +115,7 @@ export default {
       ],
       rail: false,
       iconCloseNav: "mdi-chevron-left",
-      isLogin: true,
+      isLogin: false,
       isShowPopUpAccount: false,
       dataAccountNav: {},
       showChangePassword: false,
@@ -141,8 +141,8 @@ export default {
   created(){
     this.navActive = 1;
     var login = localStorage.getItem("IsLogin");
-    if(login == true){
-      this.isLogin = login;
+    if(login == 'true'){
+      this.isLogin = true;
       this.permission = localStorage.getItem("Permission");
     }
     if(this.isLogin == true){
@@ -158,6 +158,7 @@ export default {
      * Xử lý đăng nhập thành công
      */
     handleLogin(value){
+      this.navActive = 1;
       this.permission = value;
       this.isLogin = true;
       localStorage.setItem('IsLogin', true);

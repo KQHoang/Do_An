@@ -37,7 +37,7 @@
                 :dataApiTable="dataApiTable" 
                 :headers="HEADERR_TABLE.CONTRACT" 
                 :showPaging="true"
-                :showSelect="true"
+                :showSelect="false"
                 :showBorder="false"
                 @edit="editFromRow"
                 @page-change="pagingControlChange"
@@ -167,31 +167,31 @@ export default{
         /**
          * Xoá phòng ban
          */
-        // async deleteFromRow(){
-        //     this.showConfirmDelete = false;
-        //     if(this.idDelete){
-        //         var res = await DepartmentAPI.deleteDepartment(this.idDelete);
-        //         if(res && res.data.Success){
-        //             this.textMessage = "Xoá thành công";
-        //             this.typeMessage = "success";
-        //             this.showMessage = true;
-        //             setTimeout(() => {
-        //                 this.showMessage = false; 
-        //             }, 2000);
-        //             this.idDelete = null;
-        //             await this.getDataPaging();
-        //         }
-        //         else {
-        //             this.textMessage = "Không thể xoá phòng ban này";
-        //             this.typeMessage = "error";
-        //             this.showMessage = true;
-        //             setTimeout(() => {
-        //                 this.showMessage = false; 
-        //             }, 2000);
-        //             this.idDelete = null;
-        //         }
-        //     }
-        // }
+        async deleteFromRow(){
+            this.showConfirmDelete = false;
+            if(this.idDelete){
+                var res = await ContractAPI.deleteContract(this.idDelete);
+                if(res && res.data.Success){
+                    this.textMessage = "Xoá thành công";
+                    this.typeMessage = "success";
+                    this.showMessage = true;
+                    setTimeout(() => {
+                        this.showMessage = false; 
+                    }, 2000);
+                    this.idDelete = null;
+                    await this.getDataPaging();
+                }
+                else {
+                    this.textMessage = "Có lỗi xảy ra!";
+                    this.typeMessage = "error";
+                    this.showMessage = true;
+                    setTimeout(() => {
+                        this.showMessage = false; 
+                    }, 2000);
+                    this.idDelete = null;
+                }
+            }
+        }
     }
 }
 </script>

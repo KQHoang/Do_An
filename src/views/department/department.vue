@@ -43,7 +43,7 @@
                 :dataApiTable="dataApiTable" 
                 :headers="HEADERR_TABLE.DEPARTMENT" 
                 :showPaging="true"
-                :showSelect="true"
+                :showSelect="false"
                 :showBorder="false"
                 @edit="editFromRow"
                 @page-change="pagingControlChange"

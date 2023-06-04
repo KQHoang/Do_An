@@ -293,7 +293,7 @@
                                 item-title="ProvinceName"
                                 item-value="ProvinceID"
                                 placeholder="Chọn tỉnh/thành phố"
-                                @value-change="provinceChange()"
+                                @value-change="provinceChange"
                                 :key="keyProvince"
                             />
                         </v-col>
@@ -322,7 +322,7 @@
                                 item-title="DistrictName"
                                 item-value="DistrictID"
                                 placeholder="Chọn quận huyện"
-                                @value-change="districtChange()"
+                                @value-change="districtChange"
                                 :key="keyDistrict"
                             />
                         </v-col>
@@ -435,7 +435,7 @@ export default{
     }, 
     methods:{
         cancelEdit(){
-            this.$router.push({ name: 'ViewEmployee', params: { id: '1' }});
+            this.$router.push({ name: 'ViewEmployee', params: { id: this.id }});
         },
         
         async saveEdit(){
@@ -456,7 +456,7 @@ export default{
                 this.showMessage = true;
                 setTimeout(() => {
                     this.showMessage = false;
-                    this.$router.push({ name: 'ViewEmployee', params: { id: '1' }});
+                    this.$router.push({ name: 'ViewEmployee', params: { id: this.id }});
                 }, 2000);
             }
             else if(resUpdate && resUpdate.data.Success == false){
@@ -535,9 +535,11 @@ export default{
             }
         },
         async provinceChange(val){
+            
             if(!this.isCreated){
                 this.formData.DistrictID = null;
                 this.formData.WardsID = null;
+                console.log("1");
             }
             if(val){
                 var res = await PickAddress.getDistrict(val);
