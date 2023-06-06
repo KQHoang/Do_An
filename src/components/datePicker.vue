@@ -11,7 +11,7 @@
                 v-model="date"
                 :clearable="true"
                 auto-apply 
-                :max-date="new Date()"
+                :max-date="maxDate"
                 :enable-time-picker=" false"
                 :year-picker="false"
                 :placeholder="placeholder"
@@ -59,6 +59,10 @@ export default {
         format:{
             type: String, 
             default: "dd/MM/yyyy"
+        },
+        maxDate:{
+            type: Date,
+            default: new Date()
         }
     },
     data(){

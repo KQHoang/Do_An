@@ -75,9 +75,13 @@ export default{
         default: ""
       },
       disabled:{
-      type: Boolean, 
-      default: false
-    }, 
+        type: Boolean, 
+        default: false
+      }, 
+      returnObject:{
+        type: Boolean,
+        default: false
+      }
   }, 
   data(){
       return {
@@ -86,8 +90,12 @@ export default{
       }
   },
   created(){
-    if(!this.valule){
-      this.valueSelect = this.value;
+    if(this.value){
+      var item = this.items.find(x => x[this.itemValue] == this.value);
+      if(item){
+        this.valueSelect = item;
+      }
+      // this.valueSelect = this.items.find(x => x[this.itemValue] == this.value);
     }
     if(this.error){
       this.isError = this.error;
@@ -106,8 +114,14 @@ export default{
           this.$emit("update:error", this.isError);
         }
       }
-      this.$emit("update:value", val);
-      this.$emit('value-change', val)
+      if(!this.returnObject){
+        this.$emit("update:value", val[this.itemValue]);
+        this.$emit('value-change', val[this.itemValue])
+      }
+      else{
+        this.$emit("update:value", val);
+        this.$emit('value-change', val)
+      }
     }
   },
   watch:{

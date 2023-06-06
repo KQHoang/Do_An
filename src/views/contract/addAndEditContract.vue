@@ -43,7 +43,7 @@
                     <v-col class="label-info d-flex align-center" cols="5">
                         <v-col cols="5" class="label font-500">Nhân viên <span class="text-red">*</span></v-col>
                         <v-col cols="7" class="p-0">
-                            <Combobox
+                            <vue-combobox
                                 v-model:value="formData.EmployeeID"
                                 :items="lstEmployee"
                                 item-title="FullName"
@@ -94,6 +94,7 @@
                                 v-model:error="errors[3]"
                                 error-message="Ngày ký không được để trống"
                                 :force="true"
+                                :max-date="null"
                             />
                         </v-col>
                     </v-col>
@@ -172,6 +173,7 @@
                                 v-model:error="errors[8]"
                                 error-message="Ngày hiệu lực không được để trống"
                                 :force="true"
+                                :max-date="null"
                             />
                         </v-col>
                     </v-col>
@@ -187,6 +189,7 @@
                                 v-model:error="errors[9]"
                                 error-message="Ngày hết hạn không được để trống"
                                 :force="true"
+                                :max-date="null"
                             />
                         </v-col>
                     </v-col>
@@ -210,6 +213,7 @@
 import button from '@/components/button.vue';
 import input from '@/components/input.vue';
 import combobox from '@/components/selectbox.vue';
+import VueCombobox from '@/components/combobox.vue';
 import ENUMS from "@/enum/enums.js"
 import datePicker from '@/components/datePicker.vue';
 import ContractAPI from '@/js/api/contractAPI.js'
@@ -218,6 +222,7 @@ export default{
     name: "EditEmployee",
     components:{
         'vue-button': button, 
+        'vue-combobox': VueCombobox, 
         Input: input,
         Combobox: combobox,
         DateTimePicker: datePicker

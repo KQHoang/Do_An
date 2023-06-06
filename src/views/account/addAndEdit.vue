@@ -8,7 +8,7 @@
                 <div class="d-flex m-t-8 m-b-24">
                     <v-col cols="4" class="label font-500">Nhân viên <span class="text-red">*</span></v-col>
                     <v-col cols="8" class="p-0">
-                        <SelectBox
+                        <vue-combobox
                             v-model:value="formData.EmployeeID"
                             :items="lstEmployee"
                             item-title="FullName"
@@ -98,7 +98,7 @@
 </template>
 <script>
 import buttonVue from '@/components/button.vue'
-import SelectBox from "@/components/selectbox.vue"
+import Combobox from "@/components/combobox.vue"
 import ENUMS from '@/enum/enums.js'
 import AccountAPI from "@/js/api/accountAPI.js"
 import inputVue from "@/components/input.vue"
@@ -107,7 +107,7 @@ export default{
     emits:['action-cancel', 'action-done'],
     components: {
         'vue-button': buttonVue,
-        SelectBox: SelectBox,
+        'vue-combobox': Combobox,
         'vue-input': inputVue
     },
     props:{

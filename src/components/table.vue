@@ -255,7 +255,7 @@ export default {
                     display: flex;
                     position: sticky;
                     right: 0;
-                    align-items: center;
+                    // align-items: center;
                     justify-content: end;
                     .fa-trash-o{
                         padding: 15px 10px 15px 10px;
