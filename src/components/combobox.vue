@@ -115,8 +115,14 @@ export default{
         }
       }
       if(!this.returnObject){
-        this.$emit("update:value", val[this.itemValue]);
-        this.$emit('value-change', val[this.itemValue])
+        if(val){
+          this.$emit("update:value", val[this.itemValue]);
+          this.$emit('value-change', val[this.itemValue])
+        }
+        else {
+          this.$emit("update:value", val);
+          this.$emit('value-change', val)
+        }
       }
       else{
         this.$emit("update:value", val);

@@ -190,10 +190,11 @@ export default {
       this.$router.push({ name: 'ViewEmployee', params: { id: id }});
     },
     async redirecManageProfile(){
-      this.navActive = 2;
+      // this.navActive = 2;
       var id = localStorage.getItem('GlobalAccountID');
       var res = await AccountAPI.checkPermission(id, 'ManageProfile');
       if(res && res.data.Success){
+        this.navActive = 2;
         this.$router.push({ name: 'ManageProfile'});
       }
       else {
@@ -204,10 +205,11 @@ export default {
       }
     },
     async redirectManageDepartment(){ 
-      this.navActive = 7;
+      // this.navActive = 7;
       var id = localStorage.getItem('GlobalAccountID');
       var res = await AccountAPI.checkPermission(id, 'ManageDepartment');
       if(res && res.data.Success){
+        this.navActive = 7;
         this.$router.push({ name: 'ManageDepartment'});
       }
       else {
@@ -218,10 +220,11 @@ export default {
       }
     },
     async redirectManagePosition(){ 
-      this.navActive = 8;
+      // this.navActive = 8;
       var id = localStorage.getItem('GlobalAccountID');
       var res = await AccountAPI.checkPermission(id, 'ManagePosition');
       if(res && res.data.Success){
+        this.navActive = 8;
         this.$router.push({ name: 'ManagePosition'});
       }
       else {
@@ -232,10 +235,11 @@ export default {
       }
     },
     async redirectManageContract(){ 
-      this.navActive = 9;
+      // this.navActive = 9;
       var id = localStorage.getItem('GlobalAccountID');
       var res = await AccountAPI.checkPermission(id, 'ManageContract');
       if(res && res.data.Success){
+        this.navActive = 9;
         this.$router.push({ name: 'ManageContract'});
       }
       else {
@@ -246,10 +250,11 @@ export default {
       }
     },
     async redirectManageTimeSheets(){ 
-      this.navActive = 4;
+      // this.navActive = 4;
       var id = localStorage.getItem('GlobalAccountID');
       var res = await AccountAPI.checkPermission(id, 'ManageTimeSheets');
       if(res && res.data.Success){
+        this.navActive = 4;
         this.$router.push({ name: 'ManageTimeSheets'});
       }
       else {
@@ -265,10 +270,11 @@ export default {
       this.$router.push({ name: 'PersonalTimeSheets',  params: { id: id }});
     },
     async redirectManageSalary(){
-      this.navActive = 6;
+      // this.navActive = 6;
       var id = localStorage.getItem('GlobalAccountID');
       var res = await AccountAPI.checkPermission(id, 'ManageSalary');
       if(res && res.data.Success){
+        this.navActive = 6;
         this.$router.push({ name: 'ManageSalary'});
       }
       else {

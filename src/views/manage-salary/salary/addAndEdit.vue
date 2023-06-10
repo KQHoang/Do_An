@@ -85,7 +85,7 @@
 </template>
 <script>
 import buttonVue from '@/components/button.vue'
-import SelectBox from "@/components/selectbox.vue"
+import SelectBox from "@/components/combobox.vue"
 import ENUMS from '@/enum/enums.js'
 import ManageSalary from "@/js/api/manageSalary.js"
 import inputVue from "@/components/input.vue"

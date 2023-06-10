@@ -2,7 +2,7 @@
     <Loading v-if="showLoading"/>
     <PopUpDelete v-if="showConfirmDelete" @action-cancel="cancelDelete" @action-done="deleteFromRow"/>
     <ToastMessage title="" :text="textMessage" :typeAlert="typeMessage" :max-width="300" v-if="showMessage"/>
-    <div class="manage-profile">
+    <div class="personal-time-sheet">
         <div class="title">Danh sách chấm công</div>
         <div class="main-manage-profile m-t-12 p-b-12">
             <v-row class="filter-manage-profile justify-space-between">
@@ -150,7 +150,7 @@ export default{
 </script>
 
 <style lang="scss" scoped>
-.manage-profile{
+.personal-time-sheet{
     height: 100%;
     overflow: hidden;
     .main-manage-profile{
@@ -164,9 +164,10 @@ export default{
 }
 </style>
 <style lang="scss">
-.manage-profile{
+.personal-time-sheet{
     .table-container{
-        height: calc(100% - 60px);
+        height: 100%;
+        // height: calc(100% - 60px);
         .main-table{
             height: calc(100% - 45px);
         }
