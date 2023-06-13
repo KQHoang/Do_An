@@ -113,7 +113,7 @@ export default{
             if(res && res.data.Success){
                 localStorage.setItem('GlobalAccountID', res.data.Data.AccountID);
                 localStorage.setItem('GlobalEmployeeID', res.data.Data.EmployeeID);
-                if(this.emailLogin == "admin@gmail.com" && window.atob(this.passwordLogin) == "admin123"){
+                if((this.emailLogin == "admin@gmail.com" && window.atob(this.passwordLogin) == "admin123") || res.data.Data.EmployeeID == 2){
                     permission = 1;
                 }
                 else
