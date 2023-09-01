@@ -182,6 +182,10 @@ const ENUMS = {
         {
             label: "Kỳ lương",
             value: 2,
+        },
+        {
+            label: "Quy chế tính lương",
+            value: 3,
         }
     ],
     STATUS_SALARY_PERIOD:[

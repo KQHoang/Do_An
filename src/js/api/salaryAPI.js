@@ -6,5 +6,11 @@ export default {
     },
     export(id, customFilter){
         return `${base.url}/SalaryPeriod/export/${id}/${customFilter.month}/${customFilter.year}`;
-    }
+    },
+    getConfigSalary(){
+        return axios.get(`${base.url}/ConfigSalary`);
+    },
+    updateConfigSalary(param){
+        return axios.post(`${base.url}/ConfigSalary`, param);
+    },
 }

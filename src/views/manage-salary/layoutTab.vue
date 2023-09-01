@@ -1,15 +1,18 @@
 <template>
+    <ToastMessage title="" :text="textMessage" :typeAlert="typeMessage" :max-width="300" v-if="showMessage"/>
     <div class="manage-profile manage-salary">
         <div class="title d-flex">Quản lý lương
             <radio-button
                 class="m-l-16"
                 v-model:value="tab"
                 :items="ENUMS.RADIO_SALARY"
+                :key="key"
             >
             </radio-button>
         </div>
         <ManageSalary v-if="tab == 1"/>
         <ManageSalaryPeriod v-if="tab ==2"/>
+        <ConfigSalary v-if="tab == 3" @action-cancel="cancelConfig" @action-done="doneSaveConfig"/>
     </div>
 </template>
 
@@ -17,13 +20,15 @@
 import radiobutton from '@/components/radiobutton.vue';
 import ManageSalary from "@/views/manage-salary/salary/salary.vue"
 import ManageSalaryPeriod from "@/views/manage-salary/salary-period/salary-period.vue"
+import ConfigSalary from "@/views/manage-salary/config-salary/configSalary.vue"
 import ENUMS from '@/enum/enums';
 export default{
     name: "ManagePosition",
     components:{
         'radio-button': radiobutton,
         ManageSalary: ManageSalary,
-        ManageSalaryPeriod: ManageSalaryPeriod
+        ManageSalaryPeriod: ManageSalaryPeriod,
+        ConfigSalary: ConfigSalary
     }, 
     data(){
         return {
@@ -43,7 +48,10 @@ export default{
             mode: 1,
             formEdit: {},
             idDelete: null,
-            tab: 1
+            tab: 1,
+            key: 0,
+            textMessage: "",
+            typeMessage: ""
         }
     },
     async created(){
@@ -51,7 +59,27 @@ export default{
         this.ENUMS = ENUMS;
     },
     methods:{
-        
+        cancelConfig(){
+            this.tab = 1;
+            this.key ++;
+        },
+        doneSaveConfig(val){
+            this.tab = 1;
+            this.key ++;
+            if(val){
+                this.textMessage = "Chỉnh sửa thành công";
+                this.typeMessage = "success";
+                this.showMessage = true;
+            }
+            else {
+                this.textMessage = "Có lỗi xảy ra?";
+                this.typeMessage = "error";
+                this.showMessage = true;
+            }
+            setTimeout(() => {
+                this.showMessage = false; 
+            }, 2000);
+        }
     }
 }
 </script>

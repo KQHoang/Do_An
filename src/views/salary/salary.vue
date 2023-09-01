@@ -105,7 +105,7 @@
                 </v-col>
                 <v-col class="label-info d-flex align-center" cols="5">
                     <v-col cols="5" class="label">Tiền phạt (3)</v-col>
-                    <v-col cols="7" class="label font-bold">{{ formatMoney(20000 * this.timeSheets.DateLate) }} đ</v-col>
+                    <v-col cols="7" class="label font-bold">{{ formatMoney(this.moneyDeducted * this.timeSheets.DateLate) }} đ</v-col>
                 </v-col>
             </div>
             <div class="v-row m-t-8 m-b-24">
@@ -150,7 +150,8 @@ export default{
             salary: {},
             salaryPeriod: {},
             timeSheets: {},
-            hasData: true
+            hasData: true,
+            moneyDeducted: null
         }
     },
     async created(){
@@ -169,6 +170,7 @@ export default{
                 this.formData = res.data.Data;
                 this.salary = this.formData.Salary;
                 this.salaryPeriod = this.formData.SalaryPeriod;
+                this.moneyDeducted = this.formData?.ConfigSalary;
                 if(this.salaryPeriod == null){
                     this.hasData = false;
                 }
